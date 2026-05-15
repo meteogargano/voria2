@@ -1,0 +1,385 @@
+<Layouts.app flash={@flash} current_scope={assigns[:current_scope]} current_path={~p"/"}>
+  <% highlights = [
+    %{
+      title: "Rete sul territorio",
+      body:
+        "Una rete distribuita di stazioni e webcam segue i microclimi del Gargano e rende leggibile ciò che accade davvero sul territorio.",
+      icon: "hero-globe-alt"
+    },
+    %{
+      title: "Osservazione in tempo reale",
+      body:
+        "Le immagini aggiornate e i dati meteo aiutano a vedere subito evoluzioni del cielo, della visibilità e delle condizioni al suolo.",
+      icon: "hero-bolt"
+    },
+    %{
+      title: "Archivio e approfondimenti",
+      body:
+        "Il portale raccoglie contenuti, immagini e articoli utili a chi segue il meteo, il territorio e i fenomeni locali con continuità.",
+      icon: "hero-document-magnifying-glass"
+    }
+  ] %>
+
+  <% key_points = [
+    %{
+      eyebrow: "Cosa osserviamo",
+      title: "Un presidio continuo su paesaggi, quota e microclimi.",
+      body:
+        "Le installazioni distribuite tra costa, entroterra e aree interne permettono di leggere differenze reali tra zone molto vicine tra loro."
+    },
+    %{
+      eyebrow: "Perche' conta",
+      title: "Il dato locale aiuta a interpretare eventi meteo complessi.",
+      body:
+        "Nel Gargano la morfologia incide molto sulla distribuzione di pioggia, vento, nebbia e neve: avere riferimenti osservativi rende il territorio più comprensibile."
+    }
+  ] %>
+
+  <div class="bg-base-100 text-base-content">
+    <section class="relative isolate overflow-hidden border-b border-base-300 bg-base-200/40">
+      <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-base-content/20 to-transparent">
+      </div>
+      <div class="absolute left-0 top-0 h-72 w-72 rounded-full bg-base-content/5 blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-base-content/5 blur-3xl">
+      </div>
+
+      <div class="relative mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[minmax(0,1.25fr)_minmax(20rem,0.95fr)] lg:items-end lg:px-8 lg:py-20">
+        <div class="max-w-4xl space-y-7">
+          <div class="space-y-4">
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-base-content/45">
+              MeteoGargano
+            </p>
+
+            <h1 class="max-w-4xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+              Osservare il Gargano, raccontarlo e conservarne la memoria meteorologica.
+            </h1>
+
+            <p class="max-w-2xl text-base leading-8 text-base-content/70 sm:text-lg">
+              Una rete di stazioni, webcam e contenuti editoriali per seguire in tempo reale il territorio, leggere i microclimi locali e valorizzare un archivio costruito nel tempo.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-3">
+            <.link
+              href={~p"/map"}
+              class="inline-flex items-center gap-3 border border-base-content bg-base-content px-5 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-base-100 transition hover:bg-base-100 hover:text-base-content"
+            >
+              Vai alla rete <.icon name="hero-arrow-up-right" class="size-4" />
+            </.link>
+            <.link
+              href={~p"/blog"}
+              class="inline-flex items-center gap-3 border border-base-300 bg-base-100 px-5 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-base-content transition hover:border-base-content hover:bg-base-200"
+            >
+              Leggi il blog <.icon name="hero-newspaper" class="size-4" />
+            </.link>
+          </div>
+        </div>
+
+        <aside class="grid gap-4">
+          <article
+            :for={highlight <- highlights}
+            class="border border-base-300 bg-base-100 p-5 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <div class="flex items-start gap-4">
+              <div class="flex size-11 shrink-0 items-center justify-center rounded-full border border-base-300 bg-base-200 text-base-content">
+                <.icon name={highlight.icon} class="size-5" />
+              </div>
+
+              <div class="space-y-2">
+                <h2 class="text-base font-semibold tracking-tight">{highlight.title}</h2>
+                <p class="text-sm leading-7 text-base-content/70">{highlight.body}</p>
+              </div>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <section class="border-t border-base-300 bg-base-200/30">
+      <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+        <div class="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
+          <div class="space-y-5">
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-base-content/45">
+              Ultimo scatto ricevuto
+            </p>
+            <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
+              L'immagine piu' recente arrivata nel database dalla rete webcam.
+            </h2>
+
+            <div :if={@latest_shot} class="grid gap-4 sm:grid-cols-2">
+              <article class="border border-base-300 bg-base-100 p-5 shadow-sm">
+                <p class="text-xs font-semibold uppercase tracking-[0.24em] text-base-content/45">
+                  Webcam
+                </p>
+                <p class="mt-3 text-2xl font-semibold tracking-tight">
+                  {@latest_shot.webcam.name}
+                </p>
+              </article>
+
+              <article class="border border-base-300 bg-base-100 p-5 shadow-sm">
+                <p class="text-xs font-semibold uppercase tracking-[0.24em] text-base-content/45">
+                  Timestamp
+                </p>
+                <p class="mt-3 text-2xl font-semibold tracking-tight">
+                  <time datetime={article_datetime(@latest_shot.captured_at)}>
+                    {latest_shot_timestamp(@latest_shot)}
+                  </time>
+                </p>
+              </article>
+            </div>
+
+            <div :if={@latest_shot}>
+              <.link
+                href={latest_shot_viewer_path(@latest_shot)}
+                class="inline-flex items-center gap-3 border border-base-content bg-base-content px-5 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-base-100 transition hover:bg-base-100 hover:text-base-content"
+              >
+                Apri la pagina della webcam <.icon name="hero-arrow-up-right" class="size-4" />
+              </.link>
+            </div>
+          </div>
+
+          <div>
+            <article
+              :if={@latest_shot && latest_shot_url(@latest_shot)}
+              class="overflow-hidden border border-base-300 bg-base-100 shadow-sm"
+            >
+              <.link href={latest_shot_viewer_path(@latest_shot)} class="block">
+                <div class="aspect-[4/3] overflow-hidden bg-base-200">
+                  <img
+                    id="homepage-latest-shot-image"
+                    src={latest_shot_url(@latest_shot)}
+                    alt={@latest_shot.webcam.name}
+                    loading="lazy"
+                    decoding="async"
+                    class="size-full object-cover transition duration-500 hover:scale-[1.02]"
+                  />
+                </div>
+              </.link>
+            </article>
+
+            <div
+              :if={!(@latest_shot && latest_shot_url(@latest_shot))}
+              class="flex min-h-80 items-center justify-center border border-dashed border-base-300 bg-base-100 px-6 py-12 text-center"
+            >
+              <div class="max-w-md space-y-3">
+                <div class="mx-auto flex size-14 items-center justify-center rounded-full border border-base-300 bg-base-200 text-base-content">
+                  <.icon name="hero-camera" class="size-7" />
+                </div>
+                <h3 class="text-2xl font-semibold tracking-tight">Nessuno scatto disponibile</h3>
+                <p class="text-sm leading-7 text-base-content/65 sm:text-base">
+                  Quando arrivera' una nuova immagine da una webcam attiva, comparira' qui automaticamente.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <div class="grid gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(19rem,0.8fr)] lg:items-start">
+        <div class="space-y-8">
+          <div class="max-w-3xl space-y-4">
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-base-content/45">
+              In sintesi
+            </p>
+            <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
+              Le cose piu' importanti da vedere appena arrivi qui.
+            </h2>
+          </div>
+
+          <div class="space-y-6 text-base leading-8 text-base-content/75">
+            <p>
+              MeteoGargano nasce per osservare costantemente un territorio complesso e molto variabile, dove altitudine, esposizione e distanza dal mare cambiano in modo netto le condizioni meteorologiche.
+            </p>
+
+            <p>
+              Il portale unisce misure, immagini e racconto: da una parte il monitoraggio in tempo reale, dall'altra contenuti utili per comprendere episodi meteo, evoluzioni stagionali e valore del patrimonio ambientale del Gargano.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid gap-4">
+          <article
+            :for={point <- key_points}
+            class="border border-base-300 bg-base-100 p-5 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <div class="space-y-3">
+              <p class="text-xs font-semibold uppercase tracking-[0.24em] text-base-content/45">
+                {point.eyebrow}
+              </p>
+              <h3 class="text-xl font-semibold tracking-tight">{point.title}</h3>
+              <p class="text-sm leading-7 text-base-content/72">{point.body}</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-base-300 bg-base-200/30">
+      <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+        <div class="grid gap-6 lg:grid-cols-3">
+          <.link
+            href={~p"/map"}
+            class="group border border-base-300 bg-base-100 p-6 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+          >
+            <div class="space-y-4">
+              <div class="flex size-12 items-center justify-center rounded-full border border-base-300 bg-base-200 text-base-content transition group-hover:bg-base-content group-hover:text-base-100">
+                <.icon name="hero-map" class="size-5" />
+              </div>
+              <div class="space-y-2">
+                <p class="text-xs font-semibold uppercase tracking-[0.24em] text-base-content/45">
+                  Mappa pubblica
+                </p>
+                <h2 class="text-2xl font-semibold tracking-tight">
+                  Guarda il territorio nel suo insieme
+                </h2>
+                <p class="text-sm leading-7 text-base-content/72">
+                  Un accesso rapido alla distribuzione delle installazioni attive e ai punti principali della rete.
+                </p>
+              </div>
+            </div>
+          </.link>
+
+          <.link
+            href={~p"/compare"}
+            class="group border border-base-300 bg-base-100 p-6 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+          >
+            <div class="space-y-4">
+              <div class="flex size-12 items-center justify-center rounded-full border border-base-300 bg-base-200 text-base-content transition group-hover:bg-base-content group-hover:text-base-100">
+                <.icon name="hero-chart-bar-square" class="size-5" />
+              </div>
+              <div class="space-y-2">
+                <p class="text-xs font-semibold uppercase tracking-[0.24em] text-base-content/45">
+                  Confronti
+                </p>
+                <h2 class="text-2xl font-semibold tracking-tight">
+                  Metti a confronto dati e scenari
+                </h2>
+                <p class="text-sm leading-7 text-base-content/72">
+                  Uno strumento utile per leggere differenze tra stazioni, periodi e condizioni in modo piu' chiaro.
+                </p>
+              </div>
+            </div>
+          </.link>
+
+          <.link
+            href={~p"/associazione"}
+            class="group border border-base-300 bg-base-100 p-6 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+          >
+            <div class="space-y-4">
+              <div class="flex size-12 items-center justify-center rounded-full border border-base-300 bg-base-200 text-base-content transition group-hover:bg-base-content group-hover:text-base-100">
+                <.icon name="hero-user-group" class="size-5" />
+              </div>
+              <div class="space-y-2">
+                <p class="text-xs font-semibold uppercase tracking-[0.24em] text-base-content/45">
+                  Associazione
+                </p>
+                <h2 class="text-2xl font-semibold tracking-tight">
+                  Scopri storia, obiettivi e persone
+                </h2>
+                <p class="text-sm leading-7 text-base-content/72">
+                  Il contesto del progetto, il suo percorso e il lavoro che tiene viva la rete meteorologica.
+                </p>
+              </div>
+            </div>
+          </.link>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+        <div class="max-w-3xl space-y-4">
+          <p class="text-xs font-semibold uppercase tracking-[0.28em] text-base-content/45">
+            Dal blog
+          </p>
+          <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
+            Gli ultimi tre articoli pubblicati.
+          </h2>
+          <p class="text-base leading-8 text-base-content/72">
+            Una selezione immediata delle novità, degli approfondimenti e dei racconti piu' recenti.
+          </p>
+        </div>
+
+        <.link
+          href={~p"/blog"}
+          class="inline-flex items-center gap-3 text-sm font-medium text-base-content/70 transition hover:text-base-content"
+        >
+          Vai al blog <.icon name="hero-arrow-right" class="size-4" />
+        </.link>
+      </div>
+
+      <div :if={@latest_articles != []} class="mt-10 grid gap-6 lg:grid-cols-3">
+        <article
+          :for={article <- @latest_articles}
+          id={"home-blog-article-#{article.slug}"}
+          class="group overflow-hidden border border-base-300 bg-base-100 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+        >
+          <.link href={~p"/blog/#{article.slug}"} class="block">
+            <div class="aspect-[16/10] overflow-hidden bg-base-200">
+              <img
+                :if={article.cover_image_url && String.trim(article.cover_image_url) != ""}
+                src={article.cover_image_url}
+                alt={article.title}
+                loading="lazy"
+                decoding="async"
+                class="size-full object-cover transition duration-500 group-hover:scale-[1.03]"
+              />
+              <div
+                :if={!(article.cover_image_url && String.trim(article.cover_image_url) != "")}
+                class="flex size-full items-center justify-center bg-gradient-to-br from-primary/15 via-base-200 to-base-300 text-primary/80"
+              >
+                <.icon name="hero-newspaper" class="size-12" />
+              </div>
+            </div>
+          </.link>
+
+          <div class="space-y-4 p-6">
+            <div class="flex flex-wrap gap-2">
+              <span
+                :for={category <- article.categories}
+                class="badge badge-ghost gap-1 px-3 py-3 text-base-content/70"
+              >
+                <.icon name="hero-tag" class="size-3" /> {category.name}
+              </span>
+            </div>
+
+            <div class="space-y-3">
+              <p class="text-xs uppercase tracking-[0.2em] text-base-content/45">
+                <time datetime={article_datetime(article.updated_at)}>
+                  {article_date(article.updated_at)}
+                </time>
+              </p>
+
+              <h3 class="text-2xl font-semibold leading-tight text-base-content transition group-hover:text-primary">
+                <.link href={~p"/blog/#{article.slug}"}>{article.title}</.link>
+              </h3>
+
+              <p :if={excerpt(article.body) != ""} class="text-sm leading-7 text-base-content/68">
+                {excerpt(article.body)}
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div
+        :if={@latest_articles == []}
+        class="mt-10 border border-dashed border-base-300 bg-base-200/35 px-6 py-14 text-center"
+      >
+        <div class="mx-auto max-w-xl space-y-3">
+          <div class="mx-auto flex size-14 items-center justify-center bg-base-100 text-primary shadow-sm">
+            <.icon name="hero-newspaper" class="size-7" />
+          </div>
+          <h3 class="text-2xl font-semibold text-base-content">
+            Ancora nessun articolo pubblicato
+          </h3>
+          <p class="text-sm leading-7 text-base-content/65 sm:text-base">
+            Quando arriveranno nuovi contenuti, compariranno qui in evidenza.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layouts.app>

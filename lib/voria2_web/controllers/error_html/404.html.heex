@@ -1,0 +1,26 @@
+<Layouts.app flash={%{}}>
+  <section class="mx-auto flex min-h-[calc(100vh-3.75rem)] max-w-7xl items-center justify-center px-4 py-16 sm:px-6 lg:px-8">
+    <div class="w-full max-w-2xl border border-base-300 bg-base-100/90 p-8 text-center sm:p-12">
+      <p class="text-sm font-semibold uppercase tracking-[0.3em] text-gray-500">
+        404
+      </p>
+      <h1 class="mt-4 text-3xl font-semibold tracking-tight text-base-content sm:text-4xl">
+        {gettext("Page not found")}
+      </h1>
+      <p class="mt-4 text-base leading-7 text-base-content/70 sm:text-lg">
+        {gettext(
+          "The page you are looking for may have been moved, renamed, or is no longer available."
+        )}
+      </p>
+      <div class="mt-8 flex justify-center">
+        <.link
+          navigate={~p"/"}
+          class="inline-flex items-center gap-2 bg-primary px-6 py-3 text-sm font-semibold text-primary-content transition hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        >
+          <.icon name="hero-arrow-left" class="size-4" />
+          {gettext("Back to home")}
+        </.link>
+      </div>
+    </div>
+  </section>
+</Layouts.app>

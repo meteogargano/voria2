@@ -1,0 +1,153 @@
+<Layouts.app flash={@flash} current_scope={assigns[:current_scope]} current_path={@current_path}>
+  <section class="relative isolate overflow-hidden border-b border-base-300 bg-base-200/40">
+    <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-base-content/20 to-transparent">
+    </div>
+    <div class="absolute left-0 top-0 h-72 w-72 rounded-full bg-base-content/5 blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-base-content/5 blur-3xl">
+    </div>
+
+    <div class="relative mx-auto flex max-w-7xl flex-col gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:flex-row lg:items-end lg:justify-between lg:px-8 lg:py-16">
+      <div class="max-w-3xl space-y-6">
+        <div class="space-y-4">
+          <h1 class="max-w-4xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+            Blog
+          </h1>
+
+          <p class="max-w-2xl text-base leading-8 text-base-content/70 sm:text-lg">
+            News sull'associazione, reportage fotografici e tanto altro
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-2 py-4 sm:px-6 lg:px-8 lg:py-6">
+    <.form
+      for={@form}
+      id="blog-filters"
+      method="get"
+      action={~p"/blog"}
+      class="grid gap-2 border border-base-300 bg-base-100 p-4 shadow-sm lg:grid-cols-[minmax(0,1fr)_18rem_auto] lg:items-center"
+    >
+      <.input
+        field={@form[:q]}
+        type="text"
+        label={gettext("Search")}
+        placeholder={gettext("Search by title")}
+      />
+      <.input
+        field={@form[:category]}
+        type="select"
+        label={gettext("Category")}
+        options={category_options(@categories)}
+        data-submit-on-change="true"
+      />
+      <button
+        type="submit"
+        id="articoli-submit"
+        class="btn btn-primary btn-square shrink-0 mt-3"
+      >
+        <.icon name="hero-magnifying-glass" class="size-4" />
+      </button>
+    </.form>
+
+    <div class="mt-4 mb-4 flex items-center justify-between gap-3" id="blog-active-filters">
+      <div class="flex flex-wrap gap-2">
+        <span :if={@search_query != ""} class="badge badge-lg badge-ghost gap-2 px-3 py-3">
+          <.icon name="hero-magnifying-glass" class="size-3.5" /> {@search_query}
+        </span>
+        <span :if={@selected_category != ""} class="badge badge-lg badge-primary gap-2 px-3 py-3">
+          <.icon name="hero-tag" class="size-3.5" /> {@selected_category}
+        </span>
+      </div>
+
+      <.link
+        :if={@search_query != ""}
+        href={blog_path(%{category: @selected_category})}
+        class="text-sm text-base-content/55 transition hover:text-base-content"
+      >
+        {gettext("Clear search")}
+      </.link>
+    </div>
+
+    <div
+      :if={@articles == []}
+      id="blog-empty-state"
+      class="mt-4 border border-dashed border-base-300 bg-base-200/35 px-6 py-14 text-center"
+    >
+      <div class="mx-auto max-w-xl space-y-3">
+        <div class="mx-auto flex size-14 items-center justify-center bg-base-100 text-primary shadow-sm">
+          <.icon name="hero-newspaper" class="size-7" />
+        </div>
+        <h2 class="text-2xl font-semibold text-base-content">{gettext("No articles found")}</h2>
+        <p class="text-sm leading-7 text-base-content/65 sm:text-base">
+          {gettext("Try clearing the search or choosing a different category.")}
+        </p>
+      </div>
+    </div>
+
+    <div
+      :if={@articles != []}
+      id="blog-articles"
+      class="grid gap-6 lg:grid-cols-2 xl:grid-cols-3"
+    >
+      <article
+        :for={article <- @articles}
+        id={"blog-article-#{article.slug}"}
+        class="group overflow-hidden border border-base-300 bg-base-100 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+      >
+        <.link href={~p"/blog/#{article.slug}"} class="block">
+          <div class="aspect-[16/10] overflow-hidden bg-base-200">
+            <img
+              :if={cover_image?(article.cover_image_url)}
+              src={article.cover_image_url}
+              alt={article.title}
+              loading="lazy"
+              decoding="async"
+              class="size-full object-cover transition duration-500 group-hover:scale-[1.03]"
+            />
+            <div
+              :if={!cover_image?(article.cover_image_url)}
+              class="flex size-full items-center justify-center bg-gradient-to-br from-primary/15 via-base-200 to-base-300 text-primary/80"
+            >
+              <.icon name="hero-newspaper" class="size-12" />
+            </div>
+          </div>
+        </.link>
+
+        <div class="space-y-4 p-6">
+          <div class="flex flex-wrap gap-2">
+            <.link
+              :for={category <- article.categories}
+              href={blog_path(%{q: @search_query, category: to_string(category.name)})}
+              class={[
+                "badge badge-ghost gap-1 px-3 py-3 transition hover:border-primary/40 hover:text-primary",
+                @selected_category == to_string(category.name) && "badge-primary"
+              ]}
+            >
+              <.icon name="hero-tag" class="size-3" /> {category.name}
+            </.link>
+          </div>
+
+          <div class="space-y-3">
+            <p class="text-xs uppercase tracking-[0.2em] text-base-content/45">
+              <time datetime={article_datetime(article.updated_at)}>
+                {article_date(article.updated_at)}
+              </time>
+            </p>
+            <h2 class="text-2xl font-semibold leading-tight text-base-content transition group-hover:text-primary">
+              <.link href={~p"/blog/#{article.slug}"}>{article.title}</.link>
+            </h2>
+            <p :if={excerpt(article.body) != ""} class="text-sm leading-7 text-base-content/68">
+              {excerpt(article.body)}
+            </p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <p class="mt-6 ml-1 text-sm text-base-content/45" id="blog-articles-count">
+      {ngettext("%{count} article", "%{count} articles", length(@articles))}
+    </p>
+  </section>
+</Layouts.app>

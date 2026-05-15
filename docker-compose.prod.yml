@@ -1,0 +1,58 @@
+x-app-env: &app-env
+  PHX_HOST: ${PHX_HOST:-example.com}
+  DATABASE_URL: ${DATABASE_URL:-ecto://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-change-me}@db:5432/${POSTGRES_DB:-voria2}}
+  SECRET_KEY_BASE: ${SECRET_KEY_BASE:-replace-with-mix-phx-gen-secret}
+  TOKEN_SIGNING_SECRET: ${TOKEN_SIGNING_SECRET:-replace-with-random-token-signing-secret}
+  POOL_SIZE: ${POOL_SIZE:-10}
+  DAILYLOG_IN_LOCAL: ${DAILYLOG_IN_LOCAL:-false}
+  DAILYLOG_WIND_IN_KMH: ${DAILYLOG_WIND_IN_KMH:-false}
+  DNS_CLUSTER_QUERY: ${DNS_CLUSTER_QUERY:-}
+  STORAGE_ENDPOINT: ${STORAGE_ENDPOINT:-}
+  STORAGE_ACCESS_KEY_ID: ${STORAGE_ACCESS_KEY_ID:-}
+  STORAGE_SECRET_ACCESS_KEY: ${STORAGE_SECRET_ACCESS_KEY:-}
+  STORAGE_BUCKET: ${STORAGE_BUCKET:-voria2-media}
+  STORAGE_REGION: ${STORAGE_REGION:-auto}
+  STORAGE_PUBLIC_ENDPOINT: ${STORAGE_PUBLIC_ENDPOINT:-}
+  MAX_WEBCAM_UPLOAD_MB: ${MAX_WEBCAM_UPLOAD_MB:-5}
+  ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@localhost}
+  ADMIN_NAME: ${ADMIN_NAME:-Admin}
+  ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+  MIGRATION_MAX_ATTEMPTS: ${MIGRATION_MAX_ATTEMPTS:-30}
+  MIGRATION_RETRY_SECONDS: ${MIGRATION_RETRY_SECONDS:-2}
+
+services:
+  db:
+    image: timescale/timescaledb:latest-pg17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
+      POSTGRES_DB: ${POSTGRES_DB:-voria2}
+    volumes:
+      - voriadata:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-voria2}",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ${APP_IMAGE:-voria2:prod}
+    restart: unless-stopped
+    ports:
+      - 40000:4000
+    depends_on:
+      db:
+        condition: service_healthy
+    environment: *app-env
+
+volumes:
+  voriadata:

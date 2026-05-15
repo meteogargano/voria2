@@ -1,0 +1,43 @@
+defmodule Voria2.Repo.Migrations.DropAutoFetchConfigs do
+  @moduledoc """
+  Drops the auto_fetch_configs table, which was used by the now-removed
+  auto-fetch / polling feature.
+  """
+
+  use Ecto.Migration
+
+  def up do
+    drop constraint(:auto_fetch_configs, "auto_fetch_configs_station_id_fkey")
+    drop table(:auto_fetch_configs)
+  end
+
+  def down do
+    create table(:auto_fetch_configs, primary_key: false) do
+      add :id, :uuid, null: false, default: fragment("gen_random_uuid()"), primary_key: true
+      add :parser, :text, null: false
+      add :config_string, :text, null: false
+      add :is_active, :boolean, null: false, default: true
+      add :poll_interval_seconds, :bigint, null: false, default: 300
+      add :last_fetched_at, :utc_datetime_usec
+      add :last_error, :text
+
+      add :inserted_at, :utc_datetime_usec,
+        null: false,
+        default: fragment("(now() AT TIME ZONE 'utc')")
+
+      add :updated_at, :utc_datetime_usec,
+        null: false,
+        default: fragment("(now() AT TIME ZONE 'utc')")
+
+      add :station_id,
+          references(:stations,
+            column: :id,
+            name: "auto_fetch_configs_station_id_fkey",
+            type: :uuid,
+            prefix: "public",
+            on_delete: :delete_all
+          ),
+          null: false
+    end
+  end
+end

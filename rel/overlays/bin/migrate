@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+
+cd "$(dirname "$0")"
+exec ./voria2 eval Voria2.Release.migrate

@@ -1,0 +1,353 @@
+<Layouts.app
+  flash={@flash}
+  current_scope={assigns[:current_scope]}
+  current_path={~p"/associazione"}
+>
+  <% benefits = [
+    %{
+      title: "Supporto al territorio agro-alimentare",
+      body: "Fornisce informazioni utili agli addetti al campo agro-alimentare.",
+      icon: "hero-sun"
+    },
+    %{
+      title: "Monitoraggio idro-geologico",
+      body: "Determina una maggiore conoscenza delle vulnerabilità idro-geologiche.",
+      icon: "hero-shield-check"
+    },
+    %{
+      title: "Osservazione in tempo reale",
+      body:
+        "Attraverso l'uso di Webcam fornisce in tempo reale le condizioni meteorologiche del luogo.",
+      icon: "hero-video-camera"
+    },
+    %{
+      title: "Base dati per studi climatici",
+      body:
+        "Snellisce il lavoro di chi ricerca dati e studi affidabili e ufficiali nell'ambito climatico del Promontorio del Gargano.",
+      icon: "hero-chart-bar"
+    }
+  ] %>
+
+  <% team_members = [
+    %{
+      name: "Giuseppe D'Altilia",
+      role: "Logistica e rapporti esterni",
+      bio:
+        "Di professione architetto, è l'anima fondante del progetto. Attualmente Presidente dell'associazione.",
+      image: ~p"/images/giuseppe.jpeg"
+    },
+    %{
+      name: "Filippo Gurgoglione",
+      role: "Gestione tecnica",
+      bio:
+        "Laureato in ingegneria, si occupa fin dagli albori delle apparecchiature elettroniche e informatiche, progettando il sistema informativo alla base del funzionamento della rete meteorologica.",
+      image: ~p"/images/filippo.jpeg",
+      email: "ziofil@gmail.com"
+    }
+  ] %>
+
+  <% timeline = [
+    %{
+      year: "2026",
+      title: "La versione definitiva?",
+      body:
+        "Messa online la quarta ed attuale versione del nostro portale con tante nuove funzioni come consultazione di dati storici, archivio delle webcam e tanto altro.",
+      image: ~p"/images/nuovoportale.jpg"
+    },
+    %{
+      year: "2016",
+      title: "Un altro portale ancora",
+      body: "Realizzata la terza versione del portale, ad oggi anch'essa dismessa",
+      image: ~p"/images/portale.png"
+    },
+    %{
+      year: "2015",
+      title: "Nasce l'associazione",
+      body: "A settembre 2015 è stato depositato lo statuto dell'associazione.",
+      image: ~p"/images/statuto.jpg"
+    },
+    %{
+      year: "2014",
+      title: "Attivata la stazione e la webcam di Chiancate",
+      body: "La nostra installazione più impegnativa è stata portata a termine.",
+      image: ~p"/images/chiancate.jpeg"
+    },
+    %{
+      year: "2012",
+      title: "Nasce il portale meteogargano.org",
+      body:
+        "Un nuovo portale e una nuova interfaccia di consultazione delle stazioni. Finalmente attiva la stazione di Falcare.",
+      image: ~p"/images/rete.jpg"
+    },
+    %{
+      year: "2008",
+      title: "Nasce il portale meteogargano.com e la rete meteorologica",
+      body:
+        "Installate le stazioni di Foresta Umbra, Vico del Gargano, San Giovanni Rotondo, Vieste. Prima versione del portale con previsioni e pagine di consulazione della rete stazioni e webcam.",
+      image: ~p"/images/origini.jpeg"
+    }
+  ] %>
+
+  <div class="bg-base-100 text-base-content">
+    <section class="relative isolate overflow-hidden border-b border-base-300 bg-base-200/40">
+      <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-base-content/20 to-transparent">
+      </div>
+      <div class="absolute left-0 top-0 h-72 w-72 rounded-full bg-base-content/5 blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-base-content/5 blur-3xl">
+      </div>
+
+      <div class="relative mx-auto flex max-w-7xl flex-col gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:flex-row lg:items-end lg:justify-between lg:px-8 lg:py-16">
+        <div class="max-w-3xl space-y-6">
+          <div class="space-y-4">
+            <h1 class="max-w-4xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+              Associazione MeteoGargano
+            </h1>
+
+            <p class="max-w-2xl text-base leading-8 text-base-content/70 sm:text-lg">
+              A settembre 2015 è stata costituita l'associazione Meteogargano, nata attorno a un progetto di rilevamento meteorologico che da anni raccoglie in tempo reale dati meteo-climatici del Gargano.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <div class="grid gap-12 lg:grid-cols-[minmax(0,1.45fr)_minmax(18rem,0.95fr)] lg:items-start">
+        <div class="space-y-8">
+          <div class="max-w-3xl space-y-4">
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-base-content/45">
+              Il progetto
+            </p>
+            <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
+              Storia e finalità del progetto Meteogargano
+            </h2>
+          </div>
+
+          <div class="space-y-6 text-base leading-8 text-base-content/75">
+            <p>
+              Il progetto più che essere fine a se stesso è un servizio di notevole rilevanza. Un'osservazione costante e dettagliata di alcuni parametri meteorologici, precipitazioni, evapotraspirazione, evaporazione, affiancata a una conoscenza del territorio dal punto di vista geologico, definisce migliori conoscenze su eventuali imminenti problemi idrogeologici in un territorio come il nostro soggetto a intenso carsismo e in cui le conformazioni morfologiche rendono alcune zone ancor più interessate da particolari fenomeni come avvenuto nel settembre 2014, quando quasi tutto il promontorio garganico fu messo in ginocchio da devastanti alluvioni.
+            </p>
+
+            <p>
+              La qualità del servizio è determinata dalla sua estensione territoriale e temporale in quanto la fitta rete di dati provenienti dalle centraline di rilevamento fornisce dati per realizzare statistiche climatiche utili ad affrontare progetti del territorio in qualsiasi campo, oltre a definire con maggior dettaglio i vari microclimi territoriali.
+            </p>
+
+            <p>
+              Non peraltro vorremmo raggiungere l'obbiettivo di installare in tutti i centri urbani del Gargano una stazione meteorologica, così da coprire tutti i possibili microclimi presenti. Attualmente la nostra rete monitora luoghi estremi, dove mai è stata effettuata nessun tipo di rilevazione, vedasi la nostra stazione in zona Chiancate a quota 880 mt in territorio di San Marco in Lamis, località Falcare quota 550 mt in territorio di Cagnano Varano, e Foresta Umbra 800mt in territorio di Vico del Gargano.
+            </p>
+
+            <p>
+              Tutte le stazioni sono corredate da webcam che permettono di visualizzare in tempo reale nuvolosità, nebbia, pioggia e neve al suolo, inoltre svolgono un ruolo fondamentale di promozione del territorio in quanto le stesse webcam vengono installate in maniera tale da poter inquadrare punti panoramici.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid gap-4">
+          <article
+            :for={benefit <- benefits}
+            class="border border-base-300 bg-base-100 p-5 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <div class="flex items-start gap-4">
+              <div class="flex size-11 shrink-0 items-center justify-center rounded-full border border-base-300 bg-base-200 text-base-content">
+                <.icon name={benefit.icon} class="size-5" />
+              </div>
+
+              <div class="space-y-2">
+                <h3 class="text-base font-semibold tracking-tight">{benefit.title}</h3>
+                <p class="text-sm leading-7 text-base-content/70">{benefit.body}</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-base-300 bg-base-200/30">
+      <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+        <div class="max-w-4xl space-y-5">
+          <p class="text-xs font-semibold uppercase tracking-[0.28em] text-base-content/45">
+            Chi siamo?
+          </p>
+          <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
+            Il team storico
+          </h2>
+          <p class="text-base leading-8 text-base-content/75">
+            Il progetto MeteoGargano è il risultato della collaborazione di tante persone. Citarli tutti è impossibile, ma vogliamo ringraziare
+            <span class="font-semibold text-base-content">
+              Rocco Ricchetti, Giulio Calderisi, Paolo Cappucci, Rocco Coccia, Francesco Gurgoglione, Sante Barbano
+            </span>
+            per la preziosissima collaborazione.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <article
+            :for={member <- team_members}
+            class="group border border-base-300 bg-base-100 p-6 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-lg sm:p-8"
+          >
+            <div class="flex flex-col gap-6 sm:flex-row sm:items-start">
+              <div class="relative size-28 shrink-0 overflow-hidden rounded-full border border-base-300 bg-base-200">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  class="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+
+              <div class="space-y-4">
+                <div>
+                  <h3 class="text-2xl font-semibold tracking-tight">{member.name}</h3>
+                  <p class="mt-2 text-xs font-semibold uppercase tracking-[0.24em] text-base-content/45">
+                    {member.role}
+                  </p>
+                </div>
+
+                <p class="text-base leading-8 text-base-content/72">{member.bio}</p>
+
+                <div :if={Map.get(member, :email)}>
+                  <a
+                    href={"mailto:#{member.email}"}
+                    class="inline-flex items-center gap-2 text-sm font-medium text-base-content/70 transition hover:text-base-content"
+                  >
+                    <span class="flex size-9 items-center justify-center rounded-full border border-base-300 bg-base-200">
+                      <.icon name="hero-envelope" class="size-4" />
+                    </span>
+                    {member.email}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <div class="max-w-4xl space-y-5">
+        <p class="text-xs font-semibold uppercase tracking-[0.28em] text-base-content/45">
+          Cronologia dei fatti salienti
+        </p>
+        <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
+          Cronologia dei fatti salienti
+        </h2>
+      </div>
+
+      <div class="relative mt-12">
+        <div class="absolute bottom-0 left-6 top-0 hidden w-px bg-base-300 md:block"></div>
+
+        <div class="space-y-8">
+          <article
+            :for={event <- timeline}
+            class="relative grid gap-4 border border-base-300 bg-base-100 p-5 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md md:grid-cols-[auto_minmax(0,1fr)] md:gap-6 md:p-6"
+          >
+            <div class="relative flex items-start gap-4 md:items-center">
+              <div class="relative z-10 flex size-12 shrink-0 items-center justify-center rounded-full border border-base-300 bg-base-200 text-base-content">
+                <.icon name="hero-arrow-path" class="size-5" />
+              </div>
+
+              <div class="relative min-h-28 min-w-0 flex-1 overflow-hidden border border-base-300 bg-base-200 md:w-44 md:flex-none">
+                <img
+                  src={event.image}
+                  alt={event.title}
+                  class="h-28 w-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <p class="text-sm font-semibold uppercase tracking-[0.24em] text-base-content/45">
+                {event.year}
+              </p>
+              <h3 class="text-2xl font-semibold tracking-tight">{event.title}</h3>
+              <p class="max-w-3xl text-base leading-8 text-base-content/72">{event.body}</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-t border-base-300 bg-base-200/30">
+      <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+        <div class="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)]">
+          <div class="space-y-8">
+            <div class="space-y-4">
+              <p class="text-xs font-semibold uppercase tracking-[0.28em] text-base-content/45">
+                come posso contribuire?
+              </p>
+              <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
+                Iscrizione, donazioni e altre informazioni
+              </h2>
+            </div>
+
+            <div class="grid gap-5">
+              <article class="border border-base-300 bg-base-100 p-6 shadow-sm">
+                <p class="text-xs font-semibold uppercase tracking-[0.24em] text-base-content/45">
+                  Generalita
+                </p>
+                <div class="mt-4 space-y-3 text-base leading-8 text-base-content/75">
+                  <p>
+                    La sede associativa e presso Agriturismo Falcare (contrada Falcare, Cagnano Varano (FG)).
+                  </p>
+                  <p>
+                    Se vuoi iscriverti mandaci una mail all'indirizzo <a
+                      href="mailto:info@meteogargano.org"
+                      class="font-medium text-base-content underline decoration-base-content/25 underline-offset-4 transition hover:decoration-base-content"
+                    >info@meteogargano.org</a>. La quota associativa e di 15 euro.
+                  </p>
+                </div>
+              </article>
+
+              <article class="border border-base-300 bg-base-100 p-6 shadow-sm">
+                <p class="text-xs font-semibold uppercase tracking-[0.24em] text-base-content/45">
+                  Donazioni
+                </p>
+                <div class="mt-4 space-y-4 text-base leading-8 text-base-content/75">
+                  <p>
+                    Se vuoi aiutarci a mantenere funzionante la rete meteorologica e migliorarla, fai una donazione al c/c dell'associazione.
+                  </p>
+                  <div class="border border-base-300 bg-base-200/70 p-4 text-sm leading-7 text-base-content">
+                    <span class="font-semibold">IBAN Associazione:</span>
+                    IT82V36772223000EM001558911 <br />
+                    <span class="font-semibold">Intestatario:</span>
+                    Giuseppe D'Altilia (presidente associazione meteogargano)
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <aside class="flex flex-col justify-between gap-6 border border-base-300 bg-base-100 p-6 shadow-sm sm:p-8">
+            <div class="space-y-5">
+              <div class="flex size-14 items-center justify-center rounded-full border border-base-300 bg-base-200 text-base-content">
+                <.icon name="hero-document-text" class="size-6" />
+              </div>
+
+              <div class="space-y-3">
+                <p class="text-xs font-semibold uppercase tracking-[0.24em] text-base-content/45">
+                  Statuto
+                </p>
+                <h3 class="text-2xl font-semibold tracking-tight">
+                  Consulta il documento originale
+                </h3>
+                <p class="text-base leading-8 text-base-content/72">
+                  Leggi lo statuto dell'associazione tramite il documento pubblico originale.
+                </p>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <.link
+                href={~p"/statuto"}
+                class="inline-flex items-center gap-3 border border-base-content bg-base-content px-5 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-base-100 transition hover:bg-base-100 hover:text-base-content"
+              >
+                Leggi lo statuto <.icon name="hero-arrow-up-right" class="size-4" />
+              </.link>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layouts.app>

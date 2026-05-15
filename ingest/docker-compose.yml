@@ -1,0 +1,25 @@
+services:
+  ingest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: voria2-ingest
+    restart: unless-stopped
+    init: true
+
+    command: ["/app/config.yaml"]
+
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+
+    ports:
+      - "8080:8080"
+      - "2121:2121"
+      - "30000-30010:30000-30010"
+
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8080/health >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

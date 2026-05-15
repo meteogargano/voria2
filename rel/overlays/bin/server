@@ -1,0 +1,28 @@
+#!/bin/sh
+set -eu
+
+cd "$(dirname "$0")"
+
+: "${MIGRATION_MAX_ATTEMPTS:=30}"
+: "${MIGRATION_RETRY_SECONDS:=2}"
+
+export PHX_SERVER=true
+
+attempt=1
+
+while :; do
+  if ./voria2 eval Voria2.Release.prepare; then
+    break
+  fi
+
+  if [ "$MIGRATION_MAX_ATTEMPTS" != "infinity" ] && [ "$attempt" -ge "$MIGRATION_MAX_ATTEMPTS" ]; then
+    echo "Database preparation failed after ${attempt} attempt(s)" >&2
+    exit 1
+  fi
+
+  echo "Database preparation failed on attempt ${attempt}; retrying in ${MIGRATION_RETRY_SECONDS}s" >&2
+  attempt=$((attempt + 1))
+  sleep "$MIGRATION_RETRY_SECONDS"
+done
+
+exec ./voria2 start

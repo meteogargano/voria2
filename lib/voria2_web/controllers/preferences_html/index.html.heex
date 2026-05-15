@@ -1,0 +1,195 @@
+<Layouts.app flash={@flash} current_scope={assigns[:current_scope]}>
+  <section class="bg-base-200/45 py-10 sm:py-14">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-8 max-w-2xl">
+        <h1 class="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+          {gettext("Preferences")}
+        </h1>
+      </div>
+
+      <form method="post" action={~p"/preferences"} id="preferences-form">
+        <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
+
+        <div class="card border border-base-300 bg-base-100 shadow-sm mb-4">
+          <div class="card-body py-4 px-5">
+            <h3 class="font-semibold text-sm uppercase tracking-wide text-base-content/60 mb-3">
+              {gettext("Theme")}
+            </h3>
+            <div class="flex flex-wrap gap-3">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="theme"
+                  value="light"
+                  class="radio radio-sm radio-primary"
+                  id="theme-light"
+                  onclick="
+                  document.documentElement.setAttribute('data-theme', 'light');
+                  localStorage.setItem('phx:theme', 'light');
+                "
+                />
+                <span class="text-sm">{gettext("Light")}</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="theme"
+                  value="dark"
+                  class="radio radio-sm radio-primary"
+                  id="theme-dark"
+                  onclick="
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                  localStorage.setItem('phx:theme', 'dark');
+                "
+                />
+                <span class="text-sm">{gettext("Dark")}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="card border border-base-300 bg-base-100 shadow-sm mb-4">
+          <div class="card-body py-4 px-5">
+            <h3 class="font-semibold text-sm uppercase tracking-wide text-base-content/60 mb-3">
+              {gettext("Temperature")}
+            </h3>
+            <div class="flex flex-wrap gap-3">
+              <%= for unit <- @units.options(:temperature) do %>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="preferences[temperature_unit]"
+                    value={unit}
+                    class="radio radio-sm radio-primary"
+                    checked={@preferences.temperature_unit == unit}
+                  />
+                  <span class="text-sm">{@units.label(unit)}</span>
+                </label>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="card border border-base-300 bg-base-100 shadow-sm mb-4">
+          <div class="card-body py-4 px-5">
+            <h3 class="font-semibold text-sm uppercase tracking-wide text-base-content/60 mb-3">
+              {gettext("Wind Speed")}
+            </h3>
+            <div class="flex flex-wrap gap-3">
+              <%= for unit <- @units.options(:wind) do %>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="preferences[wind_unit]"
+                    value={unit}
+                    class="radio radio-sm radio-primary"
+                    checked={@preferences.wind_unit == unit}
+                  />
+                  <span class="text-sm">{@units.label(unit)}</span>
+                </label>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="card border border-base-300 bg-base-100 shadow-sm mb-4">
+          <div class="card-body py-4 px-5">
+            <h3 class="font-semibold text-sm uppercase tracking-wide text-base-content/60 mb-3">
+              {gettext("Pressure")}
+            </h3>
+            <div class="flex flex-wrap gap-3">
+              <%= for unit <- @units.options(:pressure) do %>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="preferences[pressure_unit]"
+                    value={unit}
+                    class="radio radio-sm radio-primary"
+                    checked={@preferences.pressure_unit == unit}
+                  />
+                  <span class="text-sm">{@units.label(unit)}</span>
+                </label>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="card border border-base-300 bg-base-100 shadow-sm mb-4">
+          <div class="card-body py-4 px-5">
+            <h3 class="font-semibold text-sm uppercase tracking-wide text-base-content/60 mb-3">
+              {gettext("Rain")}
+            </h3>
+            <div class="flex flex-wrap gap-3">
+              <%= for unit <- @units.options(:rain) do %>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="preferences[rain_unit]"
+                    value={unit}
+                    class="radio radio-sm radio-primary"
+                    checked={@preferences.rain_unit == unit}
+                  />
+                  <span class="text-sm">{@units.label(unit)}</span>
+                </label>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="card border border-base-300 bg-base-100 shadow-sm mb-6">
+          <div class="card-body py-4 px-5">
+            <h3 class="font-semibold text-sm uppercase tracking-wide text-base-content/60 mb-3">
+              {gettext("Language")}
+            </h3>
+            <div class="flex flex-wrap gap-3">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="preferences[language]"
+                  value="en"
+                  class="radio radio-sm radio-primary"
+                  checked={@preferences.language == :en}
+                />
+                <span class="text-sm">{gettext("English")}</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="preferences[language]"
+                  value="it"
+                  class="radio radio-sm radio-primary"
+                  checked={@preferences.language == :it}
+                />
+                <span class="text-sm">{gettext("Italian")}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-full sm:w-auto">
+          {gettext("Save Preferences")}
+        </button>
+      </form>
+
+      <script>
+        (function() {
+          var theme = localStorage.getItem("phx:theme");
+          if (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            theme = "dark";
+          } else if (!theme) {
+            theme = "light";
+          }
+
+          var lightRadio = document.getElementById("theme-light");
+          var darkRadio = document.getElementById("theme-dark");
+
+          if (theme === "dark" && darkRadio) {
+            darkRadio.checked = true;
+          } else if (lightRadio) {
+            lightRadio.checked = true;
+          }
+        })();
+      </script>
+    </div>
+  </section>
+</Layouts.app>

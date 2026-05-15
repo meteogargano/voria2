@@ -1,0 +1,71 @@
+<Layouts.app flash={@flash} current_scope={assigns[:current_scope]} current_path={@current_path}>
+  <article class="pb-16">
+    <section class="border-b border-base-300 bg-base-200/50">
+      <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8 lg:py-4">
+        <div class="space-y-2 flex flex-row ">
+          <.link
+            href={~p"/blog"}
+            class="inline-flex items-center gap-2 text-sm text-base-content/60 transition hover:text-base-content"
+          >
+            <.icon name="hero-arrow-left" class="size-4" />
+            {gettext("Back to blog")}
+          </.link>
+        </div>
+      </div>
+    </section>
+
+    <div class="mx-auto mt-4 max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h1
+        id="blog-article-title"
+        class="max-w-2xl text-4xl font-semibold tracking-tight text-base-content sm:text-4xl"
+      >
+        {@article.title}
+      </h1>
+
+      <p class="text-xs font-semibold uppercase tracking-[0.24em] text-base-content/45 mb-2">
+        <time datetime={article_datetime(@article.updated_at)}>
+          {article_date(@article.updated_at)}
+        </time>
+      </p>
+
+      <div class="flex flex-row w-100">
+        <span
+          :if={@draft_preview?}
+          id="blog-draft-preview"
+          class="badge badge-warning badge-lg px-3 py-3"
+        >
+          {gettext("Draft preview")}
+        </span>
+        <.link
+          :for={category <- @article.categories}
+          href={blog_path(%{category: to_string(category.name)})}
+          class="badge badge-ghost gap-1 px-3 py-3 hover:border-primary/40 hover:text-primary"
+        >
+          <.icon name="hero-tag" class="size-3" /> {category.name}
+        </.link>
+      </div>
+
+      <div
+        :if={cover_image?(@article.cover_image_url)}
+        class="overflow-hidden border border-base-300 bg-base-100 shadow-sm mt-4"
+      >
+        <img
+          id="blog-article-cover"
+          src={@article.cover_image_url}
+          alt={@article.title}
+          class="aspect-[16/8] w-full object-cover"
+        />
+      </div>
+
+      <hr class="my-4 text-gray-400" />
+
+      <div
+        id="blog-article-body"
+        class="text-[1.03rem] leading-8 text-base-content/82 [&_a]:font-medium [&_a]:text-primary [&_a]:underline-offset-4 hover:[&_a]:underline [&_blockquote]:border-l-4 [&_blockquote]:border-primary/35 [&_blockquote]:pl-4 [&_blockquote]:italic [&_code]:rounded [&_code]:bg-base-200 [&_code]:px-1.5 [&_code]:py-0.5 [&_h2]:mt-10 [&_h2]:text-2xl [&_h2]:font-semibold [&_h3]:mt-8 [&_h3]:text-xl [&_h3]:font-semibold [&_img]:my-8 [&_img]:border [&_img]:border-base-300 [&_img]:shadow-sm [&_li]:my-2 [&_ol]:my-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_p]:my-5 [&_pre]:my-6 [&_pre]:overflow-x-auto [&_pre]:bg-base-200 [&_pre]:p-4 [&_strong]:text-base-content [&_table]:my-6 [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:border-base-300 [&_td]:px-3 [&_td]:py-2 [&_th]:border [&_th]:border-base-300 [&_th]:bg-base-200 [&_th]:px-3 [&_th]:py-2 [&_ul]:my-6 [&_ul]:list-disc [&_ul]:pl-6"
+      >
+        <%!-- Trusted admin-authored HTML from the back office editor. --%>
+        {raw(@article.body)}
+      </div>
+    </div>
+  </article>
+</Layouts.app>

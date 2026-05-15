@@ -1,0 +1,3077 @@
+## Italian translations for Voria2.
+## Manually maintained.
+msgid ""
+msgstr ""
+"Language: it\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:128
+#, elixir-autogen, elixir-format
+msgid "%, hPa, m/s, mm, etc."
+msgstr "%, hPa, m/s, mm, ecc."
+
+#: lib/voria2_web/live/home_live.ex:303
+#, elixir-autogen, elixir-format
+msgid "%{count} day dry"
+msgid_plural "%{count} days dry"
+msgstr[0] "%{count} g. senza pioggia"
+msgstr[1] "%{count} g. senza pioggia"
+
+#: lib/voria2_web/live/installation_live.ex:712
+#, elixir-autogen, elixir-format
+msgid "%{count} day without rain"
+msgid_plural "%{count} days without rain"
+msgstr[0] "%{count} g. senza pioggia"
+msgstr[1] "%{count} g. senza pioggia"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:169
+#, elixir-autogen, elixir-format
+msgid "%{count} selected"
+msgstr "%{count} selezionate"
+
+#: lib/voria2_web/live/manage_live/installations/photos.ex:144
+#, elixir-autogen, elixir-format
+msgid "%{name} - Photos"
+msgstr "%{name} - Foto"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:480
+#, elixir-autogen, elixir-format
+msgid "%{size} B"
+msgstr "%{size} B"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:479
+#, elixir-autogen, elixir-format
+msgid "%{size} KB"
+msgstr "%{size} KB"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:478
+#, elixir-autogen, elixir-format
+msgid "%{size} MB"
+msgstr "%{size} MB"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:469
+#, elixir-autogen, elixir-format
+msgid "%{timestamp} UTC"
+msgstr "%{timestamp} UTC"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:306
+#, elixir-autogen, elixir-format, fuzzy
+msgid "(%{count} reading)"
+msgid_plural "(%{count} readings)"
+msgstr[0] "(%{count} lettura"
+msgstr[1] "(%{count} letture"
+
+#: lib/voria2_web/live/manage_live/faults/index.ex:162
+#, elixir-autogen, elixir-format
+msgid "(%{count} total)"
+msgstr "(%{count} in totale)"
+
+#: lib/voria2_web/live/home_live.ex:341
+#, elixir-autogen, elixir-format
+msgid "24h Change (%{unit})"
+msgstr "Variazione 24h (%{unit})"
+
+#: lib/voria2_web/live/installation_live.ex:483
+#, elixir-autogen, elixir-format
+msgid "24h change:"
+msgstr "Var. 24h:"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:130
+#, elixir-autogen, elixir-format
+msgid "A webcam shot purge is already running."
+msgstr "Un'eliminazione foto webcam è già in corso."
+
+#: lib/voria2_web/components/manage_components.ex:372
+#, elixir-autogen, elixir-format
+msgid "API Key"
+msgstr "Chiave API"
+
+#: lib/voria2_web/components/manage_components.ex:358
+#, elixir-autogen, elixir-format
+msgid "API Key Generated"
+msgstr "Chiave API generata"
+
+#: lib/voria2_web/live/manage_live/stations/show.ex:264
+#: lib/voria2_web/live/manage_live/webcams/show.ex:215
+#, elixir-autogen, elixir-format
+msgid "API Keys (%{count})"
+msgstr ""
+
+#: lib/voria2_web/live/manage_live/stations/show.ex:86
+#: lib/voria2_web/live/manage_live/webcams/show.ex:82
+#, elixir-autogen, elixir-format
+msgid "API key not found."
+msgstr "Chiave API non trovata."
+
+#: lib/voria2_web/live/manage_live/stations/show.ex:98
+#: lib/voria2_web/live/manage_live/webcams/show.ex:91
+#, elixir-autogen, elixir-format
+msgid "API key revoked."
+msgstr "Chiave API revocata."
+
+#: lib/voria2_web/controllers/error_html/404.html.heex:16
+#: lib/voria2_web/controllers/error_html/500.html.heex:16
+#, elixir-autogen, elixir-format
+msgid "Back to home"
+msgstr "Torna alla home"
+
+#: lib/voria2_web/controllers/error_html/500.html.heex:9
+#, elixir-autogen, elixir-format
+msgid "An unexpected error occurred while loading this page. Please try again in a moment."
+msgstr "Si e verificato un errore imprevisto durante il caricamento della pagina. Riprova tra qualche istante."
+
+#: lib/voria2_web/controllers/error_html/404.html.heex:9
+#, elixir-autogen, elixir-format
+msgid "The page you are looking for may have been moved, renamed, or is no longer available."
+msgstr "La pagina che stai cercando potrebbe essere stata spostata, rinominata o non essere piu disponibile."
+
+#: lib/voria2_web/controllers/error_html/404.html.heex:6
+#, elixir-autogen, elixir-format
+msgid "Page not found"
+msgstr "Pagina non trovata"
+
+#: lib/voria2_web/controllers/error_html/500.html.heex:6
+#, elixir-autogen, elixir-format
+msgid "Something went wrong"
+msgstr "Qualcosa e andato storto"
+
+#: lib/voria2_web/live/manage_live/users/form.ex:118
+#, elixir-autogen, elixir-format
+msgid "Account Details"
+msgstr "Dettagli account"
+
+#: lib/voria2_web/live/manage_live/users/profile.ex:59
+#, elixir-autogen, elixir-format
+msgid "Account Information"
+msgstr "Informazioni account"
+
+#: lib/voria2_web/components/core_components.ex:409
+#: lib/voria2_web/components/manage_components.ex:121
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:211
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:351
+#, elixir-autogen, elixir-format
+msgid "Actions"
+msgstr "Azioni"
+
+#: lib/voria2_web/components/manage_components.ex:204
+#: lib/voria2_web/components/manage_components.ex:450
+#: lib/voria2_web/live/installation_live.ex:981
+#: lib/voria2_web/live/manage_live/faults/index.ex:128
+#: lib/voria2_web/live/manage_live/installations/form.ex:118
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:137
+#: lib/voria2_web/live/manage_live/sensors/show.ex:196
+#: lib/voria2_web/live/manage_live/stations/form.ex:155
+#: lib/voria2_web/live/manage_live/stations/show.ex:335
+#: lib/voria2_web/live/manage_live/webcams/form.ex:160
+#, elixir-autogen, elixir-format
+msgid "Active"
+msgstr "Attivo"
+
+#: lib/voria2_web/live/installation_live.ex:896
+#: lib/voria2_web/live/manage_live/faults/index.ex:116
+#: lib/voria2_web/live/manage_live/stations/show.ex:430
+#: lib/voria2_web/live/manage_live/webcams/show.ex:311
+#, elixir-autogen, elixir-format
+msgid "Active Faults"
+msgstr "Guasti attivi"
+
+#: lib/voria2_web/live/manage_live/faults/index.ex:109
+#, elixir-autogen, elixir-format
+msgid "Active and historical faults across the entire network."
+msgstr "Guasti attivi e storici su tutta la rete."
+
+#: lib/voria2_web/live/installation_live.ex:448
+#: lib/voria2_web/live/installation_live.ex:540
+#: lib/voria2_web/live/installation_live.ex:653
+#: lib/voria2_web/live/installation_live.ex:704
+#, elixir-autogen, elixir-format
+msgid "Active fault"
+msgstr "Guasto attivo"
+
+#: lib/voria2_web/live/installation_live.ex:164
+#, elixir-autogen, elixir-format
+msgid "Active faults"
+msgstr "Guasti attivi"
+
+#: lib/voria2_web/live/manage_live/sensors/form.ex:31
+#: lib/voria2_web/live/manage_live/sensors/form.ex:197
+#: lib/voria2_web/live/manage_live/sensors/form.ex:224
+#: lib/voria2_web/live/manage_live/stations/show.ex:303
+#: lib/voria2_web/live/manage_live/stations/show.ex:318
+#, elixir-autogen, elixir-format
+msgid "Add Sensor"
+msgstr "Aggiungi sensore"
+
+#: lib/voria2_web/live/manage_live/installations/form.ex:94
+#, elixir-autogen, elixir-format
+msgid "Add a new physical location to your network."
+msgstr "Aggiungi una nuova postazione fisica alla tua rete."
+
+#: lib/voria2_web/live/manage_live/stations/show.ex:310
+#, elixir-autogen, elixir-format
+msgid "Add a sensor installation to start collecting measurements."
+msgstr "Aggiungi un'installazione sensore per iniziare a raccogliere misurazioni."
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:207
+#, elixir-autogen, elixir-format
+msgid "Add a weather station to start collecting measurements."
+msgstr "Aggiungi una stazione meteo per iniziare a raccogliere misurazioni."
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:269
+#, elixir-autogen, elixir-format
+msgid "Add a webcam to start capturing images."
+msgstr "Aggiungi una webcam per iniziare a catturare immagini."
+
+#: lib/voria2_web/live/manage_live/sensors/form.ex:125
+#, elixir-autogen, elixir-format
+msgid "Adding a sensor to %{name}."
+msgstr "Aggiunta di un sensore a %{name}."
+
+#: lib/voria2_web/live/manage_live/stations/form.ex:125
+#, elixir-autogen, elixir-format
+msgid "Adding a station to %{name}."
+msgstr "Aggiunta stazione a %{name}."
+
+#: lib/voria2_web/live/manage_live/webcams/form.ex:124
+#, elixir-autogen, elixir-format
+msgid "Adding a webcam to %{name}."
+msgstr "Aggiunta webcam a %{name}."
+
+#: lib/voria2_web/components/layouts.ex:212
+#: lib/voria2_web/live/manage_live/users/form.ex:150
+#: lib/voria2_web/live/manage_live/users/index.ex:59
+#: lib/voria2_web/live/manage_live/users/profile.ex:68
+#, elixir-autogen, elixir-format
+msgid "Admin"
+msgstr "Admin"
+
+#: lib/voria2_web/controllers/blog_content_controller.ex:25
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:13
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:11
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:11
+#: lib/voria2_web/live/manage_live/faults/index.ex:12
+#: lib/voria2_web/live/manage_live/users/form.ex:10
+#: lib/voria2_web/live/manage_live/users/index.ex:10
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:18
+#, elixir-autogen, elixir-format
+msgid "Admin access required."
+msgstr "Accesso admin richiesto."
+
+#: lib/voria2_web/live/manage_live/faults/index.ex:168
+#, elixir-autogen, elixir-format
+msgid "All Types"
+msgstr "Tutti i tipi"
+
+#: lib/voria2_web/live/home_live.ex:123
+#: lib/voria2_web/live/webcams_live.ex:42
+#: lib/voria2_web/live/webcams_live.ex:148
+#, elixir-autogen, elixir-format
+msgid "All Webcams"
+msgstr "Tutte le Webcam"
+
+#: lib/voria2_web/controllers/blog_html.ex:31
+#, elixir-autogen, elixir-format
+msgid "All categories"
+msgstr "Tutte le categorie"
+
+#: lib/voria2_web/controllers/blog_html/index.html.heex:48
+#, elixir-autogen, elixir-format
+msgid "Apply"
+msgstr "Applica"
+
+#: lib/voria2_web/controllers/blog_html/show.html.heex:11
+#, elixir-autogen, elixir-format
+msgid "Back to blog"
+msgstr "Torna al blog"
+
+#: lib/voria2_web/controllers/blog_html/index.html.heex:8
+#: lib/voria2_web/components/layouts.ex:125
+#, elixir-autogen, elixir-format
+msgid "Blog"
+msgstr "Blog"
+
+#: lib/voria2_web/controllers/blog_html/index.html.heex:44
+#, elixir-autogen, elixir-format
+msgid "Category"
+msgstr "Categoria"
+
+#: lib/voria2_web/controllers/blog_html/index.html.heex:52
+#, elixir-autogen, elixir-format
+msgid "Clear search"
+msgstr "Cancella ricerca"
+
+#: lib/voria2_web/controllers/blog_html/show.html.heex:20
+#, elixir-autogen, elixir-format
+msgid "Draft preview"
+msgstr "Anteprima bozza"
+
+#: lib/voria2_web/controllers/blog_html/index.html.heex:75
+#, elixir-autogen, elixir-format
+msgid "No articles found"
+msgstr "Nessun articolo trovato"
+
+#: lib/voria2_web/controllers/blog_html/index.html.heex:52
+#, elixir-autogen, elixir-format
+msgid "Reset"
+msgstr "Reimposta"
+
+#: lib/voria2_web/controllers/blog_html/index.html.heex:38
+#, elixir-autogen, elixir-format
+msgid "Search"
+msgstr "Cerca"
+
+#: lib/voria2_web/controllers/blog_html/index.html.heex:39
+#, elixir-autogen, elixir-format
+msgid "Search by title"
+msgstr "Cerca per titolo"
+
+#: lib/voria2_web/controllers/blog_html/index.html.heex:77
+#, elixir-autogen, elixir-format
+msgid "Try clearing the search or choosing a different category."
+msgstr "Prova a cancellare la ricerca o a scegliere una categoria diversa."
+
+#: lib/voria2_web/controllers/blog_html/index.html.heex:150
+#, elixir-autogen, elixir-format
+msgid "%{count} article"
+msgid_plural "%{count} articles"
+msgstr[0] "%{count} articolo"
+msgstr[1] "%{count} articoli"
+
+#: lib/voria2_web/live/manage_live/users/index.ex:31
+#, elixir-autogen, elixir-format
+msgid "All registered users on the platform."
+msgstr "Tutti gli utenti registrati sulla piattaforma."
+
+#: lib/voria2_web/live/installation_live.ex:799
+#: lib/voria2_web/live/manage_live/installations/show.ex:182
+#, elixir-autogen, elixir-format
+msgid "Altitude"
+msgstr "Altitudine"
+
+#: lib/voria2_web/live/manage_live/installations/form.ex:163
+#, elixir-autogen, elixir-format
+msgid "Altitude (m)"
+msgstr "Altitudine (m)"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:150
+#, elixir-autogen, elixir-format
+msgid "Any file type up to 25MB. Duplicate filenames are auto-renamed."
+msgstr "Qualsiasi tipo di file fino a 25MB. I nomi duplicati vengono rinominati automaticamente."
+
+#: lib/voria2_web/components/layouts.ex:99
+#: lib/voria2_web/components/layouts.ex:111
+#, elixir-autogen, elixir-format
+msgid "Attempting to reconnect"
+msgstr "Tentativo di riconnessione"
+
+#: lib/voria2_web/live/manage_live/installations/photos.ex:150
+#, elixir-autogen, elixir-format
+msgid "Back"
+msgstr "Indietro"
+
+#: lib/voria2_web/controllers/preferences_html/index.html.heex:35
+#, elixir-autogen, elixir-format
+msgid "Back to Map"
+msgstr "Torna alla mappa"
+
+#: lib/voria2_web/live/webcams_live.ex:266
+#, elixir-autogen, elixir-format
+msgid "Back to all webcams"
+msgstr "Torna a tutte le webcam"
+
+#: lib/voria2_web/live/webcam_viewer_live.ex:70
+#, elixir-autogen, elixir-format
+msgid "Back to installation"
+msgstr "Torna all'installazione"
+
+#: lib/voria2_web/live/compare_live.ex:71
+#: lib/voria2_web/live/installation_live.ex:104
+#: lib/voria2_web/live/webcams_live.ex:132
+#, elixir-autogen, elixir-format
+msgid "Back to map"
+msgstr "Torna alla mappa"
+
+#: lib/voria2_web/live/manage_live/installations/form.ex:102
+#, elixir-autogen, elixir-format
+msgid "Basic Information"
+msgstr "Informazioni di base"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:369
+#, elixir-autogen, elixir-format
+msgid "Batches completed"
+msgstr "Batch completati"
+
+#: lib/voria2_web/components/layouts.ex:271
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:18
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:112
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:115
+#: lib/voria2_web/live/manage_live/dashboard.ex:59
+#, elixir-autogen, elixir-format
+msgid "Blog Content"
+msgstr "Contenuti blog"
+
+#: lib/voria2_web/components/manage_components.ex:269
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:365
+#: lib/voria2_web/live/manage_live/installations/form.ex:173
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:143
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:467
+#: lib/voria2_web/live/manage_live/sensors/form.ex:194
+#: lib/voria2_web/live/manage_live/stations/form.ex:168
+#: lib/voria2_web/live/manage_live/users/form.ex:172
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:434
+#: lib/voria2_web/live/manage_live/webcams/form.ex:173
+#, elixir-autogen, elixir-format
+msgid "Cancel"
+msgstr "Annulla"
+
+#: lib/voria2_web/live/webcam_viewer_live.ex:194
+#: lib/voria2_web/live/webcams_live.ex:387
+#, elixir-autogen, elixir-format
+msgid "Captured:"
+msgstr "Acquisizione:"
+
+#: lib/voria2_web/live/manage_live/users/profile.ex:80
+#, elixir-autogen, elixir-format
+msgid "Change Password"
+msgstr "Cambia password"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:154
+#: lib/voria2_web/live/manage_live/installations/photos.ex:188
+#, elixir-autogen, elixir-format
+msgid "Choose Files"
+msgstr "Scegli file"
+
+#: lib/voria2_web/live/installation_live.ex:807
+#: lib/voria2_web/live/manage_live/installations/form.ex:129
+#: lib/voria2_web/live/manage_live/installations/show.ex:173
+#, elixir-autogen, elixir-format
+msgid "City"
+msgstr "Città"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:293
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:294
+#, elixir-autogen, elixir-format
+msgid "Clear"
+msgstr "Cancella"
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:334
+#, elixir-autogen, elixir-format
+msgid "Click 'Manage Photos' to upload your first photo."
+msgstr "Clicca 'Gestisci foto' per caricare la tua prima foto."
+
+#: lib/voria2_web/components/layouts.ex:152
+#, elixir-autogen, elixir-format
+msgid "Close menu"
+msgstr "Chiudi menu"
+
+#: lib/voria2_web/live/home_live.ex:107
+#, elixir-autogen, elixir-format
+msgid "Compare"
+msgstr "Confronta"
+
+#: lib/voria2_web/live/compare_live.ex:34
+#: lib/voria2_web/live/compare_live.ex:88
+#, elixir-autogen, elixir-format
+msgid "Compare Stations"
+msgstr "Confronta stazioni"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:583
+#, elixir-autogen, elixir-format
+msgid "Completed"
+msgstr "Completato"
+
+#: lib/voria2_web/components/manage_components.ex:277
+#, elixir-autogen, elixir-format
+msgid "Confirm"
+msgstr "Conferma"
+
+#: lib/voria2_web/live/manage_live/users/profile.ex:99
+#, elixir-autogen, elixir-format
+msgid "Confirm New Password"
+msgstr "Conferma nuova password"
+
+#: lib/voria2_web/live/manage_live/users/form.ex:140
+#, elixir-autogen, elixir-format
+msgid "Confirm Password"
+msgstr "Conferma password"
+
+#: lib/voria2_web/live/manage_live/users/index.ex:62
+#: lib/voria2_web/live/manage_live/users/profile.ex:71
+#, elixir-autogen, elixir-format
+msgid "Confirmed"
+msgstr "Confermato"
+
+#: lib/voria2_web/live/manage_live/installations/index.ex:80
+#, elixir-autogen, elixir-format
+msgid "Coordinates"
+msgstr "Coordinate"
+
+#: lib/voria2_web/components/manage_components.ex:386
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:243
+#, elixir-autogen, elixir-format
+msgid "Copied!"
+msgstr "Copiato!"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:245
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:246
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:247
+#, elixir-autogen, elixir-format
+msgid "Copy link"
+msgstr "Copia link"
+
+#: lib/voria2_web/components/manage_components.ex:385
+#: lib/voria2_web/components/manage_components.ex:389
+#, elixir-autogen, elixir-format
+msgid "Copy to clipboard"
+msgstr "Copia negli appunti"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:308
+#, elixir-autogen, elixir-format
+msgid "Count Shots"
+msgstr "Conta foto"
+
+#: lib/voria2_web/live/manage_live/dashboard.ex:76
+#, elixir-autogen, elixir-format
+msgid "Count and bulk-purge webcam shots in monitored batches"
+msgstr "Conta ed elimina in blocco le foto delle webcam in batch monitorati"
+
+#: lib/voria2_web/live/installation_live.ex:804
+#: lib/voria2_web/live/manage_live/installations/form.ex:135
+#: lib/voria2_web/live/manage_live/installations/show.ex:174
+#, elixir-autogen, elixir-format
+msgid "Country"
+msgstr "Paese"
+
+#: lib/voria2_web/live/manage_live/installations/form.ex:177
+#, elixir-autogen, elixir-format
+msgid "Create Installation"
+msgstr "Crea installazione"
+
+#: lib/voria2_web/live/manage_live/stations/form.ex:172
+#, elixir-autogen, elixir-format
+msgid "Create Station"
+msgstr "Crea stazione"
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:146
+#, elixir-autogen, elixir-format
+msgid "Create Type"
+msgstr "Crea tipo"
+
+#: lib/voria2_web/live/manage_live/users/form.ex:175
+#, elixir-autogen, elixir-format
+msgid "Create User"
+msgstr "Crea utente"
+
+#: lib/voria2_web/live/manage_live/webcams/form.ex:177
+#, elixir-autogen, elixir-format
+msgid "Create Webcam"
+msgstr "Crea webcam"
+
+#: lib/voria2_web/live/manage_live/users/form.ex:110
+#, elixir-autogen, elixir-format
+msgid "Create a new account. The user can sign in immediately."
+msgstr "Crea un nuovo account. L'utente può accedere immediatamente."
+
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:64
+#, elixir-autogen, elixir-format
+msgid "Create custom types for your sensors, or standard types will be auto-detected."
+msgstr "Crea tipi personalizzati per i tuoi sensori, oppure i tipi standard saranno rilevati automaticamente."
+
+#: lib/voria2_web/live/manage_live/installations/index.ex:61
+#, elixir-autogen, elixir-format
+msgid "Create your first installation to start managing stations and webcams."
+msgstr "Crea la tua prima installazione per gestire stazioni e webcam."
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:187
+#: lib/voria2_web/live/manage_live/stations/show.ex:290
+#: lib/voria2_web/live/manage_live/webcams/show.ex:244
+#, elixir-autogen, elixir-format
+msgid "Created"
+msgstr "Creata"
+
+#: lib/voria2_web/components/manage_components.ex:312
+#, elixir-autogen, elixir-format
+msgid "Created %{date}"
+msgstr "Creato il %{date}"
+
+#: lib/voria2_web/live/manage_live/sensors/form.ex:179
+#, elixir-autogen, elixir-format
+msgid "Cumulative (total mm)"
+msgstr "Cumulativo (mm totali)"
+
+#: lib/voria2_web/live/manage_live/users/profile.ex:87
+#, elixir-autogen, elixir-format
+msgid "Current Password"
+msgstr "Password attuale"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:361
+#, elixir-autogen, elixir-format
+msgid "Current batch"
+msgstr "Batch corrente"
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:120
+#, elixir-autogen, elixir-format
+msgid "Custom (flexible)"
+msgstr "Personalizzato (flessibile)"
+
+#: lib/voria2_web/live/manage_live/sensors/form.ex:162
+#, elixir-autogen, elixir-format
+msgid "DHT22, BME280, etc."
+msgstr "DHT22, BME280, ecc."
+
+#: lib/voria2_web/controllers/preferences_html/index.html.heex:76
+#, elixir-autogen, elixir-format
+msgid "Dark"
+msgstr "Scuro"
+
+#: lib/voria2_web/live/manage_live/dashboard.ex:9
+#, elixir-autogen, elixir-format
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:224
+#, elixir-autogen, elixir-format
+msgid "Date Range"
+msgstr "Intervallo date"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:62
+#, elixir-autogen, elixir-format
+msgid "Date range cannot exceed 24 hours."
+msgstr "L'intervallo non può superare le 24 ore."
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:162
+#: lib/voria2_web/live/manage_live/sensors/show.ex:177
+#: lib/voria2_web/live/manage_live/stations/show.ex:360
+#, elixir-autogen, elixir-format
+msgid "Decommission"
+msgstr "Dismetti"
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:175
+#: lib/voria2_web/live/manage_live/stations/show.ex:356
+#, elixir-autogen, elixir-format
+msgid "Decommission Sensor?"
+msgstr "Dismettere il sensore?"
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:197
+#: lib/voria2_web/live/manage_live/stations/show.ex:336
+#, elixir-autogen, elixir-format
+msgid "Decommissioned"
+msgstr "Dismesso"
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:87
+#, elixir-autogen, elixir-format
+msgid "Define a new measurement category for your sensors."
+msgstr "Definisci una nuova categoria di misurazione per i tuoi sensori."
+
+#: lib/voria2_web/live/manage_live/dashboard.ex:36
+#, elixir-autogen, elixir-format
+msgid "Define custom sensor measurement categories"
+msgstr "Definisci categorie personalizzate per i sensori"
+
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:49
+#, elixir-autogen, elixir-format
+msgid "Define custom sensor measurement categories for your network."
+msgstr "Definisci categorie di misurazione personalizzate per i tuoi sensori."
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:259
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:260
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:270
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:379
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:120
+#: lib/voria2_web/live/manage_live/installations/index.ex:112
+#: lib/voria2_web/live/manage_live/installations/show.ex:134
+#: lib/voria2_web/live/manage_live/installations/show.ex:246
+#: lib/voria2_web/live/manage_live/installations/show.ex:308
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:111
+#: lib/voria2_web/live/manage_live/sensors/show.ex:168
+#: lib/voria2_web/live/manage_live/sensors/show.ex:185
+#: lib/voria2_web/live/manage_live/stations/show.ex:240
+#: lib/voria2_web/live/manage_live/webcams/show.ex:197
+#, elixir-autogen, elixir-format
+msgid "Delete"
+msgstr "Elimina"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:267
+#: lib/voria2_web/live/manage_live/installations/index.ex:106
+#: lib/voria2_web/live/manage_live/installations/show.ex:141
+#: lib/voria2_web/live/manage_live/installations/show.ex:244
+#: lib/voria2_web/live/manage_live/installations/show.ex:306
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:109
+#: lib/voria2_web/live/manage_live/stations/show.ex:247
+#: lib/voria2_web/live/manage_live/users/form.ex:185
+#: lib/voria2_web/live/manage_live/webcams/show.ex:204
+#, elixir-autogen, elixir-format
+msgid "Delete %{name}?"
+msgstr "Eliminare %{name}?"
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:147
+#, elixir-autogen, elixir-format
+msgid "Delete Installation"
+msgstr "Elimina installazione"
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:183
+#, elixir-autogen, elixir-format
+msgid "Delete Sensor?"
+msgstr "Eliminare il sensore?"
+
+#: lib/voria2_web/live/manage_live/stations/show.ex:253
+#, elixir-autogen, elixir-format
+msgid "Delete Station"
+msgstr "Elimina stazione"
+
+#: lib/voria2_web/live/manage_live/users/form.ex:168
+#: lib/voria2_web/live/manage_live/users/form.ex:189
+#, elixir-autogen, elixir-format
+msgid "Delete User"
+msgstr "Elimina utente"
+
+#: lib/voria2_web/live/manage_live/webcams/show.ex:206
+#, elixir-autogen, elixir-format
+msgid "Delete Webcam"
+msgstr "Elimina webcam"
+
+#: lib/voria2_web/components/installation_components.ex:66
+#, elixir-autogen, elixir-format
+msgid "Delete photo"
+msgstr "Elimina foto"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:352
+#, elixir-autogen, elixir-format
+msgid "Deleted"
+msgstr "Eliminati"
+
+#: lib/voria2_web/live/installation_live.ex:790
+#: lib/voria2_web/live/installation_live.ex:877
+#: lib/voria2_web/live/manage_live/installations/form.ex:114
+#: lib/voria2_web/live/manage_live/installations/show.ex:170
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:133
+#: lib/voria2_web/live/manage_live/stations/form.ex:151
+#: lib/voria2_web/live/manage_live/stations/show.ex:278
+#: lib/voria2_web/live/manage_live/webcams/form.ex:150
+#: lib/voria2_web/live/manage_live/webcams/show.ex:229
+#, elixir-autogen, elixir-format
+msgid "Description"
+msgstr "Descrizione"
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:168
+#: lib/voria2_web/live/manage_live/stations/show.ex:273
+#: lib/voria2_web/live/manage_live/webcams/show.ex:224
+#, elixir-autogen, elixir-format
+msgid "Details"
+msgstr "Dettagli"
+
+#: lib/voria2_web/live/installation_live.ex:954
+#: lib/voria2_web/live/manage_live/faults/index.ex:195
+#, elixir-autogen, elixir-format
+msgid "Detected"
+msgstr "Rilevato"
+
+#: lib/voria2_web/components/manage_components.ex:455
+#: lib/voria2_web/live/manage_live/faults/index.ex:135
+#, elixir-autogen, elixir-format
+msgid "Detected %{datetime}"
+msgstr "Rilevato %{datetime}"
+
+#: lib/voria2_web/live/home_live.ex:347
+#, elixir-autogen, elixir-format
+msgid "Dewpoint (%{unit})"
+msgstr "Punto di rugiada (%{unit})"
+
+#: lib/voria2_web/live/installation_live.ex:612
+#, elixir-autogen, elixir-format
+msgid "Dewpoint:"
+msgstr "Punto di rugiada:"
+
+#: lib/voria2_web/live/installation_live.ex:661
+#, elixir-autogen, elixir-format
+msgid "Dir:"
+msgstr "Dir.:"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:337
+#, elixir-autogen, elixir-format
+msgid "Direction (°)"
+msgstr "Direzione (°)"
+
+#: lib/voria2_web/live/home_live.ex:64
+#, elixir-autogen, elixir-format
+msgid "Display"
+msgstr "Visualizzazione"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:387
+#, elixir-autogen, elixir-format
+msgid "Download"
+msgstr "Scarica"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:370
+#, elixir-autogen, elixir-format
+msgid "Download File"
+msgstr "Scarica file"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:332
+#, elixir-autogen, elixir-format
+msgid "Download PDF"
+msgstr "Scarica PDF"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:147
+#, elixir-autogen, elixir-format
+msgid "Drop files here or click to browse"
+msgstr "Trascina i file qui o clicca per sfogliare"
+
+#: lib/voria2_web/live/manage_live/installations/photos.ex:178
+#, elixir-autogen, elixir-format
+msgid "Drop photos here or click to browse"
+msgstr "Trascina le foto qui o clicca per sfogliare"
+
+#: lib/voria2_web/live/home_live.ex:354
+#, elixir-autogen, elixir-format
+msgid "Dry Days"
+msgstr "Giorni senza pioggia"
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:128
+#: lib/voria2_web/live/manage_live/sensors/show.ex:155
+#: lib/voria2_web/live/manage_live/stations/show.ex:234
+#: lib/voria2_web/live/manage_live/webcams/show.ex:191
+#, elixir-autogen, elixir-format
+msgid "Edit"
+msgstr "Modifica"
+
+#: lib/voria2_web/live/manage_live/installations/form.ex:39
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:39
+#: lib/voria2_web/live/manage_live/stations/form.ex:67
+#: lib/voria2_web/live/manage_live/users/form.ex:45
+#: lib/voria2_web/live/manage_live/users/form.ex:103
+#: lib/voria2_web/live/manage_live/webcams/form.ex:66
+#, elixir-autogen, elixir-format
+msgid "Edit %{name}"
+msgstr "Modifica %{name}"
+
+#: lib/voria2_web/live/manage_live/sensors/form.ex:65
+#: lib/voria2_web/live/manage_live/sensors/form.ex:224
+#, elixir-autogen, elixir-format
+msgid "Edit Sensor"
+msgstr "Modifica sensore"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:218
+#, elixir-autogen, elixir-format
+msgid "Edit measurement values to correct broken data. Changes will trigger summary recalculation."
+msgstr "Modifica i valori delle misurazioni per correggere dati errati. Le modifiche attiveranno il ricalcolo dei riepiloghi."
+
+#: lib/voria2_web/live/manage_live/users/form.ex:125
+#: lib/voria2_web/live/manage_live/users/index.ex:50
+#: lib/voria2_web/live/manage_live/users/profile.ex:61
+#, elixir-autogen, elixir-format
+msgid "Email"
+msgstr "Email"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:258
+#, elixir-autogen, elixir-format
+msgid "End"
+msgstr "Fine"
+
+#: lib/voria2_web/controllers/preferences_html/index.html.heex:184
+#, elixir-autogen, elixir-format
+msgid "English"
+msgstr "Inglese"
+
+#: lib/voria2_web/live/chart_jump.ex:34
+#: lib/voria2_web/live/webcam_jump.ex:38
+#, elixir-autogen, elixir-format
+msgid "Enter a date and time as dd/mm/yyyy hh:mm."
+msgstr "Inserisci una data e ora come gg/mm/aaaa hh:mm."
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:548
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:549
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:554
+#, elixir-autogen, elixir-format
+msgid "Enter both start and end datetimes."
+msgstr "Inserisci entrambe le date/ora di inizio e fine."
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:355
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:584
+#, elixir-autogen, elixir-format
+msgid "Failed"
+msgstr "Falliti"
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:64
+#: lib/voria2_web/live/manage_live/stations/show.ex:129
+#, elixir-autogen, elixir-format
+msgid "Failed to decommission sensor."
+msgstr "Impossibile dismettere il sensore."
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:63
+#, elixir-autogen, elixir-format
+msgid "Failed to delete file."
+msgstr "Impossibile eliminare il file."
+
+#: lib/voria2_web/live/manage_live/installations/index.ex:30
+#: lib/voria2_web/live/manage_live/installations/show.ex:104
+#, elixir-autogen, elixir-format
+msgid "Failed to delete installation."
+msgstr "Impossibile eliminare l'installazione."
+
+#: lib/voria2_web/live/manage_live/installations/photos.ex:68
+#, elixir-autogen, elixir-format
+msgid "Failed to delete photo."
+msgstr "Impossibile eliminare la foto."
+
+#: lib/voria2_web/live/manage_live/installations/photos.ex:65
+#, elixir-autogen, elixir-format
+msgid "Failed to delete photo: %{reason}"
+msgstr "Impossibile eliminare la foto: %{reason}"
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:85
+#, elixir-autogen, elixir-format
+msgid "Failed to delete sensor."
+msgstr "Impossibile eliminare il sensore."
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:60
+#: lib/voria2_web/live/manage_live/stations/show.ex:151
+#, elixir-autogen, elixir-format
+msgid "Failed to delete station."
+msgstr "Impossibile eliminare la stazione."
+
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:33
+#, elixir-autogen, elixir-format
+msgid "Failed to delete type. It may be in use."
+msgstr "Impossibile eliminare il tipo. Potrebbe essere in uso."
+
+#: lib/voria2_web/live/manage_live/users/form.ex:69
+#, elixir-autogen, elixir-format
+msgid "Failed to delete user."
+msgstr "Impossibile eliminare l'utente."
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:84
+#: lib/voria2_web/live/manage_live/webcams/show.ex:114
+#, elixir-autogen, elixir-format
+msgid "Failed to delete webcam."
+msgstr "Impossibile eliminare la webcam."
+
+#: lib/voria2_web/live/manage_live/stations/show.ex:73
+#: lib/voria2_web/live/manage_live/webcams/show.ex:69
+#, elixir-autogen, elixir-format
+msgid "Failed to generate API key."
+msgstr "Impossibile generare la chiave API."
+
+#: lib/voria2_web/live/manage_live/installations/photos.ex:111
+#, elixir-autogen, elixir-format
+msgid "Failed to process %{name}: %{reason}"
+msgstr "Impossibile elaborare %{name}: %{reason}"
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:109
+#: lib/voria2_web/live/manage_live/stations/show.ex:175
+#: lib/voria2_web/live/manage_live/webcams/show.ex:138
+#, elixir-autogen, elixir-format
+msgid "Failed to report fault."
+msgstr "Impossibile segnalare il guasto."
+
+#: lib/voria2_web/live/manage_live/faults/index.ex:93
+#: lib/voria2_web/live/manage_live/sensors/show.ex:137
+#: lib/voria2_web/live/manage_live/stations/show.ex:206
+#: lib/voria2_web/live/manage_live/webcams/show.ex:166
+#, elixir-autogen, elixir-format
+msgid "Failed to resolve fault."
+msgstr "Impossibile risolvere il guasto."
+
+#: lib/voria2_web/live/manage_live/stations/show.ex:102
+#: lib/voria2_web/live/manage_live/webcams/show.ex:95
+#, elixir-autogen, elixir-format
+msgid "Failed to revoke key."
+msgstr "Impossibile revocare la chiave."
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:205
+#, elixir-autogen, elixir-format
+msgid "Failed to save: %{errors}"
+msgstr "Salvataggio fallito: %{errors}"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:97
+#: lib/voria2_web/live/manage_live/installations/photos.ex:122
+#, elixir-autogen, elixir-format
+msgid "Failed to upload %{name}: %{reason}"
+msgstr "Impossibile caricare %{name}: %{reason}"
+
+#: lib/voria2_web/live/installation_live.ex:1004
+#, elixir-autogen, elixir-format
+msgid "Falling"
+msgstr "In discesa"
+
+#: lib/voria2_web/live/manage_live/faults/index.ex:160
+#: lib/voria2_web/live/manage_live/stations/show.ex:438
+#: lib/voria2_web/live/manage_live/webcams/show.ex:319
+#, elixir-autogen, elixir-format
+msgid "Fault History"
+msgstr "Storico guasti"
+
+#: lib/voria2_web/live/installation_live.ex:930
+#, elixir-autogen, elixir-format
+msgid "Fault History (%{count})"
+msgstr "Storico guasti (%{count})"
+
+#: lib/voria2_web/live/manage_live/dashboard.ex:43
+#: lib/voria2_web/live/manage_live/faults/index.ex:108
+#: lib/voria2_web/live/manage_live/faults/index.ex:262
+#, elixir-autogen, elixir-format
+msgid "Fault Monitor"
+msgstr "Monitor guasti"
+
+#: lib/voria2_web/live/manage_live/faults/index.ex:78
+#: lib/voria2_web/live/manage_live/sensors/show.ex:118
+#: lib/voria2_web/live/manage_live/stations/show.ex:184
+#: lib/voria2_web/live/manage_live/webcams/show.ex:147
+#, elixir-autogen, elixir-format
+msgid "Fault not found."
+msgstr "Guasto non trovato."
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:104
+#: lib/voria2_web/live/manage_live/stations/show.ex:170
+#: lib/voria2_web/live/manage_live/webcams/show.ex:133
+#, elixir-autogen, elixir-format
+msgid "Fault reported."
+msgstr "Guasto segnalato."
+
+#: lib/voria2_web/live/manage_live/faults/index.ex:89
+#: lib/voria2_web/live/manage_live/sensors/show.ex:132
+#: lib/voria2_web/live/manage_live/stations/show.ex:201
+#: lib/voria2_web/live/manage_live/webcams/show.ex:161
+#, elixir-autogen, elixir-format
+msgid "Fault resolved."
+msgstr "Guasto risolto."
+
+#: lib/voria2_web/components/layouts.ex:223
+#: lib/voria2_web/live/manage_live/faults/index.ex:105
+#: lib/voria2_web/live/manage_live/sensors/show.ex:223
+#: lib/voria2_web/live/manage_live/stations/show.ex:266
+#: lib/voria2_web/live/manage_live/webcams/show.ex:217
+#, elixir-autogen, elixir-format
+msgid "Faults"
+msgstr "Guasti"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:842
+#, elixir-autogen, elixir-format
+msgid "Field"
+msgstr "Campo"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:60
+#, elixir-autogen, elixir-format
+msgid "File deleted."
+msgstr "File eliminato."
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:87
+#, elixir-autogen, elixir-format
+msgid "File uploaded successfully."
+msgstr "File caricato con successo."
+
+#: lib/voria2_web/live/webcam_viewer_live.ex:208
+#: lib/voria2_web/live/webcams_live.ex:402
+#, elixir-autogen, elixir-format
+msgid "File:"
+msgstr "File:"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:200
+#, elixir-autogen, elixir-format
+msgid "Files (%{count})"
+msgstr "File (%{count})"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:396
+#, elixir-autogen, elixir-format
+msgid "Finished"
+msgstr "Completato"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:270
+#, elixir-autogen, elixir-format
+msgid "From"
+msgstr "Da"
+
+#: lib/voria2_web/live/manage_live/stations/show.ex:388
+#: lib/voria2_web/live/manage_live/webcams/show.ex:269
+#, elixir-autogen, elixir-format
+msgid "Generate Key"
+msgstr "Genera chiave"
+
+#: lib/voria2_web/live/compare_live.ex:200
+#: lib/voria2_web/live/installation_live.ex:294
+#, elixir-autogen, elixir-format
+msgid "Go %{range} earlier"
+msgstr "Vai indietro di %{range}"
+
+#: lib/voria2_web/live/compare_live.ex:209
+#: lib/voria2_web/live/installation_live.ex:303
+#, elixir-autogen, elixir-format
+msgid "Go %{range} later"
+msgstr "Vai avanti di %{range}"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:839
+#, elixir-autogen, elixir-format
+msgid "Gust"
+msgstr "Raffica"
+
+#: lib/voria2_web/live/installation_live.ex:662
+#, elixir-autogen, elixir-format
+msgid "Gust:"
+msgstr "Raffica:"
+
+#: lib/voria2_web/live/compare_live.ex:501
+#: lib/voria2_web/live/installation_live.ex:1379
+#: lib/voria2_web/live/installation_live.ex:1439
+#, elixir-autogen, elixir-format
+msgid "Humidity"
+msgstr "Umidità"
+
+#: lib/voria2_web/live/home_live.ex:342
+#, elixir-autogen, elixir-format
+msgid "Humidity (%)"
+msgstr "Umidità (%)"
+
+#: lib/voria2_web/live/installation_live.ex:538
+#, elixir-autogen, elixir-format
+msgid "Humidity / Pressure"
+msgstr "Umidità / Pressione"
+
+#: lib/voria2_web/components/manage_components.ex:394
+#, elixir-autogen, elixir-format
+msgid "I've saved the key — close"
+msgstr "Ho salvato la chiave — chiudi"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:581
+#, elixir-autogen, elixir-format
+msgid "Idle"
+msgstr "Inattivo"
+
+#: lib/voria2_web/components/manage_components.ex:205
+#: lib/voria2_web/live/installation_live.ex:130
+#, elixir-autogen, elixir-format
+msgid "Inactive"
+msgstr "Inattiva"
+
+#: lib/voria2_web/controllers/auth_controller.ex:38
+#, elixir-autogen, elixir-format
+msgid "Incorrect email or password"
+msgstr "Email o password non corretti"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:364
+#, elixir-autogen, elixir-format
+msgid "Inline preview is not available for this file type."
+msgstr "L'anteprima inline non e disponibile per questo tipo di file."
+
+#: lib/voria2_web/live/installation_live.ex:785
+#: lib/voria2_web/live/manage_live/stations/show.ex:281
+#: lib/voria2_web/live/manage_live/webcams/show.ex:235
+#, elixir-autogen, elixir-format
+msgid "Installation"
+msgstr "Installazione"
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:192
+#, elixir-autogen, elixir-format
+msgid "Installation Details"
+msgstr "Dettagli installazione"
+
+#: lib/voria2_web/live/installation_live.ex:160
+#, elixir-autogen, elixir-format
+msgid "Installation Info"
+msgstr "Info installazione"
+
+#: lib/voria2_web/live/manage_live/installations/form.ex:70
+#, elixir-autogen, elixir-format
+msgid "Installation created."
+msgstr "Installazione creata."
+
+#: lib/voria2_web/live/manage_live/installations/index.ex:26
+#: lib/voria2_web/live/manage_live/installations/show.ex:100
+#, elixir-autogen, elixir-format
+msgid "Installation deleted."
+msgstr "Installazione eliminata."
+
+#: lib/voria2_web/live/installation_live.ex:22
+#: lib/voria2_web/live/manage_live/installations/form.ex:45
+#: lib/voria2_web/live/manage_live/installations/index.ex:34
+#: lib/voria2_web/live/manage_live/installations/photos.ex:28
+#: lib/voria2_web/live/manage_live/installations/show.ex:27
+#: lib/voria2_web/live/manage_live/stations/form.ex:35
+#: lib/voria2_web/live/manage_live/webcams/form.ex:34
+#, elixir-autogen, elixir-format
+msgid "Installation not found."
+msgstr "Installazione non trovata."
+
+#: lib/voria2_web/live/manage_live/sensors/form.ex:168
+#, elixir-autogen, elixir-format
+msgid "Installation notes, calibration details..."
+msgstr "Note installazione, dettagli calibrazione..."
+
+#: lib/voria2_web/components/installation_components.ex:53
+#, elixir-autogen, elixir-format
+msgid "Installation photo"
+msgstr "Foto installazione"
+
+#: lib/voria2_web/live/manage_live/installations/form.ex:71
+#, elixir-autogen, elixir-format
+msgid "Installation updated."
+msgstr "Installazione aggiornata."
+
+#: lib/voria2_web/components/layouts.ex:185
+#: lib/voria2_web/live/manage_live/dashboard.ex:28
+#: lib/voria2_web/live/manage_live/installations/form.ex:87
+#: lib/voria2_web/live/manage_live/installations/index.ex:11
+#: lib/voria2_web/live/manage_live/installations/index.ex:41
+#: lib/voria2_web/live/manage_live/installations/index.ex:44
+#: lib/voria2_web/live/manage_live/installations/photos.ex:138
+#: lib/voria2_web/live/manage_live/installations/show.ex:112
+#: lib/voria2_web/live/manage_live/sensors/form.ex:212
+#: lib/voria2_web/live/manage_live/sensors/show.ex:262
+#: lib/voria2_web/live/manage_live/stations/form.ex:116
+#: lib/voria2_web/live/manage_live/stations/show.ex:215
+#: lib/voria2_web/live/manage_live/webcams/form.ex:115
+#: lib/voria2_web/live/manage_live/webcams/show.ex:175
+#, elixir-autogen, elixir-format
+msgid "Installations"
+msgstr "Installazioni"
+
+#: lib/voria2_web/live/installation_live.ex:842
+#: lib/voria2_web/live/manage_live/stations/show.ex:326
+#, elixir-autogen, elixir-format
+msgid "Installed"
+msgstr "Installato"
+
+#: lib/voria2_web/live/manage_live/sensors/form.ex:149
+#: lib/voria2_web/live/manage_live/sensors/show.ex:207
+#, elixir-autogen, elixir-format
+msgid "Installed On"
+msgstr "Installato il"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:840
+#, elixir-autogen, elixir-format
+msgid "Interval"
+msgstr "Intervallo"
+
+#: lib/voria2_web/live/manage_live/sensors/form.ex:178
+#, elixir-autogen, elixir-format
+msgid "Interval (mm per reading)"
+msgstr "Intervallo (mm per lettura)"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:342
+#, elixir-autogen, elixir-format
+msgid "Interval (mm)"
+msgstr "Intervallo (mm)"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:98
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:113
+#, elixir-autogen, elixir-format
+msgid "Invalid date format."
+msgstr "Formato data non valido."
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:90
+#, elixir-autogen, elixir-format
+msgid "Invalid filename."
+msgstr "Nome file non valido."
+
+#: lib/voria2_web/controllers/preferences_html/index.html.heex:194
+#, elixir-autogen, elixir-format
+msgid "Italian"
+msgstr "Italiano"
+
+#: lib/voria2_web/live/manage_live/installations/form.ex:136
+#, elixir-autogen, elixir-format
+msgid "Italy"
+msgstr "Italia"
+
+#: lib/voria2_web/live/manage_live/installations/photos.ex:181
+#, elixir-autogen, elixir-format
+msgid "JPG, PNG, GIF, WebP up to 10MB each"
+msgstr "JPG, PNG, GIF, WebP fino a 10MB ciascuna"
+
+#: lib/voria2_web/live/compare_live.ex:175
+#: lib/voria2_web/live/compare_live.ex:176
+#: lib/voria2_web/live/installation_live.ex:269
+#: lib/voria2_web/live/installation_live.ex:270
+#, elixir-autogen, elixir-format
+msgid "Jump to datetime"
+msgstr "Vai alla data/ora"
+
+#: lib/voria2_web/live/compare_live.ex:217
+#: lib/voria2_web/live/installation_live.ex:311
+#, elixir-autogen, elixir-format
+msgid "Jump to latest data"
+msgstr "Vai agli ultimi dati"
+
+#: lib/voria2_web/live/manage_live/stations/show.ex:377
+#: lib/voria2_web/live/manage_live/webcams/show.ex:258
+#, elixir-autogen, elixir-format
+msgid "Label (optional)"
+msgstr "Etichetta (opzionale)"
+
+#: lib/voria2_web/controllers/preferences_html/index.html.heex:173
+#, elixir-autogen, elixir-format
+msgid "Language"
+msgstr "Lingua"
+
+#: lib/voria2_web/live/compare_live.ex:826
+#: lib/voria2_web/live/installation_live.ex:1740
+#, elixir-autogen, elixir-format
+msgid "Last %{range}"
+msgstr "Ultime %{range}"
+
+#: lib/voria2_web/live/installation_live.ex:367
+#, elixir-autogen, elixir-format
+msgid "Last update:"
+msgstr "Ultimo aggiornamento:"
+
+#: lib/voria2_web/live/webcam_viewer_live.ex:151
+#: lib/voria2_web/live/webcams_live.ex:344
+#, elixir-autogen, elixir-format
+msgid "Latest"
+msgstr "Ultimo"
+
+#: lib/voria2_web/live/manage_live/installations/form.ex:149
+#: lib/voria2_web/live/manage_live/installations/show.ex:176
+#, elixir-autogen, elixir-format
+msgid "Latitude"
+msgstr "Latitudine"
+
+#: lib/voria2_web/controllers/preferences_html/index.html.heex:62
+#, elixir-autogen, elixir-format
+msgid "Light"
+msgstr "Chiaro"
+
+#: lib/voria2_web/live/compare_live.ex:219
+#: lib/voria2_web/live/compare_live.ex:219
+#: lib/voria2_web/live/installation_live.ex:313
+#: lib/voria2_web/live/installation_live.ex:313
+#, elixir-autogen, elixir-format
+msgid "Live"
+msgstr "Live"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:332
+#, elixir-autogen, elixir-format
+msgid "Live Monitor"
+msgstr "Monitor live"
+
+#: lib/voria2_web/live/webcam_viewer_live.ex:92
+#: lib/voria2_web/live/webcams_live.ex:288
+#, elixir-autogen, elixir-format
+msgid "Live Stream ↗"
+msgstr "Live Stream ↗"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:294
+#, elixir-autogen, elixir-format
+msgid "Load Measurements"
+msgstr "Carica misurazioni"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:567
+#, elixir-autogen, elixir-format
+msgid "Loaded %{count} measurement."
+msgid_plural "Loaded %{count} measurements."
+msgstr[0] "Caricata %{count} misurazione."
+msgstr[1] "Caricate %{count} misurazioni."
+
+#: lib/voria2_web/live/installation_live.ex:794
+#: lib/voria2_web/live/manage_live/installations/form.ex:122
+#: lib/voria2_web/live/manage_live/installations/index.ex:75
+#, elixir-autogen, elixir-format
+msgid "Location"
+msgstr "Posizione"
+
+#: lib/voria2_web/live/manage_live/installations/form.ex:156
+#: lib/voria2_web/live/manage_live/installations/show.ex:179
+#, elixir-autogen, elixir-format
+msgid "Longitude"
+msgstr "Longitudine"
+
+#: lib/voria2_web/live/manage_live/stations/form.ex:140
+#, elixir-autogen, elixir-format
+msgid "Main Station"
+msgstr "Stazione principale"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:213
+#, elixir-autogen, elixir-format
+msgid "Manage"
+msgstr "Gestione"
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:324
+#, elixir-autogen, elixir-format
+msgid "Manage Photos"
+msgstr "Gestisci foto"
+
+#: lib/voria2_web/live/manage_live/dashboard.ex:60
+#, elixir-autogen, elixir-format
+msgid "Manage files in the blogcontent folder on R2"
+msgstr "Gestisci i file nella cartella blogcontent su R2"
+
+#: lib/voria2_web/live/manage_live/installations/photos.ex:146
+#, elixir-autogen, elixir-format
+msgid "Manage photos for this installation"
+msgstr ""
+
+#: lib/voria2_web/live/manage_live/dashboard.ex:68
+#, elixir-autogen, elixir-format
+msgid "Manage platform users and access"
+msgstr "Gestisci utenti e accessi alla piattaforma"
+
+#: lib/voria2_web/live/manage_live/users/profile.ex:55
+#, elixir-autogen, elixir-format
+msgid "Manage your account and security settings."
+msgstr "Gestisci il tuo account e le impostazioni di sicurezza."
+
+#: lib/voria2_web/live/manage_live/dashboard.ex:18
+#, elixir-autogen, elixir-format
+msgid "Manage your weather network from here."
+msgstr "Gestisci la tua rete meteo da qui."
+
+#: lib/voria2_web/components/manage_components.ex:472
+#: lib/voria2_web/live/manage_live/faults/index.ex:147
+#, elixir-autogen, elixir-format
+msgid "Mark this fault as resolved?"
+msgstr "Contrassegnare questo guasto come risolto?"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:292
+#, elixir-autogen, elixir-format
+msgid "Matched shots"
+msgstr "Foto corrispondenti"
+
+#: lib/voria2_web/live/home_live.ex:351
+#, elixir-autogen, elixir-format
+msgid "Max Gust (%{unit})"
+msgstr "Raffica max (%{unit})"
+
+#: lib/voria2_web/live/installation_live.ex:664
+#, elixir-autogen, elixir-format
+msgid "Max gust:"
+msgstr "Raffica max:"
+
+#: lib/voria2_web/live/installation_live.ex:470
+#, elixir-autogen, elixir-format
+msgid "Max:"
+msgstr "Max:"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:248
+#: lib/voria2_web/live/manage_live/sensors/form.ex:140
+#, elixir-autogen, elixir-format
+msgid "Measurement Type"
+msgstr "Tipo misurazione"
+
+#: lib/voria2_web/components/layouts.ex:204
+#: lib/voria2_web/live/manage_live/dashboard.ex:35
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:80
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:11
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:44
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:47
+#, elixir-autogen, elixir-format
+msgid "Measurement Types"
+msgstr "Tipi di misurazione"
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:63
+#, elixir-autogen, elixir-format
+msgid "Measurement type created."
+msgstr "Tipo di misurazione creato."
+
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:28
+#, elixir-autogen, elixir-format
+msgid "Measurement type deleted."
+msgstr "Tipo di misurazione eliminato."
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:45
+#, elixir-autogen, elixir-format
+msgid "Measurement type not found."
+msgstr "Tipo di misurazione non trovato."
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:64
+#, elixir-autogen, elixir-format
+msgid "Measurement type updated."
+msgstr "Tipo di misurazione aggiornato."
+
+#: lib/voria2_web/components/layouts.ex:193
+#, elixir-autogen, elixir-format
+msgid "Measurements"
+msgstr "Misurazioni"
+
+#: lib/voria2_web/components/layouts.ex:236
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:20
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:213
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:216
+#, elixir-autogen, elixir-format
+msgid "Measurements Editor"
+msgstr "Editor misurazioni"
+
+#: lib/voria2_web/live/installation_live.ex:457
+#, elixir-autogen, elixir-format
+msgid "Min:"
+msgstr "Min:"
+
+#: lib/voria2_web/live/installation_live.ex:841
+#: lib/voria2_web/live/manage_live/sensors/form.ex:161
+#: lib/voria2_web/live/manage_live/sensors/show.ex:206
+#: lib/voria2_web/live/manage_live/stations/show.ex:329
+#, elixir-autogen, elixir-format
+msgid "Model"
+msgstr "Modello"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:592
+#, elixir-autogen, elixir-format
+msgid "Multiple sensors found. Please contact administrator."
+msgstr "Trovati sensori multipli. Contattare l'amministratore."
+
+#: lib/voria2_web/live/manage_live/installations/form.ex:109
+#, elixir-autogen, elixir-format
+msgid "My Weather Station"
+msgstr "La mia stazione meteo"
+
+#: lib/voria2_web/live/installation_live.ex:787
+#: lib/voria2_web/live/installation_live.ex:876
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:207
+#: lib/voria2_web/live/manage_live/installations/form.ex:108
+#: lib/voria2_web/live/manage_live/installations/index.ex:70
+#: lib/voria2_web/live/manage_live/installations/show.ex:218
+#: lib/voria2_web/live/manage_live/installations/show.ex:280
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:101
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:73
+#: lib/voria2_web/live/manage_live/stations/form.ex:139
+#: lib/voria2_web/live/manage_live/users/form.ex:121
+#: lib/voria2_web/live/manage_live/users/index.ex:47
+#: lib/voria2_web/live/manage_live/users/profile.ex:60
+#: lib/voria2_web/live/manage_live/webcams/form.ex:138
+#, elixir-autogen, elixir-format
+msgid "Name"
+msgstr "Nome"
+
+#: lib/voria2_web/components/layouts.ex:174
+#, elixir-autogen, elixir-format
+msgid "Network"
+msgstr "Rete"
+
+#: lib/voria2_web/components/layouts.ex:165
+#, elixir-autogen, elixir-format
+msgid "Network Management"
+msgstr "Gestione rete"
+
+#: lib/voria2_web/live/manage_live/installations/form.ex:88
+#, elixir-autogen, elixir-format
+msgid "New"
+msgstr "Nuova"
+
+#: lib/voria2_web/live/manage_live/dashboard.ex:21
+#: lib/voria2_web/live/manage_live/installations/form.ex:21
+#: lib/voria2_web/live/manage_live/installations/index.ex:50
+#: lib/voria2_web/live/manage_live/installations/index.ex:67
+#, elixir-autogen, elixir-format
+msgid "New Installation"
+msgstr "Nuova installazione"
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:21
+#, elixir-autogen, elixir-format
+msgid "New Measurement Type"
+msgstr "Nuovo tipo di misurazione"
+
+#: lib/voria2_web/live/manage_live/users/profile.ex:93
+#, elixir-autogen, elixir-format
+msgid "New Password"
+msgstr "Nuova password"
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:200
+#: lib/voria2_web/live/manage_live/installations/show.ex:215
+#: lib/voria2_web/live/manage_live/stations/form.ex:119
+#, elixir-autogen, elixir-format
+msgid "New Station"
+msgstr "Nuova stazione"
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:81
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:53
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:70
+#, elixir-autogen, elixir-format
+msgid "New Type"
+msgstr "Nuovo tipo"
+
+#: lib/voria2_web/live/manage_live/users/form.ex:27
+#: lib/voria2_web/live/manage_live/users/form.ex:102
+#: lib/voria2_web/live/manage_live/users/index.ex:34
+#, elixir-autogen, elixir-format
+msgid "New User"
+msgstr "Nuovo utente"
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:262
+#: lib/voria2_web/live/manage_live/installations/show.ex:277
+#: lib/voria2_web/live/manage_live/webcams/form.ex:118
+#, elixir-autogen, elixir-format
+msgid "New Webcam"
+msgstr "Nuova webcam"
+
+#: lib/voria2_web/live/compare_live.ex:211
+#: lib/voria2_web/live/installation_live.ex:305
+#: lib/voria2_web/live/manage_live/faults/index.ex:223
+#: lib/voria2_web/live/webcam_viewer_live.ex:141
+#: lib/voria2_web/live/webcams_live.ex:334
+#, elixir-autogen, elixir-format
+msgid "Next"
+msgstr "Succ"
+
+#: lib/voria2_web/live/manage_live/stations/show.ex:394
+#, elixir-autogen, elixir-format
+msgid "No API keys yet. Generate one to start ingesting data."
+msgstr "Nessuna chiave API. Generane una per iniziare a inserire dati."
+
+#: lib/voria2_web/live/manage_live/webcams/show.ex:275
+#, elixir-autogen, elixir-format
+msgid "No API keys yet. Generate one to start uploading webcam shots."
+msgstr "Nessuna chiave API. Generane una per iniziare a caricare gli scatti."
+
+#: lib/voria2_web/live/manage_live/stations/show.ex:434
+#: lib/voria2_web/live/manage_live/webcams/show.ex:315
+#, elixir-autogen, elixir-format
+msgid "No active faults."
+msgstr ""
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:581
+#, elixir-autogen, elixir-format
+msgid "No active sensor found for this station and type."
+msgstr "Nessun sensore attivo trovato per questa stazione e tipo."
+
+#: lib/voria2_web/live/compare_live.ex:330
+#, elixir-autogen, elixir-format
+msgid "No data available for the selected measurement type and time range."
+msgstr "Nessun dato disponibile per il tipo di misurazione e l'intervallo selezionati."
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:410
+#, elixir-autogen, elixir-format
+msgid "No errors recorded."
+msgstr "Nessun errore registrato."
+
+#: lib/voria2_web/live/manage_live/faults/index.ex:182
+#, elixir-autogen, elixir-format
+msgid "No fault history"
+msgstr "Nessuno storico guasti"
+
+#: lib/voria2_web/live/manage_live/stations/show.ex:442
+#: lib/voria2_web/live/manage_live/webcams/show.ex:323
+#, elixir-autogen, elixir-format, fuzzy
+msgid "No fault history."
+msgstr "Nessuno storico guasti"
+
+#: lib/voria2_web/live/manage_live/faults/index.ex:183
+#, elixir-autogen, elixir-format
+msgid "No faults found matching current filter."
+msgstr "Nessun guasto corrisponde al filtro attuale."
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:247
+#, elixir-autogen, elixir-format
+msgid "No faults recorded for this sensor."
+msgstr "Nessun guasto registrato per questo sensore."
+
+#: lib/voria2_web/components/manage_components.ex:419
+#, elixir-autogen, elixir-format, fuzzy
+msgid "No faults recorded."
+msgstr "Nessun guasto registrato per questo sensore."
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:217
+#, elixir-autogen, elixir-format
+msgid "No files yet."
+msgstr "Nessun file ancora."
+
+#: lib/voria2_web/live/installation_live.ex:757
+#: lib/voria2_web/live/webcams_live.ex:234
+#, elixir-autogen, elixir-format
+msgid "No image"
+msgstr "Nessuna immagine"
+
+#: lib/voria2_web/live/webcam_viewer_live.ex:112
+#: lib/voria2_web/live/webcams_live.ex:305
+#, elixir-autogen, elixir-format, fuzzy
+msgid "No image available"
+msgstr "Nessuna immagine"
+
+#: lib/voria2_web/live/manage_live/installations/index.ex:59
+#, elixir-autogen, elixir-format
+msgid "No installations yet"
+msgstr "Nessuna installazione"
+
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:62
+#, elixir-autogen, elixir-format
+msgid "No measurement types yet"
+msgstr "Nessun tipo di misurazione"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:525
+#, elixir-autogen, elixir-format
+msgid "No measurements loaded"
+msgstr "Nessuna misurazione caricata"
+
+#: lib/voria2_web/components/installation_components.ex:34
+#: lib/voria2_web/live/manage_live/installations/photos.ex:245
+#: lib/voria2_web/live/manage_live/installations/show.ex:333
+#, elixir-autogen, elixir-format
+msgid "No photos yet"
+msgstr "Nessuna foto ancora"
+
+#: lib/voria2_web/live/installation_live.ex:360
+#, elixir-autogen, elixir-format
+msgid "No sensors configured yet."
+msgstr "Nessun sensore configurato."
+
+#: lib/voria2_web/live/manage_live/stations/show.ex:309
+#, elixir-autogen, elixir-format
+msgid "No sensors installed"
+msgstr "Nessun sensore installato"
+
+#: lib/voria2_web/live/webcam_viewer_live.ex:123
+#: lib/voria2_web/live/webcams_live.ex:316
+#, elixir-autogen, elixir-format
+msgid "No shots"
+msgstr "Nessuno scatto"
+
+#: lib/voria2_web/live/webcam_jump.ex:45
+#, elixir-autogen, elixir-format
+msgid "No shots found for this webcam."
+msgstr "Nessuno scatto trovato per questa webcam."
+
+#: lib/voria2_web/live/installation_live.ex:771
+#: lib/voria2_web/live/webcams_live.ex:249
+#, elixir-autogen, elixir-format
+msgid "No shots yet"
+msgstr "Nessuna foto ancora"
+
+#: lib/voria2_web/live/installation_live.ex:194
+#, elixir-autogen, elixir-format
+msgid "No station configured for this installation."
+msgstr "Nessuna stazione configurata per questa installazione."
+
+#: lib/voria2_web/live/compare_live.ex:126
+#, elixir-autogen, elixir-format
+msgid "No stations match your search."
+msgstr "Nessuna stazione corrisponde alla ricerca."
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:206
+#, elixir-autogen, elixir-format
+msgid "No stations yet"
+msgstr "Nessuna stazione"
+
+#: lib/voria2_web/live/manage_live/users/index.ex:43
+#, elixir-autogen, elixir-format
+msgid "No users"
+msgstr "Nessun utente"
+
+#: lib/voria2_web/live/manage_live/users/index.ex:44
+#, elixir-autogen, elixir-format
+msgid "No users registered yet."
+msgstr "Nessun utente registrato."
+
+#: lib/voria2_web/live/webcams_live.ex:202
+#, elixir-autogen, elixir-format
+msgid "No webcams are currently active."
+msgstr "Nessuna webcam attiva."
+
+#: lib/voria2_web/live/installation_live.ex:726
+#, elixir-autogen, elixir-format
+msgid "No webcams configured for this installation."
+msgstr "Nessuna webcam configurata per questa installazione."
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:215
+#, elixir-autogen, elixir-format, fuzzy
+msgid "No webcams match your search."
+msgstr "Nessuna webcam attiva."
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:268
+#, elixir-autogen, elixir-format
+msgid "No webcams yet"
+msgstr "Nessuna webcam"
+
+#: lib/voria2_web/live/manage_live/sensors/form.ex:176
+#, elixir-autogen, elixir-format
+msgid "Not applicable"
+msgstr "Non applicabile"
+
+#: lib/voria2_web/live/installation_live.ex:843
+#: lib/voria2_web/live/manage_live/sensors/form.ex:167
+#: lib/voria2_web/live/manage_live/sensors/show.ex:218
+#, elixir-autogen, elixir-format
+msgid "Notes"
+msgstr "Note"
+
+#: lib/voria2_web/components/manage_components.ex:100
+#, elixir-autogen, elixir-format
+msgid "Nothing here yet"
+msgstr "Nessun elemento"
+
+#: lib/voria2_web/live/installation_live.ex:709
+#, elixir-autogen, elixir-format
+msgid "Now:"
+msgstr "Adesso:"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:334
+#, elixir-autogen, elixir-format
+msgid "Only one purge job can run at a time."
+msgstr "Solo un processo di eliminazione può essere in esecuzione."
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:383
+#, elixir-autogen, elixir-format
+msgid "Open"
+msgstr "Apri"
+
+#: lib/voria2_web/components/layouts.ex:135
+#, elixir-autogen, elixir-format
+msgid "Open menu"
+msgstr "Apri menu"
+
+#: lib/voria2_web/live/manage_live/stations/form.ex:152
+#: lib/voria2_web/live/manage_live/webcams/form.ex:151
+#, elixir-autogen, elixir-format
+msgid "Optional description"
+msgstr "Descrizione opzionale"
+
+#: lib/voria2_web/live/manage_live/installations/form.ex:115
+#, elixir-autogen, elixir-format
+msgid "Optional notes about this installation"
+msgstr "Note opzionali su questa installazione"
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:155
+#: lib/voria2_web/live/manage_live/stations/show.ex:261
+#: lib/voria2_web/live/manage_live/webcams/show.ex:214
+#, elixir-autogen, elixir-format
+msgid "Overview"
+msgstr "Panoramica"
+
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:85
+#, elixir-autogen, elixir-format
+msgid "Owner"
+msgstr "Proprietario"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:325
+#, elixir-autogen, elixir-format
+msgid "PDF preview is not available here. Download the file to view it."
+msgstr "L'anteprima PDF non e disponibile qui. Scarica il file per visualizzarlo."
+
+#: lib/voria2_web/live/manage_live/users/form.ex:134
+#, elixir-autogen, elixir-format
+msgid "Password"
+msgstr "Password"
+
+#: lib/voria2_web/live/manage_live/users/profile.ex:40
+#, elixir-autogen, elixir-format
+msgid "Password updated successfully."
+msgstr "Password aggiornata con successo."
+
+#: lib/voria2_web/live/manage_live/users/index.ex:66
+#: lib/voria2_web/live/manage_live/users/profile.ex:74
+#, elixir-autogen, elixir-format
+msgid "Pending"
+msgstr "In attesa"
+
+#: lib/voria2_web/live/manage_live/installations/photos.ex:104
+#, elixir-autogen, elixir-format
+msgid "Photo already exists."
+msgstr "La foto esiste già."
+
+#: lib/voria2_web/live/manage_live/installations/photos.ex:61
+#, elixir-autogen, elixir-format
+msgid "Photo deleted."
+msgstr "Foto eliminata."
+
+#: lib/voria2_web/live/manage_live/installations/photos.ex:96
+#, elixir-autogen, elixir-format
+msgid "Photo uploaded successfully."
+msgstr "Foto caricata con successo."
+
+#: lib/voria2_web/live/installation_live.ex:815
+#: lib/voria2_web/live/manage_live/installations/photos.ex:140
+#, elixir-autogen, elixir-format
+msgid "Photos"
+msgstr "Foto"
+
+#: lib/voria2_web/live/manage_live/installations/photos.ex:237
+#: lib/voria2_web/live/manage_live/installations/show.ex:156
+#, elixir-autogen, elixir-format
+msgid "Photos (%{count})"
+msgstr "Foto (%{count})"
+
+#: lib/voria2_web/live/manage_live/dashboard.ex:29
+#, elixir-autogen, elixir-format
+msgid "Physical locations hosting stations and webcams"
+msgstr "Postazioni fisiche con stazioni e webcam"
+
+#: lib/voria2_web/live/manage_live/installations/index.ex:46
+#, elixir-autogen, elixir-format
+msgid "Physical locations hosting your weather stations and webcams."
+msgstr "Postazioni fisiche con stazioni meteo e webcam."
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:55
+#, elixir-autogen, elixir-format
+msgid "Please select a date range."
+msgstr "Seleziona un intervallo di date."
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:52
+#, elixir-autogen, elixir-format
+msgid "Please select a measurement type."
+msgstr "Seleziona un tipo di misurazione."
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:49
+#, elixir-autogen, elixir-format
+msgid "Please select a station."
+msgstr "Seleziona una stazione."
+
+#: lib/voria2_web/controllers/preferences_html/index.html.heex:7
+#: lib/voria2_web/controllers/preferences_html/index.html.heex:39
+#: lib/voria2_web/live/home_live.ex:91
+#, elixir-autogen, elixir-format
+msgid "Preferences"
+msgstr "Preferenze"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:268
+#, elixir-autogen, elixir-format
+msgid "Presets"
+msgstr "Preset"
+
+#: lib/voria2_web/controllers/preferences_html/index.html.heex:129
+#: lib/voria2_web/live/compare_live.ex:502
+#: lib/voria2_web/live/installation_live.ex:1380
+#: lib/voria2_web/live/installation_live.ex:1445
+#, elixir-autogen, elixir-format
+msgid "Pressure"
+msgstr "Pressione"
+
+#: lib/voria2_web/live/home_live.ex:345
+#, elixir-autogen, elixir-format
+msgid "Pressure (%{unit})"
+msgstr "Pressione (%{unit})"
+
+#: lib/voria2_web/live/compare_live.ex:202
+#: lib/voria2_web/live/installation_live.ex:296
+#: lib/voria2_web/live/manage_live/faults/index.ex:216
+#: lib/voria2_web/live/webcam_viewer_live.ex:134
+#: lib/voria2_web/live/webcams_live.ex:327
+#, elixir-autogen, elixir-format
+msgid "Prev"
+msgstr "Prec"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:287
+#, elixir-autogen, elixir-format
+msgid "Preview"
+msgstr "Anteprima"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:347
+#, elixir-autogen, elixir-format
+msgid "Processed"
+msgstr "Elaborati"
+
+#: lib/voria2_web/live/manage_live/dashboard.ex:82
+#: lib/voria2_web/live/manage_live/users/profile.ex:17
+#: lib/voria2_web/live/manage_live/users/profile.ex:51
+#: lib/voria2_web/live/manage_live/users/profile.ex:54
+#, elixir-autogen, elixir-format
+msgid "Profile"
+msgstr "Profilo"
+
+#: lib/voria2_web/components/layouts.ex:320
+#, elixir-autogen, elixir-format
+msgid "Profile & Password"
+msgstr "Profilo e password"
+
+#: lib/voria2_web/controllers/preferences_html/index.html.heex:151
+#: lib/voria2_web/live/compare_live.ex:504
+#: lib/voria2_web/live/installation_live.ex:1382
+#, elixir-autogen, elixir-format
+msgid "Rain"
+msgstr "Precipitazioni"
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:119
+#, elixir-autogen, elixir-format
+msgid "Rain (precipitation)"
+msgstr "Pioggia (precipitazioni)"
+
+#: lib/voria2_web/live/manage_live/sensors/form.ex:175
+#: lib/voria2_web/live/manage_live/sensors/show.ex:215
+#, elixir-autogen, elixir-format
+msgid "Rain Mode"
+msgstr "Modalità pioggia"
+
+#: lib/voria2_web/live/home_live.ex:353
+#, elixir-autogen, elixir-format
+msgid "Rain Rate (%{unit}/h)"
+msgstr "Intensità (%{unit}/h)"
+
+#: lib/voria2_web/live/installation_live.ex:702
+#, elixir-autogen, elixir-format
+msgid "Rain Today"
+msgstr "Pioggia oggi"
+
+#: lib/voria2_web/live/home_live.ex:352
+#, elixir-autogen, elixir-format
+msgid "Rain Today (%{unit})"
+msgstr "Pioggia oggi (%{unit})"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:377
+#, elixir-autogen, elixir-format
+msgid "Range"
+msgstr "Intervallo"
+
+#: lib/voria2_web/live/installation_live.ex:708
+#, elixir-autogen, elixir-format
+msgid "Rate:"
+msgstr "Intensità:"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:347
+#, elixir-autogen, elixir-format
+msgid "Raw"
+msgstr "Grezzo"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:841
+#, elixir-autogen, elixir-format
+msgid "Raw data"
+msgstr "Dati grezzi"
+
+#: lib/voria2_web/live/installation_live.ex:953
+#: lib/voria2_web/live/manage_live/faults/index.ex:192
+#: lib/voria2_web/live/manage_live/sensors/show.ex:229
+#: lib/voria2_web/live/manage_live/stations/show.ex:412
+#: lib/voria2_web/live/manage_live/webcams/show.ex:293
+#, elixir-autogen, elixir-format
+msgid "Reason"
+msgstr "Motivo"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:406
+#, elixir-autogen, elixir-format
+msgid "Recent errors"
+msgstr "Errori recenti"
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:212
+#, elixir-autogen, elixir-format
+msgid "Removed On"
+msgstr "Rimosso il"
+
+#: lib/voria2_web/live/manage_live/sensors/form.ex:154
+#, elixir-autogen, elixir-format
+msgid "Removed On (if decommissioned)"
+msgstr "Rimosso il (se dismesso)"
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:241
+#: lib/voria2_web/live/manage_live/stations/show.ex:424
+#: lib/voria2_web/live/manage_live/webcams/show.ex:305
+#, elixir-autogen, elixir-format
+msgid "Report Fault"
+msgstr "Segnala guasto"
+
+#: lib/voria2_web/components/manage_components.ex:466
+#: lib/voria2_web/components/manage_components.ex:473
+#: lib/voria2_web/live/manage_live/faults/index.ex:142
+#: lib/voria2_web/live/manage_live/faults/index.ex:148
+#, elixir-autogen, elixir-format
+msgid "Resolve"
+msgstr "Risolvi"
+
+#: lib/voria2_web/components/manage_components.ex:471
+#: lib/voria2_web/live/manage_live/faults/index.ex:146
+#, elixir-autogen, elixir-format
+msgid "Resolve Fault"
+msgstr "Risolvi guasto"
+
+#: lib/voria2_web/components/manage_components.ex:450
+#: lib/voria2_web/live/installation_live.ex:955
+#: lib/voria2_web/live/manage_live/faults/index.ex:198
+#, elixir-autogen, elixir-format
+msgid "Resolved"
+msgstr "Risolto"
+
+#: lib/voria2_web/components/manage_components.ex:457
+#, elixir-autogen, elixir-format
+msgid "Resolved %{datetime}"
+msgstr ""
+
+#: lib/voria2_web/components/manage_components.ex:319
+#: lib/voria2_web/components/manage_components.ex:330
+#, elixir-autogen, elixir-format
+msgid "Revoke"
+msgstr "Revoca"
+
+#: lib/voria2_web/components/manage_components.ex:324
+#, elixir-autogen, elixir-format
+msgid "Revoke API Key"
+msgstr "Revoca chiave API"
+
+#: lib/voria2_web/live/installation_live.ex:998
+#, elixir-autogen, elixir-format
+msgid "Rising"
+msgstr "In salita"
+
+#: lib/voria2_web/live/manage_live/users/index.ex:53
+#: lib/voria2_web/live/manage_live/users/profile.ex:62
+#, elixir-autogen, elixir-format
+msgid "Role"
+msgstr "Ruolo"
+
+#: lib/voria2_web/live/manage_live/installations/form.ex:130
+#, elixir-autogen, elixir-format
+msgid "Rome"
+msgstr "Roma"
+
+#: lib/voria2_web/live/manage_live/webcams/form.ex:139
+#, elixir-autogen, elixir-format
+msgid "Rooftop Cam"
+msgstr "Cam sul tetto"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:582
+#, elixir-autogen, elixir-format
+msgid "Running"
+msgstr "In esecuzione"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:461
+#, elixir-autogen, elixir-format
+msgid "Save"
+msgstr "Salva"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:368
+#: lib/voria2_web/live/manage_live/installations/form.ex:178
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:146
+#: lib/voria2_web/live/manage_live/sensors/form.ex:197
+#: lib/voria2_web/live/manage_live/stations/form.ex:173
+#: lib/voria2_web/live/manage_live/users/form.ex:175
+#: lib/voria2_web/live/manage_live/webcams/form.ex:178
+#, elixir-autogen, elixir-format
+msgid "Save Changes"
+msgstr "Salva modifiche"
+
+#: lib/voria2_web/controllers/preferences_html/index.html.heex:201
+#, elixir-autogen, elixir-format
+msgid "Save Preferences"
+msgstr "Salva preferenze"
+
+#: lib/voria2_web/components/manage_components.ex:366
+#, elixir-autogen, elixir-format
+msgid "Save this key now — it will <strong>never</strong> be shown again."
+msgstr "Salva questa chiave ora — non verrà <strong>mai</strong> più mostrata."
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:117
+#, elixir-autogen, elixir-format
+msgid "Scalar (single value)"
+msgstr "Scalare (valore singolo)"
+
+#: lib/voria2_web/live/webcam_viewer_live.ex:176
+#: lib/voria2_web/live/webcam_viewer_live.ex:177
+#: lib/voria2_web/live/webcams_live.ex:188
+#: lib/voria2_web/live/webcams_live.ex:189
+#: lib/voria2_web/live/webcams_live.ex:369
+#: lib/voria2_web/live/webcams_live.ex:370
+#, elixir-autogen, elixir-format
+msgid "Search nearest shot"
+msgstr "Cerca scatto più vicino"
+
+#: lib/voria2_web/live/compare_live.ex:107
+#, elixir-autogen, elixir-format
+msgid "Search stations..."
+msgstr "Cerca stazioni..."
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:179
+#, elixir-autogen, elixir-format
+msgid "Search webcams..."
+msgstr "Cerca webcam..."
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:393
+#, elixir-autogen, elixir-format
+msgid "Select a file from the table to preview it here."
+msgstr "Seleziona un file dalla tabella per visualizzarne l'anteprima qui."
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:527
+#, elixir-autogen, elixir-format
+msgid "Select a station, measurement type, and date range to load measurements."
+msgstr "Seleziona una stazione, un tipo di misurazione e un intervallo di date per caricare le misurazioni."
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:234
+#, elixir-autogen, elixir-format
+msgid "Select a station..."
+msgstr "Seleziona una stazione..."
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:254
+#: lib/voria2_web/live/manage_live/sensors/form.ex:141
+#, elixir-autogen, elixir-format
+msgid "Select a type..."
+msgstr "Seleziona un tipo..."
+
+#: lib/voria2_web/live/webcams_live.ex:437
+#, elixir-autogen, elixir-format
+msgid "Select a webcam first."
+msgstr "Seleziona prima una webcam."
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:537
+#, elixir-autogen, elixir-format
+msgid "Select at least one webcam."
+msgstr "Seleziona almeno una webcam."
+
+#: lib/voria2_web/live/compare_live.ex:328
+#, elixir-autogen, elixir-format
+msgid "Select stations to compare their measurements."
+msgstr "Seleziona stazioni per confrontare le misurazioni."
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:115
+#, elixir-autogen, elixir-format
+msgid "Select storage type..."
+msgstr "Seleziona tipo di archiviazione..."
+
+#: lib/voria2_web/live/webcams_live.ex:163
+#, elixir-autogen, elixir-format
+msgid "Select webcam"
+msgstr "Seleziona webcam"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:156
+#, elixir-autogen, elixir-format
+msgid "Select webcams, choose a local date range, count matching shots, then purge them from storage and the database in monitored batches."
+msgstr "Seleziona webcam, scegli un intervallo di date locale, conta le foto corrispondenti, quindi eliminale dall'archivio e dal database in batch monitorati."
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:35
+#: lib/voria2_web/live/manage_live/sensors/show.ex:148
+#: lib/voria2_web/live/manage_live/sensors/show.ex:274
+#, elixir-autogen, elixir-format
+msgid "Sensor"
+msgstr "Sensore"
+
+#: lib/voria2_web/live/manage_live/sensors/form.ex:133
+#, elixir-autogen, elixir-format
+msgid "Sensor Details"
+msgstr "Dettagli sensore"
+
+#: lib/voria2_web/live/manage_live/sensors/form.ex:99
+#, elixir-autogen, elixir-format
+msgid "Sensor added."
+msgstr "Sensore aggiunto."
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:60
+#: lib/voria2_web/live/manage_live/stations/show.ex:125
+#, elixir-autogen, elixir-format
+msgid "Sensor decommissioned."
+msgstr "Sensore dismesso."
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:81
+#, elixir-autogen, elixir-format
+msgid "Sensor deleted."
+msgstr "Sensore eliminato."
+
+#: lib/voria2_web/live/manage_live/sensors/form.ex:74
+#: lib/voria2_web/live/manage_live/sensors/show.ex:47
+#: lib/voria2_web/live/manage_live/stations/show.ex:113
+#, elixir-autogen, elixir-format
+msgid "Sensor not found."
+msgstr "Sensore non trovato."
+
+#: lib/voria2_web/live/manage_live/sensors/form.ex:100
+#, elixir-autogen, elixir-format
+msgid "Sensor updated."
+msgstr "Sensore aggiornato."
+
+#: lib/voria2_web/live/installation_live.ex:835
+#, elixir-autogen, elixir-format
+msgid "Sensors"
+msgstr "Sensori"
+
+#: lib/voria2_web/live/manage_live/stations/show.ex:262
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Sensors (%{count})"
+msgstr "Stazioni (%{count})"
+
+#: lib/voria2_web/live/installation_live.ex:932
+#, elixir-autogen, elixir-format
+msgid "Showing faults from this year only"
+msgstr "Solo guasti di quest'anno"
+
+#: lib/voria2_web/live/manage_live/faults/index.ex:205
+#, elixir-autogen, elixir-format
+msgid "Showing page %{page} of %{max_page}"
+msgstr "Pagina %{page} di %{max_page}"
+
+#: lib/voria2_web/components/layouts.ex:331
+#, elixir-autogen, elixir-format
+msgid "Sign Out"
+msgstr "Esci"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:209
+#, elixir-autogen, elixir-format
+msgid "Size"
+msgstr "Dimensione"
+
+#: lib/voria2_web/live/webcam_viewer_live.ex:205
+#: lib/voria2_web/live/webcams_live.ex:398
+#, elixir-autogen, elixir-format
+msgid "Size:"
+msgstr "Dimensione:"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:220
+#: lib/voria2_web/live/manage_live/installations/show.ex:223
+#: lib/voria2_web/live/manage_live/installations/show.ex:285
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:107
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:76
+#: lib/voria2_web/live/manage_live/stations/form.ex:145
+#: lib/voria2_web/live/manage_live/stations/show.ex:275
+#: lib/voria2_web/live/manage_live/webcams/form.ex:144
+#: lib/voria2_web/live/manage_live/webcams/show.ex:226
+#, elixir-autogen, elixir-format
+msgid "Slug"
+msgstr "Slug"
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:102
+#, elixir-autogen, elixir-format
+msgid "Soil Moisture"
+msgstr "Umidità del suolo"
+
+#: lib/voria2_web/components/layouts.ex:106
+#, elixir-autogen, elixir-format
+msgid "Something went wrong!"
+msgstr "Qualcosa è andato storto!"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:334
+#, elixir-autogen, elixir-format
+msgid "Speed (m/s)"
+msgstr "Velocità (m/s)"
+
+#: lib/voria2_web/live/installation_live.ex:1010
+#, elixir-autogen, elixir-format
+msgid "Stable"
+msgstr "Stabile"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:243
+#, elixir-autogen, elixir-format
+msgid "Start"
+msgstr "Inizio"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:320
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:450
+#, elixir-autogen, elixir-format
+msgid "Start Purge"
+msgstr "Avvia eliminazione"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:560
+#, elixir-autogen, elixir-format
+msgid "Start must be before end."
+msgstr "L'inizio deve precedere la fine."
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:426
+#, elixir-autogen, elixir-format
+msgid "Start webcam shot purge?"
+msgstr "Avviare l'eliminazione delle foto webcam?"
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:388
+#, elixir-autogen, elixir-format
+msgid "Started"
+msgstr "Avviato"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:228
+#, elixir-autogen, elixir-format
+msgid "Station"
+msgstr "Stazione"
+
+#: lib/voria2_web/live/installation_live.ex:145
+#, elixir-autogen, elixir-format
+msgid "Station Data"
+msgstr "Dati stazione"
+
+#: lib/voria2_web/live/manage_live/stations/form.ex:133
+#, elixir-autogen, elixir-format
+msgid "Station Details"
+msgstr "Dettagli stazione"
+
+#: lib/voria2_web/live/manage_live/stations/form.ex:99
+#, elixir-autogen, elixir-format
+msgid "Station created."
+msgstr "Stazione creata."
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:56
+#: lib/voria2_web/live/manage_live/stations/show.ex:147
+#, elixir-autogen, elixir-format
+msgid "Station deleted."
+msgstr "Stazione eliminata."
+
+#: lib/voria2_web/live/installation_live.ex:827
+#, elixir-autogen, elixir-format
+msgid "Station description"
+msgstr "Descrizione stazione"
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:64
+#: lib/voria2_web/live/manage_live/sensors/form.ex:40
+#: lib/voria2_web/live/manage_live/stations/form.ex:74
+#: lib/voria2_web/live/manage_live/stations/show.ex:38
+#, elixir-autogen, elixir-format
+msgid "Station not found."
+msgstr "Stazione non trovata."
+
+#: lib/voria2_web/live/manage_live/stations/form.ex:100
+#, elixir-autogen, elixir-format
+msgid "Station updated."
+msgstr "Stazione aggiornata."
+
+#: lib/voria2_web/live/compare_live.ex:98
+#, elixir-autogen, elixir-format
+msgid "Stations"
+msgstr "Stazioni"
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:158
+#, elixir-autogen, elixir-format
+msgid "Stations (%{count})"
+msgstr "Stazioni (%{count})"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:235
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:93
+#: lib/voria2_web/live/manage_live/installations/index.ex:85
+#: lib/voria2_web/live/manage_live/installations/show.ex:169
+#: lib/voria2_web/live/manage_live/installations/show.ex:226
+#: lib/voria2_web/live/manage_live/installations/show.ex:288
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:88
+#: lib/voria2_web/live/manage_live/sensors/show.ex:193
+#: lib/voria2_web/live/manage_live/stations/show.ex:274
+#: lib/voria2_web/live/manage_live/stations/show.ex:332
+#: lib/voria2_web/live/manage_live/webcams/show.ex:225
+#, elixir-autogen, elixir-format
+msgid "Status"
+msgstr "Stato"
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:114
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:79
+#: lib/voria2_web/live/manage_live/sensors/show.ex:203
+#, elixir-autogen, elixir-format
+msgid "Storage Type"
+msgstr "Tipo di archiviazione"
+
+#: lib/voria2_web/live/manage_live/webcams/form.ex:157
+#: lib/voria2_web/live/manage_live/webcams/show.ex:232
+#, elixir-autogen, elixir-format
+msgid "Stream URL"
+msgstr ""
+
+#: lib/voria2_web/live/manage_live/faults/index.ex:189
+#, elixir-autogen, elixir-format
+msgid "Subject"
+msgstr "Soggetto"
+
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:86
+#, elixir-autogen, elixir-format
+msgid "System"
+msgstr "Sistema"
+
+#: lib/voria2_web/live/home_live.ex:340
+#, elixir-autogen, elixir-format
+msgid "Temp Max (%{unit})"
+msgstr "Temp Massima (%{unit})"
+
+#: lib/voria2_web/live/home_live.ex:339
+#, elixir-autogen, elixir-format
+msgid "Temp Min (%{unit})"
+msgstr "Temp Minima (%{unit})"
+
+#: lib/voria2_web/controllers/preferences_html/index.html.heex:85
+#: lib/voria2_web/live/compare_live.ex:500
+#: lib/voria2_web/live/installation_live.ex:446
+#: lib/voria2_web/live/installation_live.ex:1378
+#: lib/voria2_web/live/installation_live.ex:1435
+#, elixir-autogen, elixir-format
+msgid "Temperature"
+msgstr "Temperatura"
+
+#: lib/voria2_web/live/home_live.ex:338
+#, elixir-autogen, elixir-format
+msgid "Temperature (%{unit})"
+msgstr "Temperatura (%{unit})"
+
+#: lib/voria2_web/controllers/preferences_html/index.html.heex:47
+#, elixir-autogen, elixir-format
+msgid "Theme"
+msgstr "Tema"
+
+#: lib/voria2_web/components/manage_components.ex:326
+#, elixir-autogen, elixir-format
+msgid "This key will stop working immediately. Any devices using it will be unable to connect."
+msgstr "Questa chiave smetterà di funzionare immediatamente. I dispositivi che la usano non potranno più connettersi."
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:176
+#: lib/voria2_web/live/manage_live/stations/show.ex:358
+#, elixir-autogen, elixir-format
+msgid "This marks the sensor as no longer active. Historical data is preserved."
+msgstr "Il sensore verrà contrassegnato come non più attivo. I dati storici verranno preservati."
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:184
+#, elixir-autogen, elixir-format
+msgid "This permanently deletes the sensor and all its measurement data."
+msgstr "Questo eliminerà permanentemente il sensore e tutti i suoi dati di misurazione."
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:269
+#, elixir-autogen, elixir-format
+msgid "This removes the file from R2 immediately."
+msgstr "Questo rimuove immediatamente il file da R2."
+
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:110
+#, elixir-autogen, elixir-format
+msgid "This type will be removed. Sensors using it may be affected."
+msgstr "Questo tipo verrà rimosso. I sensori che lo utilizzano potrebbero essere interessati."
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:307
+#, elixir-autogen, elixir-format
+msgid "This will also delete all API keys for this webcam."
+msgstr "Verranno eliminate anche tutte le chiavi API di questa webcam."
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:245
+#, elixir-autogen, elixir-format
+msgid "This will also delete all sensors and API keys for this station."
+msgstr "Verranno eliminati anche tutti i sensori e le chiavi API di questa stazione."
+
+#: lib/voria2_web/live/manage_live/installations/index.ex:108
+#, elixir-autogen, elixir-format
+msgid "This will also delete all stations, webcams, and sensors under this installation."
+msgstr "Verranno eliminate anche tutte le stazioni, webcam e sensori di questa installazione."
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:428
+#, elixir-autogen, elixir-format
+msgid "This will delete matching webcam shots from storage first and then from the database."
+msgstr "Le foto corrispondenti verranno eliminate dall'archivio e poi dal database."
+
+#: lib/voria2_web/live/manage_live/webcams/show.ex:205
+#, elixir-autogen, elixir-format
+msgid "This will permanently delete all API keys for this webcam."
+msgstr "Questo eliminerà permanentemente tutte le chiavi API per questa webcam."
+
+#: lib/voria2_web/live/manage_live/stations/show.ex:249
+#, elixir-autogen, elixir-format
+msgid "This will permanently delete all sensors, measurements, and API keys for this station."
+msgstr "Questo eliminerà permanentemente tutti i sensori, le misurazioni e le chiavi API per questa stazione."
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:143
+#, elixir-autogen, elixir-format
+msgid "This will permanently delete all stations, webcams, sensors, and API keys under this installation."
+msgstr "Verranno eliminati definitivamente tutte le stazioni, webcam, sensori e chiavi API di questa installazione."
+
+#: lib/voria2_web/live/manage_live/users/form.ex:187
+#, elixir-autogen, elixir-format
+msgid "This will permanently delete the user account. This action cannot be undone."
+msgstr "Questo eliminerà permanentemente l'account utente. L'azione non può essere annullata."
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:316
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:835
+#, elixir-autogen, elixir-format
+msgid "Timestamp"
+msgstr "Data/ora"
+
+#: lib/voria2_web/live/manage_live/installations/form.ex:142
+#: lib/voria2_web/live/manage_live/installations/show.ex:175
+#, elixir-autogen, elixir-format
+msgid "Timezone"
+msgstr "Fuso orario"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:280
+#, elixir-autogen, elixir-format
+msgid "To"
+msgstr "A"
+
+#: lib/voria2_web/live/manage_live/users/form.ex:157
+#, elixir-autogen, elixir-format
+msgid "To change this user's password, use the password reset flow."
+msgstr "Per cambiare la password di questo utente, usa il recupero password."
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:344
+#, elixir-autogen, elixir-format
+msgid "Total"
+msgstr "Totale"
+
+#: lib/voria2_web/live/installation_live.ex:840
+#: lib/voria2_web/live/installation_live.ex:952
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:208
+#: lib/voria2_web/live/manage_live/faults/index.ex:186
+#: lib/voria2_web/live/manage_live/sensors/show.ex:200
+#: lib/voria2_web/live/manage_live/stations/show.ex:321
+#, elixir-autogen, elixir-format
+msgid "Type"
+msgstr "Tipo"
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:95
+#, elixir-autogen, elixir-format
+msgid "Type Details"
+msgstr "Dettagli tipo"
+
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:37
+#, elixir-autogen, elixir-format
+msgid "Type not found."
+msgstr "Tipo non trovato."
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:127
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:82
+#, elixir-autogen, elixir-format
+msgid "Unit"
+msgstr "Unità"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:446
+#, elixir-autogen, elixir-format
+msgid "Unknown"
+msgstr "Sconosciuto"
+
+#: lib/voria2_web/live/webcams_live.ex:553
+#, elixir-autogen, elixir-format
+msgid "Unknown installation"
+msgstr "Installazione sconosciuta"
+
+#: lib/voria2_web/live/manage_live/users/profile.ex:104
+#, elixir-autogen, elixir-format
+msgid "Update Password"
+msgstr "Aggiorna password"
+
+#: lib/voria2_web/live/manage_live/dashboard.ex:83
+#, elixir-autogen, elixir-format
+msgid "Update your name and change your password"
+msgstr "Aggiorna il nome e cambia la password"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:210
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:100
+#, elixir-autogen, elixir-format
+msgid "Updated"
+msgstr "Aggiornato"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:127
+#, elixir-autogen, elixir-format
+msgid "Upload Files"
+msgstr "Carica file"
+
+#: lib/voria2_web/live/manage_live/installations/photos.ex:159
+#, elixir-autogen, elixir-format
+msgid "Upload Photos"
+msgstr "Carica foto"
+
+#: lib/voria2_web/live/manage_live/installations/photos.ex:246
+#, elixir-autogen, elixir-format
+msgid "Upload your first photo to showcase this installation."
+msgstr "Carica la tua prima foto per mostrare questa installazione."
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:117
+#, elixir-autogen, elixir-format
+msgid "Upload, preview, copy public links, download, and delete files stored in the blogcontent folder."
+msgstr "Carica, visualizza in anteprima, copia link pubblici, scarica ed elimina i file archiviati nella cartella blogcontent."
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:163
+#: lib/voria2_web/live/manage_live/installations/photos.ex:197
+#, elixir-autogen, elixir-format
+msgid "Uploading..."
+msgstr "Caricamento..."
+
+#: lib/voria2_web/live/manage_live/users/index.ex:59
+#: lib/voria2_web/live/manage_live/users/profile.ex:68
+#, elixir-autogen, elixir-format
+msgid "User"
+msgstr "Utente"
+
+#: lib/voria2_web/live/manage_live/users/form.ex:83
+#, elixir-autogen, elixir-format
+msgid "User created successfully."
+msgstr "Utente creato con successo."
+
+#: lib/voria2_web/live/manage_live/users/form.ex:65
+#, elixir-autogen, elixir-format
+msgid "User deleted."
+msgstr "Utente eliminato."
+
+#: lib/voria2_web/live/manage_live/users/form.ex:51
+#, elixir-autogen, elixir-format
+msgid "User not found."
+msgstr "Utente non trovato."
+
+#: lib/voria2_web/live/manage_live/users/form.ex:84
+#, elixir-autogen, elixir-format
+msgid "User updated."
+msgstr "Utente aggiornato."
+
+#: lib/voria2_web/live/manage_live/measurement_types/index.ex:86
+#, elixir-autogen, elixir-format
+msgid "User-defined"
+msgstr "Definito dall'utente"
+
+#: lib/voria2_web/components/layouts.ex:284
+#: lib/voria2_web/live/manage_live/dashboard.ex:67
+#: lib/voria2_web/live/manage_live/users/form.ex:100
+#: lib/voria2_web/live/manage_live/users/index.ex:18
+#: lib/voria2_web/live/manage_live/users/index.ex:27
+#: lib/voria2_web/live/manage_live/users/index.ex:30
+#, elixir-autogen, elixir-format
+msgid "Users"
+msgstr "Utenti"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:320
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:836
+#, elixir-autogen, elixir-format
+msgid "Value"
+msgstr "Valore"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:233
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:234
+#, elixir-autogen, elixir-format
+msgid "View"
+msgstr "Visualizza"
+
+#: lib/voria2_web/live/manage_live/dashboard.ex:44
+#, elixir-autogen, elixir-format
+msgid "View and resolve active network faults"
+msgstr "Visualizza e risolvi i guasti della rete"
+
+#: lib/voria2_web/live/installation_live.ex:376
+#, elixir-autogen, elixir-format
+msgid "Waiting for data…"
+msgstr "In attesa di dati…"
+
+#: lib/voria2_web/live/home_live.ex:136
+#, elixir-autogen, elixir-format
+msgid "Waiting…"
+msgstr "In attesa…"
+
+#: lib/voria2_web/components/layouts.ex:94
+#, elixir-autogen, elixir-format
+msgid "We can't find the internet"
+msgstr "Impossibile trovare la connessione internet"
+
+#: lib/voria2_web/live/home_live.ex:38
+#, elixir-autogen, elixir-format
+msgid "Weather Network — Live Map"
+msgstr "Rete Meteo — Mappa Live"
+
+#: lib/voria2_web/live/manage_live/webcams/form.ex:132
+#, elixir-autogen, elixir-format
+msgid "Webcam Details"
+msgstr "Dettagli webcam"
+
+#: lib/voria2_web/components/layouts.ex:249
+#: lib/voria2_web/live/manage_live/dashboard.ex:75
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:25
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:151
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:154
+#, elixir-autogen, elixir-format
+msgid "Webcam Shot Purge"
+msgstr "Eliminazione foto webcam"
+
+#: lib/voria2_web/live/manage_live/webcams/form.ex:98
+#, elixir-autogen, elixir-format
+msgid "Webcam created."
+msgstr "Webcam creata."
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:80
+#: lib/voria2_web/live/manage_live/webcams/show.ex:110
+#, elixir-autogen, elixir-format
+msgid "Webcam deleted."
+msgstr "Webcam eliminata."
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:88
+#: lib/voria2_web/live/manage_live/webcams/form.ex:73
+#: lib/voria2_web/live/manage_live/webcams/show.ex:36
+#: lib/voria2_web/live/webcam_viewer_live.ex:15
+#: lib/voria2_web/live/webcam_viewer_live.ex:52
+#: lib/voria2_web/live/webcams_live.ex:59
+#: lib/voria2_web/live/webcams_live.ex:87
+#: lib/voria2_web/live/webcams_live.ex:94
+#, elixir-autogen, elixir-format
+msgid "Webcam not found."
+msgstr "Webcam non trovata."
+
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:124
+#, elixir-autogen, elixir-format
+msgid "Webcam shot purge started."
+msgstr "Eliminazione foto webcam avviata."
+
+#: lib/voria2_web/live/manage_live/webcams/form.ex:99
+#, elixir-autogen, elixir-format
+msgid "Webcam updated."
+msgstr "Webcam aggiornata."
+
+#: lib/voria2_web/live/installation_live.ex:152
+#: lib/voria2_web/live/installation_live.ex:871
+#: lib/voria2_web/live/manage_live/webcam_shots/purge.ex:167
+#, elixir-autogen, elixir-format
+msgid "Webcams"
+msgstr "Webcam"
+
+#: lib/voria2_web/live/manage_live/installations/show.ex:160
+#, elixir-autogen, elixir-format
+msgid "Webcams (%{count})"
+msgstr "Webcam (%{count})"
+
+#: lib/voria2_web/live/manage_live/dashboard.ex:17
+#, elixir-autogen, elixir-format
+msgid "Welcome back, %{name}"
+msgstr "Bentornato, %{name}"
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:134
+#, elixir-autogen, elixir-format
+msgid "What this measurement type captures"
+msgstr "Cosa rileva questo tipo di misurazione"
+
+#: lib/voria2_web/live/compare_live.ex:503
+#: lib/voria2_web/live/installation_live.ex:651
+#: lib/voria2_web/live/installation_live.ex:1381
+#, elixir-autogen, elixir-format
+msgid "Wind"
+msgstr "Vento"
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:118
+#, elixir-autogen, elixir-format
+msgid "Wind (u/v components)"
+msgstr "Vento (componenti u/v)"
+
+#: lib/voria2_web/live/home_live.ex:349
+#, elixir-autogen, elixir-format
+msgid "Wind Direction"
+msgstr "Direzione vento"
+
+#: lib/voria2_web/live/home_live.ex:350
+#, elixir-autogen, elixir-format
+msgid "Wind Gust (%{unit})"
+msgstr "Raffica (%{unit})"
+
+#: lib/voria2_web/controllers/preferences_html/index.html.heex:107
+#, elixir-autogen, elixir-format
+msgid "Wind Speed"
+msgstr "Velocità del vento"
+
+#: lib/voria2_web/live/home_live.ex:348
+#, elixir-autogen, elixir-format
+msgid "Wind Speed (%{unit})"
+msgstr "Velocità vento (%{unit})"
+
+#: lib/voria2_web/controllers/auth_controller.ex:12
+#, elixir-autogen, elixir-format
+msgid "You are now signed in"
+msgstr "Accesso effettuato"
+
+#: lib/voria2_web/controllers/auth_controller.ex:51
+#, elixir-autogen, elixir-format
+msgid "You are now signed out"
+msgstr "Sei uscito"
+
+#: lib/voria2_web/controllers/auth_controller.ex:33
+#, elixir-autogen, elixir-format
+msgid "You have already signed in another way, but have not confirmed your account.\nYou can confirm your account using the link we sent to you, or by resetting your password."
+msgstr "Hai già effettuato l'accesso in altro modo, ma non hai confermato il tuo account.\nPuoi confermarlo usando il link che ti abbiamo inviato, oppure reimpostando la password."
+
+#: lib/voria2_web/controllers/auth_controller.ex:10
+#, elixir-autogen, elixir-format
+msgid "Your email address has now been confirmed"
+msgstr "Il tuo indirizzo email è stato confermato"
+
+#: lib/voria2_web/components/manage_components.ex:359
+#, elixir-autogen, elixir-format
+msgid "Your new key is ready"
+msgstr "La tua nuova chiave è pronta"
+
+#: lib/voria2_web/controllers/auth_controller.ex:11
+#, elixir-autogen, elixir-format
+msgid "Your password has successfully been reset"
+msgstr "La tua password è stata reimpostata con successo"
+
+#: lib/voria2_web/components/core_components.ex:75
+#, elixir-autogen, elixir-format
+msgid "close"
+msgstr "Chiudi"
+
+#: lib/voria2_web/live/manage_live/webcams/show.ex:299
+#, elixir-autogen, elixir-format
+msgid "e.g. Camera offline, stream interrupted…"
+msgstr "es. Camera offline, stream interrotto…"
+
+#: lib/voria2_web/live/manage_live/stations/show.ex:418
+#, elixir-autogen, elixir-format
+msgid "e.g. Hardware failure, sensor disconnected…"
+msgstr "es. Guasto hardware, sensore disconnesso…"
+
+#: lib/voria2_web/live/manage_live/sensors/show.ex:235
+#, elixir-autogen, elixir-format
+msgid "e.g. Sensor drift, reading anomaly…"
+msgstr "es. Deriva del sensore, anomalia nella lettura…"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:331
+#, elixir-autogen, elixir-format
+msgid "gust (m/s)"
+msgstr "Raffica (m/s)"
+
+#: lib/voria2_web/live/compare_live.ex:100
+#, elixir-autogen, elixir-format
+msgid "selected"
+msgstr "selezionate"
+
+#: lib/voria2_web/live/installation_live.ex:907
+#, elixir-autogen, elixir-format
+msgid "since"
+msgstr "dal"
+
+#: lib/voria2_web/live/manage_live/measurement_types/form.ex:108
+#, elixir-autogen, elixir-format
+msgid "soil-moisture"
+msgstr "umidita-suolo"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:837
+#, elixir-autogen, elixir-format
+msgid "u component"
+msgstr "Componente u"
+
+#: lib/voria2_web/live/manage_live/measurements_editor.ex:838
+#, elixir-autogen, elixir-format
+msgid "v component"
+msgstr "Componente v"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:313
+#, elixir-autogen, elixir-format
+msgid "Add \"%{name}\""
+msgstr "Aggiungi \"%{name}\""
+
+#: lib/voria2_web/components/layouts.ex:260
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:191
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:16
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:49
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:52
+#: lib/voria2_web/live/manage_live/dashboard.ex:51
+#, elixir-autogen, elixir-format
+msgid "Blog Pages"
+msgstr "Pagine blog"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:85
+#, elixir-autogen, elixir-format
+msgid "Blog page created."
+msgstr "Pagina blog creata."
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:103
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:33
+#, elixir-autogen, elixir-format
+msgid "Blog page deleted."
+msgstr "Pagina blog eliminata."
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:59
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:41
+#, elixir-autogen, elixir-format
+msgid "Blog page not found."
+msgstr "Pagina blog non trovata."
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:86
+#, elixir-autogen, elixir-format
+msgid "Blog page updated."
+msgstr "Pagina blog aggiornata."
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:244
+#, elixir-autogen, elixir-format
+msgid "Body"
+msgstr "Contenuto"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:271
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:82
+#, elixir-autogen, elixir-format
+msgid "Categories"
+msgstr "Categorie"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:198
+#, elixir-autogen, elixir-format
+msgid "Compose rich blog content and assign reusable categories."
+msgstr "Componi contenuti ricchi per il blog e assegna categorie riutilizzabili."
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:227
+#, elixir-autogen, elixir-format
+msgid "Cover Image URL"
+msgstr "URL immagine di copertina"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:367
+#, elixir-autogen, elixir-format
+msgid "Create Page"
+msgstr "Crea pagina"
+
+#: lib/voria2_web/live/manage_live/dashboard.ex:52
+#, elixir-autogen, elixir-format
+msgid "Create and organize blog pages with categories"
+msgstr "Crea e organizza pagine blog con categorie"
+
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:68
+#, elixir-autogen, elixir-format
+msgid "Create your first blog page to start publishing content."
+msgstr "Crea la tua prima pagina blog per iniziare a pubblicare contenuti."
+
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:54
+#, elixir-autogen, elixir-format
+msgid "Create, publish, and organize blog pages with reusable categories."
+msgstr "Crea, pubblica e organizza pagine blog con categorie riutilizzabili."
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:348
+#, elixir-autogen, elixir-format
+msgid "Danger Zone"
+msgstr "Zona pericolosa"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:376
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:118
+#, elixir-autogen, elixir-format
+msgid "Delete %{title}?"
+msgstr "Eliminare %{title}?"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:358
+#, elixir-autogen, elixir-format
+msgid "Delete Blog Page"
+msgstr "Elimina pagina blog"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:350
+#, elixir-autogen, elixir-format
+msgid "Delete this blog page permanently."
+msgstr "Elimina definitivamente questa pagina blog."
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:446
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:97
+#, elixir-autogen, elixir-format
+msgid "Draft"
+msgstr "Bozza"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:52
+#, elixir-autogen, elixir-format
+msgid "Edit %{title}"
+msgstr "Modifica %{title}"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:174
+#, elixir-autogen, elixir-format
+msgid "Failed to create category."
+msgstr "Impossibile creare la categoria."
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:107
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:37
+#, elixir-autogen, elixir-format
+msgid "Failed to delete blog page."
+msgstr "Impossibile eliminare la pagina blog."
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:247
+#, elixir-autogen, elixir-format
+msgid "HugeRTE stores HTML directly. Paste media URLs inline where you need them."
+msgstr "HugeRTE salva direttamente l'HTML. Incolla gli URL dei media direttamente dove ti servono."
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:32
+#, elixir-autogen, elixir-format
+msgid "New Blog Page"
+msgstr "Nuova pagina blog"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:192
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:58
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:73
+#, elixir-autogen, elixir-format
+msgid "New Page"
+msgstr "Nuova pagina"
+
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:67
+#, elixir-autogen, elixir-format
+msgid "No blog pages yet"
+msgstr "Nessuna pagina blog"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:300
+#, elixir-autogen, elixir-format
+msgid "No categories selected yet."
+msgstr "Nessuna categoria selezionata."
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:338
+#, elixir-autogen, elixir-format
+msgid "No matching categories."
+msgstr "Nessuna categoria corrispondente."
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:447
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:96
+#, elixir-autogen, elixir-format
+msgid "Published"
+msgstr "Pubblicata"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:282
+#, elixir-autogen, elixir-format
+msgid "Search or add a category..."
+msgstr "Cerca o aggiungi una categoria..."
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:215
+#, elixir-autogen, elixir-format
+msgid "Spring forecast update"
+msgstr "Aggiornamento previsioni di primavera"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:378
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:119
+#, elixir-autogen, elixir-format
+msgid "This blog page will be permanently removed."
+msgstr "Questa pagina blog verrà rimossa definitivamente."
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:214
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:76
+#, elixir-autogen, elixir-format
+msgid "Title"
+msgstr "Titolo"
