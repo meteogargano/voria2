@@ -1,12 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
+<% meta = assigns[:page_meta] || %{} %>
+<% meta_title = meta[:title] || assigns[:page_title] || "MeteoGargano" %>
+<% meta_description =
+  meta[:description] ||
+    "Rete meteo, webcam, osservazioni e approfondimenti sul territorio del Gargano." %>
+<% meta_type = meta[:type] || "website" %>
+<% meta_url = meta[:url] %>
+<% meta_image = meta[:image] || url(~p"/images/og.png") %>
+<% meta_image_alt = meta[:image_alt] || "Anteprima MeteoGargano" %> <!DOCTYPE html>
+<html lang="it" prefix="og: https://ogp.me/ns#">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
+    <meta name="description" content={meta_description} />
+    <link :if={meta_url} rel="canonical" href={meta_url} />
     <.live_title default="MeteoGargano" suffix=" - MeteoGargano">
-      {assigns[:page_title]}
+      {meta_title}
     </.live_title>
+    <meta property="og:site_name" content="MeteoGargano" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:type" content={meta_type} />
+    <meta property="og:title" content={meta_title} />
+    <meta property="og:description" content={meta_description} />
+    <meta :if={meta_url} property="og:url" content={meta_url} />
+    <meta property="og:image" content={meta_image} />
+    <meta property="og:image:secure_url" content={meta_image} />
+    <meta property="og:image:alt" content={meta_image_alt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={meta_title} />
+    <meta name="twitter:description" content={meta_description} />
+    <meta name="twitter:image" content={meta_image} />
+    <meta name="twitter:image:alt" content={meta_image_alt} />
+    <meta
+      :if={meta[:article_published_time]}
+      property="article:published_time"
+      content={meta[:article_published_time]}
+    />
+    <meta
+      :if={meta[:article_modified_time]}
+      property="article:modified_time"
+      content={meta[:article_modified_time]}
+    />
+    <meta
+      :for={tag <- meta[:article_tags] || []}
+      property="article:tag"
+      content={tag}
+    />
     <link rel="icon" type="image/png" href={~p"/favicon/favicon-96x96.png"} sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href={~p"/favicon/favicon.svg"} />
     <link rel="shortcut icon" href={~p"/favicon/favicon.ico"} />

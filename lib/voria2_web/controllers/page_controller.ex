@@ -15,12 +15,28 @@ defmodule Voria2Web.PageController do
     render(conn, :home,
       latest_articles: Enum.take(latest_articles, 3),
       latest_shot: latest_shot,
+      page_meta: %{
+        title: "Osservare il Gargano, raccontarlo e conservarne la memoria meteorologica",
+        description:
+          "Rete meteo, webcam e contenuti editoriali per seguire in tempo reale il Gargano, leggere i microclimi locali e consultare un archivio costruito nel tempo.",
+        type: "website",
+        url: current_url(conn, %{})
+      },
       page_title: gettext("Homepage")
     )
   end
 
   def associazione(conn, _params) do
-    render(conn, :associazione, page_title: gettext("Associazione"))
+    render(conn, :associazione,
+      page_meta: %{
+        title: "Associazione MeteoGargano",
+        description:
+          "Scopri la storia, le finalita' e il lavoro dell'associazione MeteoGargano, nata per osservare e raccontare in modo continuativo il territorio del Gargano.",
+        type: "website",
+        url: current_url(conn, %{})
+      },
+      page_title: gettext("Associazione")
+    )
   end
 
   def statuto(conn, _params) do
