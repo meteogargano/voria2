@@ -2255,9 +2255,9 @@ msgid "Sensors"
 msgstr "Sensori"
 
 #: lib/voria2_web/live/manage_live/stations/show.ex:262
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Sensors (%{count})"
-msgstr "Stazioni (%{count})"
+msgstr "Sensori (%{count})"
 
 #: lib/voria2_web/live/installation_live.ex:932
 #, elixir-autogen, elixir-format
