@@ -3075,3 +3075,14 @@ msgstr "Questa pagina blog verrà rimossa definitivamente."
 #, elixir-autogen, elixir-format
 msgid "Title"
 msgstr "Titolo"
+
+#: lib/voria2_web/live/manage_live/blog_pages/form.ex:245
+#: lib/voria2_web/live/manage_live/blog_pages/index.ex:100
+#, elixir-autogen, elixir-format
+msgid "Publishing Date"
+msgstr "Data di pubblicazione"
+
+#: lib/voria2_web/controllers/blog_html/show.html.heex:45
+#, elixir-autogen, elixir-format
+msgid "Scheduled preview"
+msgstr "Anteprima programmata"

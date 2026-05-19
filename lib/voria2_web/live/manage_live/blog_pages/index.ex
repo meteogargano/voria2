@@ -97,8 +97,8 @@ defmodule Voria2Web.ManageLive.BlogPages.Index do
               inactive_label={gettext("Draft")}
             />
           </:col>
-          <:col :let={article} label={gettext("Updated")}>
-            <span class="text-sm text-base-content/60">{format_date(article.updated_at)}</span>
+          <:col :let={article} label={gettext("Publishing Date")}>
+            <span class="text-sm text-base-content/60">{format_date(article.publishing_date)}</span>
           </:col>
           <:action :let={article}>
             <.link

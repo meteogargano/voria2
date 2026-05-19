@@ -15,7 +15,7 @@ defmodule Voria2.Blog.Article do
 
     create :create do
       primary? true
-      accept [:title, :slug, :body, :cover_image_url, :published]
+      accept [:title, :slug, :body, :cover_image_url, :published, :publishing_date]
 
       argument :category_ids, {:array, :uuid} do
         allow_nil? true
@@ -32,7 +32,7 @@ defmodule Voria2.Blog.Article do
     update :update do
       primary? true
       require_atomic? false
-      accept [:title, :slug, :body, :cover_image_url, :published]
+      accept [:title, :slug, :body, :cover_image_url, :published, :publishing_date]
 
       argument :category_ids, {:array, :uuid} do
         allow_nil? true
@@ -57,7 +57,7 @@ defmodule Voria2.Blog.Article do
     end
 
     policy action_type(:read) do
-      authorize_if expr(published == true)
+      authorize_if expr(published == true and publishing_date <= now())
     end
   end
 
@@ -89,6 +89,12 @@ defmodule Voria2.Blog.Article do
     attribute :published, :boolean do
       allow_nil? false
       default false
+      public? true
+    end
+
+    attribute :publishing_date, :utc_datetime_usec do
+      allow_nil? false
+      default &DateTime.utc_now/0
       public? true
     end
 

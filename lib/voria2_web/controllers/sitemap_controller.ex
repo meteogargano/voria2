@@ -62,7 +62,7 @@ defmodule Voria2Web.SitemapController do
     Enum.map(articles, fn article ->
       %{
         loc: url(~p"/blog/#{article.slug}"),
-        lastmod: article.updated_at
+        lastmod: article.publishing_date
       }
     end)
   end

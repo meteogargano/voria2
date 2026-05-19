@@ -201,7 +201,8 @@ defmodule Voria2.MeasurementsHelpers do
       slug: Keyword.get(opts, :slug, "article-#{n}"),
       body: Keyword.get(opts, :body, "<p>Body #{n}</p>"),
       cover_image_url: Keyword.get(opts, :cover_image_url),
-      published: Keyword.get(opts, :published, false)
+      published: Keyword.get(opts, :published, false),
+      publishing_date: Keyword.get(opts, :publishing_date, DateTime.utc_now())
     }
 
     category_ids = Keyword.get(opts, :category_ids, [])

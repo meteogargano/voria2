@@ -4,16 +4,34 @@ defmodule Voria2Web.BlogControllerTest do
   import AshAuthentication.Plug.Helpers, only: [store_in_session: 2]
   import Voria2.MeasurementsHelpers
 
+  @past_publication ~U[2026-05-01 10:00:00Z]
+  @future_publication ~U[2026-12-01 10:00:00Z]
+
+  defp title_position(html, title) do
+    case :binary.match(html, title) do
+      {position, _length} -> position
+      :nomatch -> flunk("expected to find #{inspect(title)} in response")
+    end
+  end
+
   test "GET /blog lists only published articles and includes navbar link", %{conn: conn} do
     published =
       create_blog_article(
         title: "Storm Update",
         slug: "storm-update",
         body: "<p>Published body</p>",
-        published: true
+        published: true,
+        publishing_date: @past_publication
       )
 
     create_blog_article(title: "Draft Article", slug: "draft-article", published: false)
+
+    create_blog_article(
+      title: "Scheduled Article",
+      slug: "scheduled-article",
+      published: true,
+      publishing_date: @future_publication
+    )
 
     conn = get(conn, ~p"/blog")
     html = html_response(conn, 200)
@@ -35,7 +53,8 @@ defmodule Voria2Web.BlogControllerTest do
       title: "Excerpt Test",
       slug: "excerpt-test",
       body: body,
-      published: true
+      published: true,
+      publishing_date: @past_publication
     )
 
     conn = get(conn, ~p"/blog")
@@ -52,8 +71,19 @@ defmodule Voria2Web.BlogControllerTest do
   end
 
   test "GET /blog filters by title query", %{conn: conn} do
-    create_blog_article(title: "Storm Update", slug: "storm-update", published: true)
-    create_blog_article(title: "Rain Report", slug: "rain-report", published: true)
+    create_blog_article(
+      title: "Storm Update",
+      slug: "storm-update",
+      published: true,
+      publishing_date: ~U[2026-05-02 09:00:00Z]
+    )
+
+    create_blog_article(
+      title: "Rain Report",
+      slug: "rain-report",
+      published: true,
+      publishing_date: @past_publication
+    )
 
     conn = get(conn, ~p"/blog?q=storm")
     html = html_response(conn, 200)
@@ -70,6 +100,7 @@ defmodule Voria2Web.BlogControllerTest do
       title: "Storm Update",
       slug: "storm-update",
       published: true,
+      publishing_date: @past_publication,
       category_ids: [weather.id]
     )
 
@@ -77,6 +108,7 @@ defmodule Voria2Web.BlogControllerTest do
       title: "Climate Brief",
       slug: "climate-brief",
       published: true,
+      publishing_date: @past_publication,
       category_ids: [climate.id]
     )
 
@@ -97,6 +129,7 @@ defmodule Voria2Web.BlogControllerTest do
         body: "<p>Wind is increasing.</p>",
         cover_image_url: "https://cdn.example.com/storm.jpg",
         published: true,
+        publishing_date: @past_publication,
         category_ids: [category.id]
       )
 
@@ -108,10 +141,26 @@ defmodule Voria2Web.BlogControllerTest do
     assert html =~ article.cover_image_url
     assert html =~ "Weather"
     refute html =~ "Draft preview"
+    refute html =~ "Scheduled preview"
+    assert html =~ DateTime.to_iso8601(article.publishing_date)
   end
 
   test "GET /blog/:slug returns 404 for draft articles to anonymous users", %{conn: conn} do
     article = create_blog_article(title: "Draft Article", slug: "draft-article", published: false)
+
+    conn = get(conn, ~p"/blog/#{article.slug}")
+
+    assert response(conn, 404) == "Not found"
+  end
+
+  test "GET /blog hides scheduled articles from anonymous users", %{conn: conn} do
+    article =
+      create_blog_article(
+        title: "Scheduled Article",
+        slug: "scheduled-article",
+        published: true,
+        publishing_date: @future_publication
+      )
 
     conn = get(conn, ~p"/blog/#{article.slug}")
 
@@ -131,6 +180,69 @@ defmodule Voria2Web.BlogControllerTest do
 
     assert html =~ "Draft Article"
     assert html =~ "id=\"blog-draft-preview\""
+  end
+
+  test "GET /blog/:slug lets admins preview scheduled articles", %{conn: conn} do
+    admin = create_admin()
+
+    article =
+      create_blog_article(
+        title: "Scheduled Article",
+        slug: "scheduled-article",
+        published: true,
+        publishing_date: @future_publication
+      )
+
+    conn =
+      conn
+      |> log_in(admin)
+      |> get(~p"/blog/#{article.slug}")
+
+    html = html_response(conn, 200)
+
+    assert html =~ "Scheduled Article"
+    assert html =~ "id=\"blog-scheduled-preview\""
+  end
+
+  test "GET /blog orders articles by publishing date descending", %{conn: conn} do
+    older =
+      create_blog_article(
+        title: "Older Article",
+        slug: "older-article",
+        published: true,
+        publishing_date: ~U[2026-05-01 09:00:00Z]
+      )
+
+    newer =
+      create_blog_article(
+        title: "Newer Article",
+        slug: "newer-article",
+        published: true,
+        publishing_date: ~U[2026-05-03 09:00:00Z]
+      )
+
+    conn = get(conn, ~p"/blog")
+    html = html_response(conn, 200)
+
+    assert title_position(html, newer.title) < title_position(html, older.title)
+  end
+
+  test "GET /blog/:slug uses publishing date in article metadata", %{conn: conn} do
+    article =
+      create_blog_article(
+        title: "Metadata Article",
+        slug: "metadata-article",
+        published: true,
+        publishing_date: @past_publication
+      )
+
+    conn = get(conn, ~p"/blog/#{article.slug}")
+    html = html_response(conn, 200)
+
+    assert html =~ ~s(property="article:published_time")
+    assert html =~ DateTime.to_iso8601(article.publishing_date)
+    refute html =~ ~s(property="article:modified_time")
+    refute html =~ DateTime.to_iso8601(article.updated_at)
   end
 
   defp log_in(conn, user) do

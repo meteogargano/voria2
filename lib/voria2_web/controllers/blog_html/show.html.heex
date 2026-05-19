@@ -23,8 +23,8 @@
       </h1>
 
       <p class="text-xs font-semibold uppercase tracking-[0.24em] text-base-content/45 mb-2">
-        <time datetime={article_datetime(@article.updated_at)}>
-          {article_date(@article.updated_at)}
+        <time datetime={article_datetime(@article.publishing_date)}>
+          {article_date(@article.publishing_date)}
         </time>
       </p>
 
@@ -35,6 +35,13 @@
           class="badge badge-warning badge-lg px-3 py-3"
         >
           {gettext("Draft preview")}
+        </span>
+        <span
+          :if={@scheduled_preview?}
+          id="blog-scheduled-preview"
+          class="badge badge-info badge-lg px-3 py-3"
+        >
+          {gettext("Scheduled preview")}
         </span>
         <.link
           :for={category <- @article.categories}

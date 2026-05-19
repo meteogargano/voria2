@@ -33,7 +33,8 @@ defmodule Voria2Web.BlogController do
         render(conn, :show,
           article: article,
           current_path: conn.request_path,
-          draft_preview?: not article.published,
+          draft_preview?: draft_preview?(article),
+          scheduled_preview?: scheduled_preview?(article),
           page_meta: %{
             title: article.title,
             description: Voria2Web.BlogHTML.excerpt(article.body),
@@ -41,8 +42,7 @@ defmodule Voria2Web.BlogController do
             url: current_url(conn, %{}),
             image: article_meta_image(article),
             image_alt: article.title,
-            article_published_time: DateTime.to_iso8601(article.inserted_at),
-            article_modified_time: DateTime.to_iso8601(article.updated_at),
+            article_published_time: DateTime.to_iso8601(article.publishing_date),
             article_tags: Enum.map(article.categories, &to_string(&1.name))
           },
           page_title: article.title
@@ -75,4 +75,13 @@ defmodule Voria2Web.BlogController do
   end
 
   defp article_meta_image(_article), do: nil
+
+  defp draft_preview?(%{published: false}), do: true
+  defp draft_preview?(_article), do: false
+
+  defp scheduled_preview?(%{published: true, publishing_date: %DateTime{} = publishing_date}) do
+    DateTime.compare(publishing_date, DateTime.utc_now()) == :gt
+  end
+
+  defp scheduled_preview?(_article), do: false
 end

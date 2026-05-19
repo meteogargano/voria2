@@ -29,10 +29,10 @@ defmodule Voria2.Blog do
     filters = Enum.into(filters, %{})
 
     Voria2.Blog.Article
-    |> Ash.Query.filter(published == true)
+    |> Ash.Query.filter(published == true and publishing_date <= now())
     |> maybe_filter_article_title(Map.get(filters, :q) || Map.get(filters, "q"))
     |> maybe_filter_article_category(Map.get(filters, :category) || Map.get(filters, "category"))
-    |> Ash.Query.sort(updated_at: :desc)
+    |> Ash.Query.sort(publishing_date: :desc, updated_at: :desc)
     |> Ash.read(opts)
   end
 
@@ -41,7 +41,7 @@ defmodule Voria2.Blog do
       get_article_by_slug(slug, opts)
     else
       Voria2.Blog.Article
-      |> Ash.Query.filter(slug == ^slug and published == true)
+      |> Ash.Query.filter(slug == ^slug and published == true and publishing_date <= now())
       |> Ash.read_one(opts)
       |> case do
         {:ok, nil} -> {:error, :not_found}

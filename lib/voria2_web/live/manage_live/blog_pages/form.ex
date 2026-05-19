@@ -3,6 +3,8 @@ defmodule Voria2Web.ManageLive.BlogPages.Form do
 
   on_mount {Voria2Web.LiveUserAuth, :live_user_required}
 
+  import Voria2Web.FlatpickrInputComponent
+
   @impl true
   def mount(params, _session, socket) do
     unless socket.assigns.current_user.admin do
@@ -24,7 +26,8 @@ defmodule Voria2Web.ManageLive.BlogPages.Form do
               AshPhoenix.Form.for_create(
                 Voria2.Blog.Article,
                 :create,
-                actor: socket.assigns.current_user
+                actor: socket.assigns.current_user,
+                params: %{"publishing_date" => DateTime.to_iso8601(DateTime.utc_now())}
               )
               |> to_form()
 
@@ -233,6 +236,18 @@ defmodule Voria2Web.ManageLive.BlogPages.Form do
                 options={publication_status_options()}
               />
             </div>
+            <fieldset>
+              <.datetime_picker
+                id="blog-page-publishing-date"
+                field_name={@form[:publishing_date].name}
+                value={@form[:publishing_date].value}
+                submit_mode={:utc_iso}
+                label={gettext("Publishing Date")}
+                placeholder="dd/mm/yyyy hh:mm"
+                minute_increment={5}
+                force_custom_mobile={true}
+              />
+            </fieldset>
           </div>
 
           <div class="space-y-2">

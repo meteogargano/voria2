@@ -17,7 +17,8 @@ defmodule Voria2Web.SitemapControllerTest do
       create_blog_article(
         title: "Published Article",
         slug: "published-article",
-        published: true
+        published: true,
+        publishing_date: ~U[2026-05-01 10:00:00Z]
       )
 
     draft_article =
@@ -25,6 +26,14 @@ defmodule Voria2Web.SitemapControllerTest do
         title: "Draft Article",
         slug: "draft-article",
         published: false
+      )
+
+    scheduled_article =
+      create_blog_article(
+        title: "Scheduled Article",
+        slug: "scheduled-article",
+        published: true,
+        publishing_date: ~U[2026-12-01 10:00:00Z]
       )
 
     inactive_installation =
@@ -61,12 +70,13 @@ defmodule Voria2Web.SitemapControllerTest do
 
     assert body =~ "<loc>#{base_url}/blog/#{published_article.slug}</loc>"
     refute body =~ "<loc>#{base_url}/blog/#{draft_article.slug}</loc>"
+    refute body =~ "<loc>#{base_url}/blog/#{scheduled_article.slug}</loc>"
 
     refute body =~ "<loc>#{base_url}/preferences</loc>"
     refute body =~ "/dailylog/"
 
     assert body =~ DateTime.to_iso8601(installation.updated_at)
     assert body =~ DateTime.to_iso8601(webcam.updated_at)
-    assert body =~ DateTime.to_iso8601(published_article.updated_at)
+    assert body =~ DateTime.to_iso8601(published_article.publishing_date)
   end
 end

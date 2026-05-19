@@ -12,6 +12,8 @@ defmodule Voria2Web.ManageBlogPagesLiveTest do
     %{conn: log_in(conn, admin), admin: admin, user: user}
   end
 
+  defp iso(value), do: DateTime.to_iso8601(value)
+
   test "non-admin users are redirected away from the page", %{user: user} do
     conn = Phoenix.ConnTest.build_conn() |> log_in(user)
 
@@ -29,6 +31,7 @@ defmodule Voria2Web.ManageBlogPagesLiveTest do
       title: "Forecast Update",
       slug: "forecast-update",
       published: true,
+      publishing_date: ~U[2026-05-01 10:00:00Z],
       category_ids: [weather.id]
     )
 
@@ -53,16 +56,17 @@ defmodule Voria2Web.ManageBlogPagesLiveTest do
     assert has_element?(view, "button[phx-click='remove_category']", "Weather")
 
     view
-    |> form("#blog-page-form", %{
+    |> element("#blog-page-form")
+    |> render_submit(%{
       "form" => %{
         "title" => "Spring Outlook",
         "slug" => "spring-outlook",
         "body" => "<p>Strong winds ahead.</p>",
         "cover_image_url" => "https://cdn.example.com/spring.jpg",
-        "published" => "true"
+        "published" => "true",
+        "publishing_date" => iso(~U[2026-05-02 08:30:00Z])
       }
     })
-    |> render_submit()
 
     assert {:ok, article} =
              Voria2.Blog.get_article_by_slug("spring-outlook",
@@ -71,6 +75,7 @@ defmodule Voria2Web.ManageBlogPagesLiveTest do
              )
 
     assert article.title == "Spring Outlook"
+    assert DateTime.to_unix(article.publishing_date) == DateTime.to_unix(~U[2026-05-02 08:30:00Z])
     assert Enum.map(article.categories, &to_string(&1.name)) == ["Weather"]
   end
 
@@ -86,15 +91,16 @@ defmodule Voria2Web.ManageBlogPagesLiveTest do
     assert has_element?(view, "button[phx-click='remove_category']", "Climate")
 
     view
-    |> form("#blog-page-form", %{
+    |> element("#blog-page-form")
+    |> render_submit(%{
       "form" => %{
         "title" => "Climate Brief",
         "slug" => "climate-brief",
         "body" => "<p>Monthly anomalies.</p>",
-        "published" => "false"
+        "published" => "false",
+        "publishing_date" => iso(~U[2026-05-03 12:45:00Z])
       }
     })
-    |> render_submit()
 
     assert {:ok, article} =
              Voria2.Blog.get_article_by_slug("climate-brief",
@@ -103,6 +109,7 @@ defmodule Voria2Web.ManageBlogPagesLiveTest do
              )
 
     assert Enum.map(article.categories, &to_string(&1.name)) == ["Climate"]
+    assert DateTime.to_unix(article.publishing_date) == DateTime.to_unix(~U[2026-05-03 12:45:00Z])
   end
 
   test "edits a blog page and replaces its categories", %{conn: conn, admin: admin} do
@@ -114,6 +121,7 @@ defmodule Voria2Web.ManageBlogPagesLiveTest do
         actor: admin,
         title: "Early Draft",
         slug: "early-draft",
+        publishing_date: ~U[2026-05-01 09:00:00Z],
         category_ids: [weather.id]
       )
 
@@ -131,20 +139,22 @@ defmodule Voria2Web.ManageBlogPagesLiveTest do
     render_click(element(view, "#blog-page-category-option-#{news.id}"))
 
     view
-    |> form("#blog-page-form", %{
+    |> element("#blog-page-form")
+    |> render_submit(%{
       "form" => %{
         "title" => "Final Draft",
         "slug" => "final-draft",
         "body" => "<p>Published update.</p>",
-        "published" => "true"
+        "published" => "true",
+        "publishing_date" => iso(~U[2026-05-04 11:15:00Z])
       }
     })
-    |> render_submit()
 
     assert {:ok, updated} = Voria2.Blog.get_article(article.id, actor: admin, load: [:categories])
     assert updated.title == "Final Draft"
     assert updated.slug == "final-draft"
     assert updated.published
+    assert DateTime.to_unix(updated.publishing_date) == DateTime.to_unix(~U[2026-05-04 11:15:00Z])
     assert Enum.map(updated.categories, &to_string(&1.name)) == ["News"]
   end
 
