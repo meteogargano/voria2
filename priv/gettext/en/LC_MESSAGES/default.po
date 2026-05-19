@@ -40,6 +40,16 @@ msgstr "%{count} selected"
 msgid "%{name} - Photos"
 msgstr "%{name} - Photos"
 
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:171
+#, elixir-autogen, elixir-format
+msgid "Convert image uploads to WebP"
+msgstr "Convert image uploads to WebP"
+
+#: lib/voria2_web/live/manage_live/blog_content/index.ex:174
+#, elixir-autogen, elixir-format
+msgid "When enabled, uploaded images are converted and stored as .webp files."
+msgstr "When enabled, uploaded images are converted and stored as .webp files."
+
 #: lib/voria2_web/live/manage_live/blog_content/index.ex:480
 #, elixir-autogen, elixir-format
 msgid "%{size} B"

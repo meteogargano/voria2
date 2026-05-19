@@ -3,8 +3,6 @@ defmodule Voria2Web.ManageLive.BlogPages.Form do
 
   on_mount {Voria2Web.LiveUserAuth, :live_user_required}
 
-  import Voria2Web.FlatpickrInputComponent
-
   @impl true
   def mount(params, _session, socket) do
     unless socket.assigns.current_user.admin do
@@ -27,7 +25,7 @@ defmodule Voria2Web.ManageLive.BlogPages.Form do
                 Voria2.Blog.Article,
                 :create,
                 actor: socket.assigns.current_user,
-                params: %{"publishing_date" => DateTime.to_iso8601(DateTime.utc_now())}
+                params: %{"publishing_date" => default_publishing_date()}
               )
               |> to_form()
 
@@ -183,9 +181,13 @@ defmodule Voria2Web.ManageLive.BlogPages.Form do
   def render(assigns) do
     body_errors = Voria2Web.CoreComponents.translate_errors(assigns.form.errors, :body)
 
+    publishing_date_errors =
+      Voria2Web.CoreComponents.translate_errors(assigns.form.errors, :publishing_date)
+
     assigns =
       assigns
       |> assign(:body_errors, body_errors)
+      |> assign(:publishing_date_errors, publishing_date_errors)
       |> assign(:can_create_category, can_create_category?(assigns))
 
     ~H"""
@@ -236,18 +238,28 @@ defmodule Voria2Web.ManageLive.BlogPages.Form do
                 options={publication_status_options()}
               />
             </div>
-            <fieldset>
-              <.datetime_picker
-                id="blog-page-publishing-date"
-                field_name={@form[:publishing_date].name}
-                value={@form[:publishing_date].value}
-                submit_mode={:utc_iso}
-                label={gettext("Publishing Date")}
-                placeholder="dd/mm/yyyy hh:mm"
-                minute_increment={5}
-                force_custom_mobile={true}
-              />
-            </fieldset>
+            <div class="fieldset mb-2">
+              <label for="blog-page-publishing-date">
+                <span class="label mb-1">{gettext("Publishing Date")}</span>
+                <input
+                  id="blog-page-publishing-date"
+                  type="date"
+                  name={@form[:publishing_date].name}
+                  value={publishing_date_input_value(@form[:publishing_date].value)}
+                  class={[
+                    "w-full input",
+                    @publishing_date_errors != [] && "input-error"
+                  ]}
+                />
+              </label>
+              <p
+                :for={msg <- @publishing_date_errors}
+                class="flex items-center gap-2 text-sm text-error"
+              >
+                <.icon name="hero-exclamation-circle" class="size-5" />
+                {msg}
+              </p>
+            </div>
           </div>
 
           <div class="space-y-2">
@@ -395,7 +407,9 @@ defmodule Voria2Web.ManageLive.BlogPages.Form do
   end
 
   defp params_with_categories(socket, params) do
-    Map.put(params, "category_ids", Enum.map(socket.assigns.selected_categories, & &1.id))
+    params
+    |> Map.put("category_ids", Enum.map(socket.assigns.selected_categories, & &1.id))
+    |> normalize_publishing_date_param()
   end
 
   defp list_categories(actor) do
@@ -455,6 +469,45 @@ defmodule Voria2Web.ManageLive.BlogPages.Form do
       {gettext("Draft"), false},
       {gettext("Published"), true}
     ]
+  end
+
+  defp normalize_publishing_date_param(%{"publishing_date" => value} = params) do
+    case Date.from_iso8601(value) do
+      {:ok, date} -> Map.put(params, "publishing_date", date_to_utc_iso(date))
+      _ -> params
+    end
+  end
+
+  defp normalize_publishing_date_param(params), do: params
+
+  defp publishing_date_input_value(%DateTime{} = value),
+    do: Date.to_iso8601(DateTime.to_date(value))
+
+  defp publishing_date_input_value(%Date{} = value), do: Date.to_iso8601(value)
+
+  defp publishing_date_input_value(value) when is_binary(value) do
+    case Date.from_iso8601(value) do
+      {:ok, date} ->
+        Date.to_iso8601(date)
+
+      _ ->
+        case DateTime.from_iso8601(value) do
+          {:ok, datetime, _offset} -> Date.to_iso8601(DateTime.to_date(datetime))
+          _ -> value
+        end
+    end
+  end
+
+  defp publishing_date_input_value(_value), do: ""
+
+  defp default_publishing_date do
+    Date.utc_today()
+    |> date_to_utc_iso()
+  end
+
+  defp date_to_utc_iso(date) do
+    {:ok, datetime} = DateTime.new(date, ~T[00:00:00], "Etc/UTC")
+    DateTime.to_iso8601(datetime)
   end
 
   defp sort_name(category), do: String.downcase(to_string(category.name))

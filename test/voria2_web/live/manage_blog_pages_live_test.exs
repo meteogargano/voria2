@@ -12,7 +12,7 @@ defmodule Voria2Web.ManageBlogPagesLiveTest do
     %{conn: log_in(conn, admin), admin: admin, user: user}
   end
 
-  defp iso(value), do: DateTime.to_iso8601(value)
+  defp date(value), do: value |> DateTime.to_date() |> Date.to_iso8601()
 
   test "non-admin users are redirected away from the page", %{user: user} do
     conn = Phoenix.ConnTest.build_conn() |> log_in(user)
@@ -64,7 +64,7 @@ defmodule Voria2Web.ManageBlogPagesLiveTest do
         "body" => "<p>Strong winds ahead.</p>",
         "cover_image_url" => "https://cdn.example.com/spring.jpg",
         "published" => "true",
-        "publishing_date" => iso(~U[2026-05-02 08:30:00Z])
+        "publishing_date" => date(~U[2026-05-02 08:30:00Z])
       }
     })
 
@@ -75,7 +75,7 @@ defmodule Voria2Web.ManageBlogPagesLiveTest do
              )
 
     assert article.title == "Spring Outlook"
-    assert DateTime.to_unix(article.publishing_date) == DateTime.to_unix(~U[2026-05-02 08:30:00Z])
+    assert DateTime.to_unix(article.publishing_date) == DateTime.to_unix(~U[2026-05-02 00:00:00Z])
     assert Enum.map(article.categories, &to_string(&1.name)) == ["Weather"]
   end
 
@@ -98,7 +98,7 @@ defmodule Voria2Web.ManageBlogPagesLiveTest do
         "slug" => "climate-brief",
         "body" => "<p>Monthly anomalies.</p>",
         "published" => "false",
-        "publishing_date" => iso(~U[2026-05-03 12:45:00Z])
+        "publishing_date" => date(~U[2026-05-03 12:45:00Z])
       }
     })
 
@@ -109,7 +109,7 @@ defmodule Voria2Web.ManageBlogPagesLiveTest do
              )
 
     assert Enum.map(article.categories, &to_string(&1.name)) == ["Climate"]
-    assert DateTime.to_unix(article.publishing_date) == DateTime.to_unix(~U[2026-05-03 12:45:00Z])
+    assert DateTime.to_unix(article.publishing_date) == DateTime.to_unix(~U[2026-05-03 00:00:00Z])
   end
 
   test "edits a blog page and replaces its categories", %{conn: conn, admin: admin} do
@@ -146,7 +146,7 @@ defmodule Voria2Web.ManageBlogPagesLiveTest do
         "slug" => "final-draft",
         "body" => "<p>Published update.</p>",
         "published" => "true",
-        "publishing_date" => iso(~U[2026-05-04 11:15:00Z])
+        "publishing_date" => date(~U[2026-05-04 11:15:00Z])
       }
     })
 
@@ -154,7 +154,7 @@ defmodule Voria2Web.ManageBlogPagesLiveTest do
     assert updated.title == "Final Draft"
     assert updated.slug == "final-draft"
     assert updated.published
-    assert DateTime.to_unix(updated.publishing_date) == DateTime.to_unix(~U[2026-05-04 11:15:00Z])
+    assert DateTime.to_unix(updated.publishing_date) == DateTime.to_unix(~U[2026-05-04 00:00:00Z])
     assert Enum.map(updated.categories, &to_string(&1.name)) == ["News"]
   end
 

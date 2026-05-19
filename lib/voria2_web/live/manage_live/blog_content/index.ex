@@ -17,6 +17,7 @@ defmodule Voria2Web.ManageLive.BlogContent.Index do
         socket
         |> assign(:page_title, gettext("Blog Content"))
         |> assign(:active_section, :blogcontent)
+        |> assign(:convert_images_to_webp, false)
         |> assign(:files, list_files())
         |> assign(:selected_file, nil)
         |> allow_upload(:files,
@@ -32,8 +33,9 @@ defmodule Voria2Web.ManageLive.BlogContent.Index do
   end
 
   @impl true
-  def handle_event("validate", _params, socket) do
-    {:noreply, socket}
+  def handle_event("validate", params, socket) do
+    {:noreply,
+     assign(socket, :convert_images_to_webp, truthy_param?(params["convert_images_to_webp"]))}
   end
 
   def handle_event("cancel_upload", %{"ref" => ref}, socket) do
@@ -69,7 +71,10 @@ defmodule Voria2Web.ManageLive.BlogContent.Index do
       result =
         consume_uploaded_entry(socket, entry, fn %{path: path} ->
           with {:ok, binary} <- File.read(path),
-               {:ok, key} <- Voria2.BlogContent.upload(entry.client_name, binary) do
+               {:ok, key} <-
+                 Voria2.BlogContent.upload(entry.client_name, binary,
+                   convert_to_webp: socket.assigns.convert_images_to_webp and image_upload?(entry)
+                 ) do
             {:ok, key}
           else
             {:error, reason} -> {:error, reason}
@@ -156,6 +161,19 @@ defmodule Voria2Web.ManageLive.BlogContent.Index do
                   </div>
 
                   <.live_file_input upload={@uploads.files} class="absolute inset-0 opacity-0 z-20" />
+                </div>
+
+                <div class="mt-4 rounded-xl border border-base-300 bg-base-100/60 px-4 py-3">
+                  <.input
+                    id="blogcontent-convert-images-to-webp"
+                    name="convert_images_to_webp"
+                    type="checkbox"
+                    checked={@convert_images_to_webp}
+                    label={gettext("Convert image uploads to WebP")}
+                  />
+                  <p class="text-sm text-base-content/60">
+                    {gettext("When enabled, uploaded images are converted and stored as .webp files.")}
+                  </p>
                 </div>
               </form>
 
@@ -480,4 +498,22 @@ defmodule Voria2Web.ManageLive.BlogContent.Index do
       true -> gettext("%{size} B", size: bytes)
     end
   end
+
+  defp image_upload?(entry) do
+    String.starts_with?(entry.client_type || "", "image/") or
+      image_filename?(entry.client_name)
+  end
+
+  defp image_filename?(filename) do
+    case filename |> Path.extname() |> String.downcase() do
+      ".jpg" -> true
+      ".jpeg" -> true
+      ".png" -> true
+      ".gif" -> true
+      ".webp" -> true
+      _ -> false
+    end
+  end
+
+  defp truthy_param?(value), do: value in [true, "true", "1", "on"]
 end

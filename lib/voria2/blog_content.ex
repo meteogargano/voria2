@@ -18,10 +18,11 @@ defmodule Voria2.BlogContent do
     end
   end
 
-  def upload(filename, binary) when is_binary(filename) and is_binary(binary) do
+  def upload(filename, binary, opts \\ []) when is_binary(filename) and is_binary(binary) do
     with {:ok, safe_name} <- normalize_filename(filename),
-         {:ok, target_name} <- unique_filename(safe_name),
-         {:ok, key} <- Voria2.Storage.upload(binary, object_key(target_name), bucket()) do
+         {:ok, upload_name, upload_binary} <- maybe_convert_to_webp(safe_name, binary, opts),
+         {:ok, target_name} <- unique_filename(upload_name),
+         {:ok, key} <- Voria2.Storage.upload(upload_binary, object_key(target_name), bucket()) do
       {:ok, key}
     end
   end
@@ -95,5 +96,22 @@ defmodule Voria2.BlogContent do
     else
       filename
     end
+  end
+
+  defp maybe_convert_to_webp(filename, binary, opts) do
+    if Keyword.get(opts, :convert_to_webp, false) do
+      with {:ok, image} <- Image.from_binary(binary),
+           {:ok, webp_binary} <- Image.write(image, :memory, suffix: ".webp") do
+        {:ok, webp_filename(filename), webp_binary}
+      end
+    else
+      {:ok, filename, binary}
+    end
+  end
+
+  defp webp_filename(filename) do
+    ext = Path.extname(filename)
+    base = Path.rootname(filename, ext)
+    base <> ".webp"
   end
 end

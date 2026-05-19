@@ -82,6 +82,69 @@ defmodule Voria2Web.ManageBlogContentLiveTest do
     assert has_element?(view, "#blogcontent-empty-state")
   end
 
+  test "image uploads keep their original filename when conversion is unchecked", %{conn: conn} do
+    {:ok, view, _html} = live(conn, ~p"/manage/blogcontent")
+
+    upload =
+      file_input(view, "#blogcontent-upload-form", :files, [
+        %{
+          name: "cover.png",
+          content: "png-bytes",
+          type: "image/png"
+        }
+      ])
+
+    render_upload(upload, "cover.png")
+
+    assert has_element?(view, "#blogcontent-file-blogcontent-cover-png", "cover.png")
+    refute has_element?(view, "#blogcontent-file-blogcontent-cover-webp")
+  end
+
+  test "image uploads are converted to webp when the option is enabled", %{conn: conn} do
+    {:ok, view, _html} = live(conn, ~p"/manage/blogcontent")
+
+    view
+    |> element("#blogcontent-upload-form")
+    |> render_change(%{"convert_images_to_webp" => "true"})
+
+    upload =
+      file_input(view, "#blogcontent-upload-form", :files, [
+        %{
+          name: "cover.png",
+          content: tiny_png(),
+          type: "image/png"
+        }
+      ])
+
+    render_upload(upload, "cover.png")
+
+    assert has_element?(view, "#blogcontent-file-blogcontent-cover-webp", "cover.webp")
+    assert has_element?(view, "#blogcontent-preview", "cover.webp")
+    refute has_element?(view, "#blogcontent-file-blogcontent-cover-png")
+  end
+
+  test "non-image uploads are not converted when the option is enabled", %{conn: conn} do
+    {:ok, view, _html} = live(conn, ~p"/manage/blogcontent")
+
+    view
+    |> element("#blogcontent-upload-form")
+    |> render_change(%{"convert_images_to_webp" => "true"})
+
+    upload =
+      file_input(view, "#blogcontent-upload-form", :files, [
+        %{
+          name: "post.md",
+          content: "# Hello",
+          type: "text/markdown"
+        }
+      ])
+
+    render_upload(upload, "post.md")
+
+    assert has_element?(view, "#blogcontent-file-blogcontent-post-md", "post.md")
+    refute has_element?(view, "#blogcontent-file-blogcontent-post-webp")
+  end
+
   test "duplicate uploads are auto-renamed", %{conn: conn} do
     Voria2.Storage.Stub.put_object("blogcontent/post.md", "old post",
       content_type: "text/markdown",
@@ -106,11 +169,45 @@ defmodule Voria2Web.ManageBlogContentLiveTest do
     assert has_element?(view, "#blogcontent-preview", "post-2.md")
   end
 
+  test "converted uploads are auto-renamed against existing webp files", %{conn: conn} do
+    Voria2.Storage.Stub.put_object("blogcontent/cover.webp", "old cover",
+      content_type: "image/webp",
+      last_modified: "2026-05-01T10:00:00Z"
+    )
+
+    {:ok, view, _html} = live(conn, ~p"/manage/blogcontent")
+
+    view
+    |> element("#blogcontent-upload-form")
+    |> render_change(%{"convert_images_to_webp" => "true"})
+
+    upload =
+      file_input(view, "#blogcontent-upload-form", :files, [
+        %{
+          name: "cover.png",
+          content: tiny_png(),
+          type: "image/png"
+        }
+      ])
+
+    render_upload(upload, "cover.png")
+
+    assert has_element?(view, "#blogcontent-file-blogcontent-cover-webp", "cover.webp")
+    assert has_element?(view, "#blogcontent-file-blogcontent-cover-2-webp", "cover-2.webp")
+    assert has_element?(view, "#blogcontent-preview", "cover-2.webp")
+  end
+
   defp log_in(conn, user) do
     {:ok, token, _claims} = AshAuthentication.Jwt.token_for_user(user, %{"purpose" => "user"})
 
     conn
     |> Plug.Test.init_test_session(%{})
     |> store_in_session(Ash.Resource.put_metadata(user, :token, token))
+  end
+
+  defp tiny_png do
+    Base.decode64!(
+      "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+nX6QAAAAASUVORK5CYII="
+    )
   end
 end
