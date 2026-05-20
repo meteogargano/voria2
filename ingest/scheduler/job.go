@@ -2,10 +2,12 @@ package scheduler
 
 import (
 	"context"
+	"errors"
 	"log"
 	"time"
 
 	"voria2ingest/poller"
+	"voria2ingest/poller/methods"
 	"voria2ingest/sender"
 )
 
@@ -43,12 +45,20 @@ func (j *BaseJob) Run(ctx context.Context) error {
 
 	rawData, err := j.poller.Poll(ctx)
 	if err != nil {
+		if errors.Is(err, methods.ErrSkipCycle) {
+			log.Printf("Job %s: skipped cycle: %v", j.name, err)
+			return nil
+		}
 		log.Printf("Job %s: poll failed: %v", j.name, err)
 		return err
 	}
 
 	transformedData, err := j.poller.Transform(rawData)
 	if err != nil {
+		if errors.Is(err, methods.ErrSkipCycle) {
+			log.Printf("Job %s: skipped cycle during transform: %v", j.name, err)
+			return nil
+		}
 		log.Printf("Job %s: transform failed: %v", j.name, err)
 		return err
 	}

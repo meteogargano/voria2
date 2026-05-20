@@ -54,13 +54,26 @@ stations:
 
 webcams:
   - name: "webcam-1"
-    method: "provider-x-webcam"
+    method: "simple-http"
     pollingInterval: 30s
     destinationKey: "cam-1"
     methodSettings:
-      apiKey: "your-api-key"
-      cameraId: "cam-001"
       url: "https://images.webcam-x.example.com/cam/001"
+
+  - name: "imou-cam"
+    method: "imou"
+    pollingInterval: 10m
+    destinationKey: "cam-2"
+    methodSettings:
+      app_id: "your-imou-app-id"
+      app_secret: "your-imou-app-secret"
+      device:
+        device_id: "E32F2ALPSF18046"
+        channel_id: "1"
+        profile: "HD"
+      capture:
+        crop_bottom: 220
+        min_image_kb: 25
 
   - name: "camdiprova"
     method: "ftp"
@@ -90,6 +103,8 @@ go build -o voria2ingest ./cmd
 # Run with configuration
 ./voria2ingest config.yaml
 ```
+
+`ffmpeg` must be available at runtime for the `imou` webcam method.
 
 ## Adding New Methods
 

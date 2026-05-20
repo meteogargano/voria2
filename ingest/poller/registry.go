@@ -12,6 +12,7 @@ type MethodFactory func() Poller
 var methodRegistry = map[string]MethodFactory{
 	"anemos":          func() Poller { return &weather.AnemosWeather{} },
 	"clientraw":       func() Poller { return &weather.ClientrawWeather{} },
+	"imou":            func() Poller { return &webcam.ImouWebcam{} },
 	"meteobridge":     func() Poller { return &weather.MeteobridgeWeather{} },
 	"weatherlinklive": func() Poller { return &weather.Weatherlinklive{} },
 	"simple-http":     func() Poller { return &webcam.SimpleHTTPWebcam{} },

@@ -11,7 +11,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -trimpath -ldflags="-s -w" -o /out/voria2i
 
 FROM alpine:3.22
 
-RUN apk add --no-cache ca-certificates tzdata wget
+RUN apk add --no-cache ca-certificates ffmpeg tzdata wget
 
 WORKDIR /app
 
