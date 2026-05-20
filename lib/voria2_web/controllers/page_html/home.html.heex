@@ -316,18 +316,19 @@
           id={"home-blog-article-#{article.slug}"}
           class="group overflow-hidden border border-base-300 bg-base-100 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-lg"
         >
+          <% image_url = article_card_image_url(article) %>
           <.link href={~p"/blog/#{article.slug}"} class="block">
             <div class="aspect-[16/10] overflow-hidden bg-base-200">
               <img
-                :if={article.cover_image_url && String.trim(article.cover_image_url) != ""}
-                src={article.cover_image_url}
+                :if={image_url}
+                src={image_url}
                 alt={article.title}
                 loading="lazy"
                 decoding="async"
                 class="size-full object-cover transition duration-500 group-hover:scale-[1.03]"
               />
               <div
-                :if={!(article.cover_image_url && String.trim(article.cover_image_url) != "")}
+                :if={!image_url}
                 class="flex size-full items-center justify-center bg-gradient-to-br from-primary/15 via-base-200 to-base-300 text-primary/80"
               >
                 <.icon name="hero-newspaper" class="size-12" />

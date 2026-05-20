@@ -90,6 +90,8 @@ defmodule Voria2Web do
       import Voria2Web.ManageComponents
       # Installation-specific components
       import Voria2Web.InstallationComponents
+      # Shared blog rendering helpers
+      import Voria2Web.BlogArticleImages
 
       # Common modules used in templates
       alias Phoenix.LiveView.JS

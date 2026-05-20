@@ -145,6 +145,68 @@ defmodule Voria2Web.BlogControllerTest do
     assert html =~ DateTime.to_iso8601(article.publishing_date)
   end
 
+  test "GET /blog/:slug hides the cover block when no thumbnail is set", %{conn: conn} do
+    article =
+      create_blog_article(
+        title: "No Cover Article",
+        slug: "no-cover-article",
+        body: ~s(<p>Body without cover image.</p>),
+        cover_image_url: nil,
+        published: true,
+        publishing_date: @past_publication
+      )
+
+    conn = get(conn, ~p"/blog/#{article.slug}")
+    html = html_response(conn, 200)
+
+    refute html =~ ~s(id="blog-article-cover")
+  end
+
+  test "GET /blog uses the first CDN body image as card fallback when no cover is set", %{
+    conn: conn
+  } do
+    previous_endpoint = Application.get_env(:voria2, :storage_public_endpoint)
+    Application.put_env(:voria2, :storage_public_endpoint, "https://media.test")
+    on_exit(fn -> Application.put_env(:voria2, :storage_public_endpoint, previous_endpoint) end)
+
+    create_blog_article(
+      title: "Fallback Article",
+      slug: "fallback-article",
+      body:
+        ~s(<p>Intro</p><img src="https://media.test/blogcontent/files/cover.webp" alt="cover"><img src="https://media.test/blogcontent/files/second.webp" alt="second">),
+      cover_image_url: nil,
+      published: true,
+      publishing_date: @past_publication
+    )
+
+    conn = get(conn, ~p"/blog")
+    html = html_response(conn, 200)
+
+    assert html =~ ~s(src="https://media.test/blogcontent/files/cover.webp")
+    refute html =~ ~s(hero-newspaper)
+  end
+
+  test "GET /blog ignores non-CDN body images when no cover is set", %{conn: conn} do
+    previous_endpoint = Application.get_env(:voria2, :storage_public_endpoint)
+    Application.put_env(:voria2, :storage_public_endpoint, "https://media.test")
+    on_exit(fn -> Application.put_env(:voria2, :storage_public_endpoint, previous_endpoint) end)
+
+    create_blog_article(
+      title: "External Image Article",
+      slug: "external-image-article",
+      body: ~s(<p>Intro</p><img src="https://external.example.com/image.jpg" alt="external">),
+      cover_image_url: nil,
+      published: true,
+      publishing_date: @past_publication
+    )
+
+    conn = get(conn, ~p"/blog")
+    html = html_response(conn, 200)
+
+    refute html =~ ~s(src="https://external.example.com/image.jpg")
+    assert html =~ ~s(hero-newspaper)
+  end
+
   test "GET /blog/:slug returns 404 for draft articles to anonymous users", %{conn: conn} do
     article = create_blog_article(title: "Draft Article", slug: "draft-article", published: false)
 
