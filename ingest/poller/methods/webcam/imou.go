@@ -85,9 +85,29 @@ type imouBindDeviceLiveResponse struct {
 	Streams   []imouStream `json:"streams"`
 }
 
+type imouGetLiveStreamInfoResponse struct {
+	Streams []imouExistingStream `json:"streams"`
+}
+
 type imouStream struct {
 	StreamID int    `json:"streamId"`
 	HLS      string `json:"hls"`
+}
+
+type imouExistingStream struct {
+	LiveToken string `json:"liveToken"`
+	StreamID  int    `json:"streamId"`
+	HLS       string `json:"hls"`
+	Status    string `json:"status"`
+}
+
+type imouAPIError struct {
+	Code    string
+	Message string
+}
+
+func (e *imouAPIError) Error() string {
+	return fmt.Sprintf("imou API error (%s: %s)", e.Code, e.Message)
 }
 
 func (p *ImouWebcam) Name() string {
@@ -186,22 +206,19 @@ func (p *ImouWebcam) Poll(ctx context.Context) (interface{}, error) {
 		return nil, fmt.Errorf("device %s is not online (status: %s)", p.device.DeviceID, status.OnLine)
 	}
 
-	var bindResponse imouBindDeviceLiveResponse
-	accessToken, err = p.callAPI(ctx, "bindDeviceLive", accessToken, map[string]any{
-		"deviceId":  p.device.DeviceID,
-		"channelId": p.device.ChannelID,
-		"streamId":  p.preferredStreamID(),
-	}, &bindResponse)
+	streams, liveToken, owned, accessToken, err := p.bindOrReuseLive(ctx, accessToken)
 	if err != nil {
 		return nil, fmt.Errorf("bind device live: %w", err)
 	}
-	if bindResponse.LiveToken == "" {
-		return nil, fmt.Errorf("bindDeviceLive response missing liveToken")
+	if liveToken == "" {
+		return nil, fmt.Errorf("bind device live: missing live token")
 	}
 
-	defer p.unbindLive(bindResponse.LiveToken)
+	if owned {
+		defer p.unbindLive(liveToken)
+	}
 
-	streamURL, err := p.selectBestStream(bindResponse.Streams)
+	streamURL, err := p.selectBestStream(streams)
 	if err != nil {
 		return nil, err
 	}
@@ -245,6 +262,66 @@ func (p *ImouWebcam) fetchAccessToken(ctx context.Context) (string, error) {
 	}
 
 	return response.AccessToken, nil
+}
+
+func (p *ImouWebcam) bindOrReuseLive(ctx context.Context, accessToken string) ([]imouStream, string, bool, string, error) {
+	bindResponse, accessToken, err := p.bindLive(ctx, accessToken)
+	if err == nil {
+		if bindResponse.LiveToken == "" {
+			return nil, "", false, accessToken, fmt.Errorf("bindDeviceLive response missing liveToken")
+		}
+		return bindResponse.Streams, bindResponse.LiveToken, true, accessToken, nil
+	}
+
+	var apiErr *imouAPIError
+	if !errors.As(err, &apiErr) || apiErr.Code != "LV1001" {
+		return nil, "", false, accessToken, err
+	}
+
+	var existing imouGetLiveStreamInfoResponse
+	accessToken, err = p.callAPI(ctx, "getLiveStreamInfo", accessToken, map[string]any{
+		"deviceId":  p.device.DeviceID,
+		"channelId": p.device.ChannelID,
+	}, &existing)
+	if err != nil {
+		return nil, "", false, accessToken, fmt.Errorf("recover existing live after LV1001: %w", err)
+	}
+
+	streams, liveToken, err := normalizeExistingStreams(existing.Streams)
+	if err == nil {
+		return streams, liveToken, false, accessToken, nil
+	}
+
+	staleLiveToken := firstExistingLiveToken(existing.Streams)
+	if staleLiveToken == "" {
+		return nil, "", false, accessToken, fmt.Errorf("recover existing live after LV1001: %w", err)
+	}
+
+	accessToken, retryErr := p.unbindLiveWithAccessToken(ctx, accessToken, staleLiveToken)
+	if retryErr != nil {
+		return nil, "", false, accessToken, fmt.Errorf("recover existing live after LV1001: %w; stale live cleanup failed: %w", err, retryErr)
+	}
+
+	bindResponse, accessToken, retryErr = p.bindLive(ctx, accessToken)
+	if retryErr != nil {
+		return nil, "", false, accessToken, fmt.Errorf("recover existing live after LV1001: %w; rebind after stale cleanup failed: %w", err, retryErr)
+	}
+	if bindResponse.LiveToken == "" {
+		return nil, "", false, accessToken, fmt.Errorf("rebind after stale cleanup returned no live token")
+	}
+
+	return bindResponse.Streams, bindResponse.LiveToken, true, accessToken, nil
+}
+
+func (p *ImouWebcam) bindLive(ctx context.Context, accessToken string) (imouBindDeviceLiveResponse, string, error) {
+	var bindResponse imouBindDeviceLiveResponse
+	accessToken, err := p.callAPI(ctx, "bindDeviceLive", accessToken, map[string]any{
+		"deviceId":  p.device.DeviceID,
+		"channelId": p.device.ChannelID,
+		"streamId":  p.preferredStreamID(),
+	}, &bindResponse)
+
+	return bindResponse, accessToken, err
 }
 
 func (p *ImouWebcam) callAPI(ctx context.Context, endpoint string, accessToken string, params map[string]any, out interface{}) (string, error) {
@@ -348,15 +425,15 @@ func (p *ImouWebcam) postAPI(ctx context.Context, endpoint string, accessToken s
 }
 
 func (p *ImouWebcam) imouError(code string, message string) error {
-	fullMessage := strings.TrimSpace(code + ": " + message)
+	message = strings.TrimSpace(message)
 
 	switch code {
 	case "OP1008", "SN1001":
-		return fmt.Errorf("invalid app_id or app_secret (%s)", fullMessage)
+		return fmt.Errorf("invalid app_id or app_secret (%s: %s)", code, message)
 	case "OP1009":
-		return fmt.Errorf("not authorized (%s)", fullMessage)
+		return fmt.Errorf("not authorized (%s: %s)", code, message)
 	default:
-		return fmt.Errorf("imou API error (%s)", fullMessage)
+		return &imouAPIError{Code: code, Message: message}
 	}
 }
 
@@ -435,9 +512,13 @@ func (p *ImouWebcam) unbindLive(liveToken string) {
 		return
 	}
 
-	if _, err := p.callAPI(ctx, "unbindLive", accessToken, map[string]any{"liveToken": liveToken}, nil); err != nil {
+	if _, err := p.unbindLiveWithAccessToken(ctx, accessToken, liveToken); err != nil {
 		log.Printf("Imou webcam: failed to unbind live token %s: %v", liveToken, err)
 	}
+}
+
+func (p *ImouWebcam) unbindLiveWithAccessToken(ctx context.Context, accessToken string, liveToken string) (string, error) {
+	return p.callAPI(ctx, "unbindLive", accessToken, map[string]any{"liveToken": liveToken}, nil)
 }
 
 func filterStreams(streams []imouStream, prefix string) []imouStream {
@@ -459,6 +540,46 @@ func findStreamByID(streams []imouStream, streamID int) *imouStream {
 	}
 
 	return nil
+}
+
+func normalizeExistingStreams(streams []imouExistingStream) ([]imouStream, string, error) {
+	if len(streams) == 0 {
+		return nil, "", fmt.Errorf("getLiveStreamInfo returned no streams")
+	}
+
+	normalized := make([]imouStream, 0, len(streams))
+	liveToken := ""
+	for _, stream := range streams {
+		if stream.HLS == "" {
+			continue
+		}
+		normalized = append(normalized, imouStream{
+			StreamID: stream.StreamID,
+			HLS:      stream.HLS,
+		})
+		if liveToken == "" && stream.LiveToken != "" {
+			liveToken = stream.LiveToken
+		}
+	}
+
+	if len(normalized) == 0 {
+		return nil, "", fmt.Errorf("getLiveStreamInfo returned no usable streams")
+	}
+	if liveToken == "" {
+		return nil, "", fmt.Errorf("getLiveStreamInfo response missing live token")
+	}
+
+	return normalized, liveToken, nil
+}
+
+func firstExistingLiveToken(streams []imouExistingStream) string {
+	for _, stream := range streams {
+		if stream.LiveToken != "" {
+			return stream.LiveToken
+		}
+	}
+
+	return ""
 }
 
 func cloneMap(source map[string]any) map[string]any {
