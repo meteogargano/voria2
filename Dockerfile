@@ -14,7 +14,7 @@ FROM ${ELIXIR_IMAGE} AS builder
 ENV MIX_ENV=prod
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends build-essential ca-certificates git && \
+    apt-get install -y --no-install-recommends build-essential ca-certificates git curl && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
