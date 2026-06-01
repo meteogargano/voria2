@@ -103,7 +103,7 @@
               Ultimo scatto ricevuto
             </p>
             <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
-              L'immagine piu' recente arrivata nel database dalla rete webcam.
+              L'immagine più recente arrivata nel database dalla rete webcam.
             </h2>
 
             <div :if={@latest_shot} class="grid gap-4 sm:grid-cols-2">
@@ -118,11 +118,16 @@
 
               <article class="border border-base-300 bg-base-100 p-5 shadow-sm">
                 <p class="text-xs font-semibold uppercase tracking-[0.24em] text-base-content/45">
-                  Timestamp
+                  Data e ora
                 </p>
                 <p class="mt-3 text-2xl font-semibold tracking-tight">
-                  <time datetime={article_datetime(@latest_shot.captured_at)}>
-                    {latest_shot_timestamp(@latest_shot)}
+                  <time
+                    id="homepage-latest-shot-timestamp"
+                    datetime={article_datetime(@latest_shot.captured_at)}
+                    data-local-time="true"
+                    data-ts={DateTime.to_unix(@latest_shot.captured_at, :millisecond)}
+                  >
+                    —
                   </time>
                 </p>
               </article>
@@ -184,7 +189,7 @@
               In sintesi
             </p>
             <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
-              Le cose piu' importanti da vedere appena arrivi qui.
+              Le cose più importanti da sapere...
             </h2>
           </div>
 

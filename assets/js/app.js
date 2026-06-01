@@ -30,22 +30,25 @@ import InputBlur from "./hooks/input_blur"
 import FlatpickrInput from "./hooks/flatpickr_input"
 import HugeRteInput from "./hooks/hugerte_input"
 
-const LocalTime = {
-  mounted() { this._apply() },
-  updated() { this._apply() },
-  _apply() {
-    const ts = parseInt(this.el.dataset.ts)
-    if (!ts) return
-    const d = new Date(ts)
-    const fmt = this.el.dataset.format
-    if (fmt === "time") {
-      this.el.textContent = d.toLocaleTimeString(undefined, {hour: "2-digit", minute: "2-digit", hour12: false})
-    } else if (fmt === "datetime-sec") {
-      this.el.textContent = d.toLocaleString(undefined, {day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false})
-    } else {
-      this.el.textContent = d.toLocaleString(undefined, {day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", hour12: false})
-    }
+function applyLocalTime(el) {
+  const ts = parseInt(el.dataset.ts, 10)
+  if (!ts) return
+
+  const d = new Date(ts)
+  const fmt = el.dataset.format
+
+  if (fmt === "time") {
+    el.textContent = d.toLocaleTimeString(undefined, {hour: "2-digit", minute: "2-digit", hour12: false})
+  } else if (fmt === "datetime-sec") {
+    el.textContent = d.toLocaleString(undefined, {day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false})
+  } else {
+    el.textContent = d.toLocaleString(undefined, {day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", hour12: false})
   }
+}
+
+const LocalTime = {
+  mounted() { applyLocalTime(this.el) },
+  updated() { applyLocalTime(this.el) }
 }
 
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
@@ -68,6 +71,10 @@ document.addEventListener("change", (event) => {
   if (!form) return
 
   form.requestSubmit()
+})
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("[data-local-time='true']").forEach(applyLocalTime)
 })
 
 // connect if there are any LiveViews on the page

@@ -16,7 +16,7 @@ defmodule Voria2Web.PageController do
       latest_articles: Enum.take(latest_articles, 3),
       latest_shot: latest_shot,
       page_meta: %{
-        title: "Osservare il Gargano, raccontarlo e conservarne la memoria meteorologica",
+        title: "Homepage",
         description:
           "Rete meteo, webcam e contenuti editoriali per seguire in tempo reale il Gargano, leggere i microclimi locali e consultare un archivio costruito nel tempo.",
         type: "website",

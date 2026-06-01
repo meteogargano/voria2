@@ -20,12 +20,6 @@ defmodule Voria2Web.PageHTML do
   def latest_shot_viewer_path(%{webcam: %{id: webcam_id}}), do: ~p"/webcams/#{webcam_id}/viewer"
   def latest_shot_viewer_path(_shot), do: nil
 
-  def latest_shot_timestamp(%{captured_at: %DateTime{} = captured_at}) do
-    Calendar.strftime(captured_at, "%d %b %Y, %H:%M")
-  end
-
-  def latest_shot_timestamp(_shot), do: nil
-
   def excerpt(body) when is_binary(body) do
     body
     |> String.replace(~r/<!--.*?-->/us, " ")
