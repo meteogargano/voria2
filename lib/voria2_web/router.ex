@@ -60,6 +60,7 @@ defmodule Voria2Web.Router do
     get "/statuto", PageController, :statuto
     get "/blog", BlogController, :index
     get "/blog/:slug", BlogController, :show
+    get "/dailylog", DailyLogController, :index
     get "/dailylog/:slug", DailyLogController, :show
 
     get "/preferences", PreferencesController, :index
