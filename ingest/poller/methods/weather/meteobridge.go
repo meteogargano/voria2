@@ -41,7 +41,7 @@ func (v *MeteobridgeWeather) Poll(ctx context.Context) (interface{}, error) {
 		return nil, err
 	}
 
-	fields := strings.Split(string(data), " ")
+	fields := strings.Fields(string(data))
 	if len(fields) <= 40 {
 		return nil, fmt.Errorf("invalid response format: expected at least 41 fields, got %d", len(fields))
 	}
@@ -61,14 +61,33 @@ func (v *MeteobridgeWeather) Poll(ctx context.Context) (interface{}, error) {
 		return nil, fmt.Errorf("failed to parse pressure: %w", err)
 	}
 
-	windAvgMs, err := strconv.ParseFloat(strings.TrimSpace(fields[5]), 64)
+	windAvgRaw, err := strconv.ParseFloat(strings.TrimSpace(fields[5]), 64)
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse wind avg: %w", err)
 	}
 
-	windGustMs, err := strconv.ParseFloat(strings.TrimSpace(fields[40]), 64)
+	windGustRaw, err := strconv.ParseFloat(strings.TrimSpace(fields[40]), 64)
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse wind gust: %w", err)
+	}
+
+	windUnit := strings.TrimSpace(fields[13])
+
+	var windSpeedKmh float64
+	var windSpeedMs float64
+	var windGustMs float64
+
+	switch windUnit {
+	case "m/s":
+		windSpeedMs = windAvgRaw
+		windSpeedKmh = windAvgRaw * 3.6
+		windGustMs = windGustRaw
+	case "km/h":
+		windSpeedKmh = windAvgRaw
+		windSpeedMs = windAvgRaw / 3.6
+		windGustMs = windGustRaw / 3.6
+	default:
+		return nil, fmt.Errorf("unsupported wind unit: %s", windUnit)
 	}
 
 	windDirection, err := strconv.ParseFloat(strings.TrimSpace(fields[7]), 64)
@@ -85,8 +104,8 @@ func (v *MeteobridgeWeather) Poll(ctx context.Context) (interface{}, error) {
 		TemperatureCelsius: temperature,
 		HumidityPercent:    humidity,
 		PressureHPa:        pressure,
-		WindSpeedKmh:       windAvgMs * 3.6,
-		WindSpeedMs:        windAvgMs,
+		WindSpeedKmh:       windSpeedKmh,
+		WindSpeedMs:        windSpeedMs,
 		WindDirectionDeg:   windDirection,
 		WindGustMs:         windGustMs,
 		RainCumulativeMM:   rain,
