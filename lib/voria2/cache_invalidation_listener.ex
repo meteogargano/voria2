@@ -37,12 +37,12 @@ defmodule Voria2.CacheInvalidationListener do
     with {:ok, station} <- safe_get_station(sid) do
       Voria2.Cache.invalidate_dailylog(station)
 
-      start_safe_task(fn ->
+      start_warm_task({:dailylog, sid}, fn ->
         Voria2.Cache.warm_dailylog(station)
       end)
     end
 
-    start_safe_task(fn ->
+    start_warm_task({:summary, sid, st}, fn ->
       Voria2.Cache.warm_summary(sid, st)
     end)
 
@@ -53,7 +53,7 @@ defmodule Voria2.CacheInvalidationListener do
     with {:ok, station} <- safe_get_station(sid) do
       Voria2.Cache.invalidate_dailylog(station, measured_at)
 
-      start_safe_task(fn ->
+      start_warm_task({:dailylog, sid}, fn ->
         Voria2.Cache.warm_dailylog(station, measured_at)
       end)
     end
@@ -78,8 +78,11 @@ defmodule Voria2.CacheInvalidationListener do
     :ets.delete(:voria2_cache, {:latest_shot, id})
     :ets.delete(:voria2_cache, {:all_webcams_latest})
 
-    start_safe_task(fn ->
+    start_warm_task({:webcam_latest, id}, fn ->
       Voria2.Cache.warm_latest_shot(id)
+    end)
+
+    start_warm_task({:all_webcams_latest}, fn ->
       Voria2.Cache.warm_all_webcams_latest()
     end)
 
@@ -102,6 +105,22 @@ defmodule Voria2.CacheInvalidationListener do
       _ = safe_run(fun, :ok)
       :ok
     end)
+  end
+
+  # Spawns a warm task only if no warm for the same key is already in flight.
+  # The lock is claimed atomically in ETS and released in an after block, so
+  # leaked locks self-heal via the TTL. Duplicate warms are skipped silently —
+  # the cache was already invalidated, so the next read computes lazily if needed.
+  defp start_warm_task(key, fun) do
+    if Voria2.Cache.claim_warm(key) do
+      start_safe_task(fn ->
+        try do
+          fun.()
+        after
+          Voria2.Cache.release_warm(key)
+        end
+      end)
+    end
   end
 
   defp safe_run(fun, fallback) do

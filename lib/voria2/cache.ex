@@ -7,6 +7,7 @@ defmodule Voria2.Cache do
   @summary_ttl 5 * 60 * 1000
   @webcam_ttl 5 * 60 * 1000
   @dailylog_ttl 5 * 60 * 1000
+  @warm_lock_ttl_ms 30_000
 
   def init_table do
     case :ets.info(@table) do
@@ -23,6 +24,28 @@ defmodule Voria2.Cache do
         @table
     end
   end
+
+  # ─── Warm dedup lock ────────────────────────────────────────────────────
+  # Soft in-flight lock so duplicate warm tasks for the same key are skipped.
+  # If a task is already warming this key, claim_warm/1 returns false and the
+  # caller skips spawning a redundant task. The TTL self-heals any lock leaked
+  # by a crashed task. Benign race: at most an occasional double-warm (the same
+  # behavior as today without any dedup) — never incorrect data.
+
+  def claim_warm(key) do
+    now = System.monotonic_time(:millisecond)
+
+    case :ets.lookup(@table, {:warm_lock, key}) do
+      [{_, expiry}] when expiry > now ->
+        false
+
+      _ ->
+        :ets.insert(@table, {{:warm_lock, key}, now + @warm_lock_ttl_ms})
+        true
+    end
+  end
+
+  def release_warm(key), do: :ets.delete(@table, {:warm_lock, key})
 
   # Returns {:ok, station} | {:ok, nil}
   def station_for_key(api_key) do

@@ -12,7 +12,7 @@ defmodule Voria2.Application do
       Voria2.Repo,
       {DNSCluster, query: Application.get_env(:voria2, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Voria2.PubSub},
-      {Task.Supervisor, name: Voria2.TaskSupervisor},
+      {Task.Supervisor, name: Voria2.TaskSupervisor, max_children: 24},
       # Start to serve requests, typically the last entry
       Voria2Web.Endpoint,
       {AshAuthentication.Supervisor, [otp_app: :voria2]}
