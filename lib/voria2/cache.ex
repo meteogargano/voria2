@@ -201,6 +201,40 @@ defmodule Voria2.Cache do
     :ok
   end
 
+  # ─── Webcam shot bytes cache ────────────────────────────────────────────
+
+  # Returns {:ok, %{body: binary, content_type: String.t()} | nil}
+  def latest_shot_bytes_for_webcam(webcam_id) do
+    case lookup_with_ttl({:latest_shot_bytes, webcam_id}) do
+      {:ok, value} ->
+        {:ok, value}
+
+      :expired_or_missing ->
+        value = compute_latest_shot_bytes(webcam_id)
+        store_with_ttl({:latest_shot_bytes, webcam_id}, value, @webcam_ttl)
+        {:ok, value}
+    end
+  end
+
+  def warm_latest_shot_bytes(webcam_id) do
+    value = compute_latest_shot_bytes(webcam_id)
+    store_with_ttl({:latest_shot_bytes, webcam_id}, value, @webcam_ttl)
+    :ok
+  end
+
+  def warm_all_latest_shot_bytes do
+    webcams =
+      Voria2.Network.Webcam
+      |> Ash.Query.filter(is_active == true)
+      |> Ash.read!(authorize?: false)
+
+    Enum.each(webcams, fn webcam ->
+      warm_latest_shot_bytes(webcam.id)
+    end)
+
+    :ok
+  end
+
   def invalidate_webcam_key(api_key) do
     :ets.delete(@table, {:webcam_key, api_key})
 
@@ -213,6 +247,7 @@ defmodule Voria2.Cache do
 
   def invalidate_latest_shot(webcam_id) do
     :ets.delete(@table, {:latest_shot, webcam_id})
+    :ets.delete(@table, {:latest_shot_bytes, webcam_id})
     :ets.delete(@table, {:all_webcams_latest})
 
     Phoenix.PubSub.broadcast(
@@ -364,6 +399,29 @@ defmodule Voria2.Cache do
 
       %{webcam: webcam, latest_shot: shot}
     end)
+  end
+
+  defp compute_latest_shot_bytes(webcam_id) do
+    case latest_shot_for_webcam(webcam_id) do
+      {:ok, nil} ->
+        nil
+
+      {:ok, shot} ->
+        case Voria2.Storage.download(shot.s3_key, shot.s3_bucket) do
+          {:ok, %{body: body}} ->
+            %{body: body, content_type: shot_content_type(shot.s3_key)}
+
+          _ ->
+            nil
+        end
+    end
+  end
+
+  defp shot_content_type(s3_key) do
+    case MIME.from_path(s3_key) do
+      "application/octet-stream" -> "image/webp"
+      other -> other
+    end
   end
 
   defp compute_summary(station_id, :temperature) do

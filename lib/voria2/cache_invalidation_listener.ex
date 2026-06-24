@@ -16,6 +16,7 @@ defmodule Voria2.CacheInvalidationListener do
     Phoenix.PubSub.subscribe(Voria2.PubSub, "measurements")
     Phoenix.PubSub.subscribe(Voria2.PubSub, "webcam_shots")
     Logger.info("Cache invalidation listener started")
+    send(self(), :prime_lastcam)
     {:ok, %{}}
   end
 
@@ -68,18 +69,32 @@ defmodule Voria2.CacheInvalidationListener do
     {:noreply, state}
   end
 
+  def handle_info(:prime_lastcam, state) do
+    start_safe_task(fn ->
+      Voria2.Cache.warm_all_latest_shot_bytes()
+    end)
+
+    {:noreply, state}
+  end
+
   def handle_info({:invalidate_latest_shot, webcam_id}, state) do
     :ets.delete(:voria2_cache, {:latest_shot, webcam_id})
+    :ets.delete(:voria2_cache, {:latest_shot_bytes, webcam_id})
     :ets.delete(:voria2_cache, {:all_webcams_latest})
     {:noreply, state}
   end
 
   def handle_info({:new_webcam_shot, %{webcam_id: id}}, state) do
     :ets.delete(:voria2_cache, {:latest_shot, id})
+    :ets.delete(:voria2_cache, {:latest_shot_bytes, id})
     :ets.delete(:voria2_cache, {:all_webcams_latest})
 
     start_warm_task({:webcam_latest, id}, fn ->
       Voria2.Cache.warm_latest_shot(id)
+    end)
+
+    start_warm_task({:webcam_latest_bytes, id}, fn ->
+      Voria2.Cache.warm_latest_shot_bytes(id)
     end)
 
     start_warm_task({:all_webcams_latest}, fn ->

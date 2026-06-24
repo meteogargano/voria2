@@ -63,6 +63,9 @@ defmodule Voria2Web.Router do
     get "/dailylog", DailyLogController, :index
     get "/dailylog/:slug", DailyLogController, :show
 
+    get "/lastcam", LastcamController, :index
+    get "/lastcam/:slug", LastcamController, :show
+
     get "/preferences", PreferencesController, :index
     post "/preferences", PreferencesController, :save
 
