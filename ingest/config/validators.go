@@ -57,6 +57,23 @@ func validateSimpleHTTPSettings(settings map[string]interface{}) error {
 	if _, ok := settings["url"]; !ok {
 		return fmt.Errorf("url is required")
 	}
+
+	if value, ok := settings["verify_image"]; ok {
+		if _, ok := value.(bool); !ok {
+			return fmt.Errorf("verify_image must be a boolean")
+		}
+	}
+
+	if _, ok := settings["verify_retries"]; ok {
+		retries, err := settingInt(settings, "verify_retries")
+		if err != nil {
+			return fmt.Errorf("verify_retries must be a whole number")
+		}
+		if retries < 0 {
+			return fmt.Errorf("verify_retries must be greater than or equal to 0")
+		}
+	}
+
 	return nil
 }
 

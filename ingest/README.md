@@ -59,6 +59,8 @@ webcams:
     destinationKey: "cam-1"
     methodSettings:
       url: "https://images.webcam-x.example.com/cam/001"
+      # verify_image: false        # enable JPEG integrity verification (default: false)
+      # verify_retries: 2          # extra fetch attempts when verification fails (default: 2, only when verify_image is true)
 
   - name: "imou-cam"
     method: "imou"
@@ -120,3 +122,5 @@ go build -o voria2ingest ./cmd
 - **Graceful shutdown**: Responds to SIGTERM/SIGINT
 - **Health checks**: Optional HTTP endpoint for monitoring
 - **Extensible**: Easy to add new polling methods
+- **Image verification** (`simple-http`): Detects truncated/incomplete JPEGs from flaky webcam servers (SOI/EOI markers + full decode), with configurable retry before skipping the cycle. Off by default; enable per-camera with `verify_image: true`
+- **Smart retry**: The sender retries transient failures (5xx, network errors) but skips retries on permanent client errors (4xx) that will never succeed

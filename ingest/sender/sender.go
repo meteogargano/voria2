@@ -2,6 +2,7 @@ package sender
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
 
@@ -29,25 +30,36 @@ func (s *HTTPSender) Send(ctx context.Context, destinationKey string, dataType s
 	var lastErr error
 
 	for i := 0; i < s.retries; i++ {
+		var err error
 		switch dataType {
 		case "weather":
-			err := s.sendJSON(ctx, destinationKey, data)
-			if err == nil {
-				return nil
-			}
-			lastErr = err
+			err = s.sendJSON(ctx, destinationKey, data)
 		case "webcam":
-			err := s.sendBinary(ctx, destinationKey, data)
-			if err == nil {
-				return nil
-			}
-			lastErr = err
+			err = s.sendBinary(ctx, destinationKey, data)
 		default:
 			return fmt.Errorf("unsupported data type: %s", dataType)
+		}
+
+		if err == nil {
+			return nil
+		}
+
+		lastErr = err
+
+		if isPermanentClientError(err) {
+			return err
 		}
 	}
 
 	return lastErr
+}
+
+func isPermanentClientError(err error) bool {
+	var he *client.HTTPError
+	if errors.As(err, &he) {
+		return he.StatusCode >= 400 && he.StatusCode < 500
+	}
+	return false
 }
 
 func (s *HTTPSender) sendJSON(ctx context.Context, destinationKey string, data interface{}) error {
