@@ -52,7 +52,7 @@ defmodule Voria2.Measurements.Summaries.RainSummary.Calculate do
       end
 
     rain_rate = compute_rain_rate(readings)
-    days_dry = count_dry_days(sensor_id, today_start, at, 0, 365)
+    days_dry = count_dry_days(sensor_id, today_start, at, 365)
 
     {:ok,
      %RainSummary{
@@ -87,26 +87,39 @@ defmodule Voria2.Measurements.Summaries.RainSummary.Calculate do
     end
   end
 
-  # Walks backwards one UTC day at a time counting consecutive dry days.
-  # Starts from today's partial window (today_start..at), then full days backwards.
-  defp count_dry_days(_sensor_id, _day_start, _day_end, count, max_days)
-       when count >= max_days,
-       do: count
+  # Counts consecutive dry days ending today using a SINGLE grouped query
+  # instead of recursing one day at a time (which previously did up to 365
+  # sequential hypertable round-trips). A day is "dry" when its summed
+  # interval_mm is 0, including days that have no readings at all.
+  defp count_dry_days(sensor_id, today_start, at, max_days) do
+    import Ecto.Query
 
-  defp count_dry_days(sensor_id, day_start, day_end, count, max_days) do
-    readings =
-      Measurements.rain_for_sensor!(sensor_id, day_start, day_end, authorize?: false)
+    window_start = DateTime.add(today_start, -max_days * 86_400, :second)
 
-    total = Enum.reduce(readings, 0.0, fn r, acc -> acc + r.interval_mm end)
+    rows =
+      Voria2.Repo.all(
+        from r in Voria2.Measurements.RainMeasurement,
+          where:
+            r.sensor_installation_id == ^sensor_id and
+              r.measured_at >= ^window_start and
+              r.measured_at <= ^at,
+          group_by: fragment("date_trunc('day', ?)", r.measured_at),
+          select: {fragment("date_trunc('day', ?)::date", r.measured_at), sum(r.interval_mm)}
+      )
 
-    if total > 0 do
-      # This period has rain — stop counting
-      count
-    else
-      # This period is dry — step back one full day
-      prev_end = day_start
-      prev_start = DateTime.add(day_start, -86400, :second)
-      count_dry_days(sensor_id, prev_start, prev_end, count + 1, max_days)
-    end
+    totals_by_date = Map.new(rows, fn {day, total} -> {day, total || 0.0} end)
+
+    today_date = DateTime.to_date(today_start)
+    oldest_date = Date.add(today_date, -max_days)
+
+    Stream.iterate(today_date, &Date.add(&1, -1))
+    |> Stream.take_while(&(Date.compare(&1, oldest_date) != :lt))
+    |> Enum.reduce_while(0, fn date, count ->
+      cond do
+        count >= max_days -> {:halt, count}
+        Map.get(totals_by_date, date, 0.0) > 0 -> {:halt, count}
+        true -> {:cont, count + 1}
+      end
+    end)
   end
 end

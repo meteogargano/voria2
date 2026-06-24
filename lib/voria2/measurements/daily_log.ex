@@ -34,6 +34,8 @@ defmodule Voria2.Measurements.DailyLog do
     wind_in_kmh? = dailylog_wind_in_kmh?()
     sensors = active_sensors(station.id)
 
+    rain_sensor = Map.get(sensors, :rain)
+
     measurements = %{
       temperature:
         scalar_readings(Map.get(sensors, :temperature), context.day_from_utc, context.day_to_utc),
@@ -42,14 +44,28 @@ defmodule Voria2.Measurements.DailyLog do
       pressure:
         scalar_readings(Map.get(sensors, :pressure), context.day_from_utc, context.day_to_utc),
       wind: wind_readings(Map.get(sensors, :wind), context.day_from_utc, context.day_to_utc),
-      day_rain: rain_readings(Map.get(sensors, :rain), context.day_from_utc, context.day_to_utc),
-      month_rain:
-        rain_readings(Map.get(sensors, :rain), context.month_from_utc, context.day_to_utc),
-      year_rain: rain_readings(Map.get(sensors, :rain), context.year_from_utc, context.day_to_utc)
+      day_rain: rain_readings(rain_sensor, context.day_from_utc, context.day_to_utc)
     }
 
+    {month_rain_before, year_rain_before} =
+      if rain_sensor do
+        {
+          rain_total_before(rain_sensor, context.month_from_utc, context.day_from_utc),
+          rain_total_before(rain_sensor, context.year_from_utc, context.day_from_utc)
+        }
+      else
+        {0.0, 0.0}
+      end
+
     daily_lines =
-      minute_rows(context, measurements, not is_nil(Map.get(sensors, :rain)), wind_in_kmh?)
+      minute_rows(
+        context,
+        measurements,
+        not is_nil(rain_sensor),
+        wind_in_kmh?,
+        month_rain_before,
+        year_rain_before
+      )
       |> Enum.map(&render_row/1)
 
     Enum.join([Enum.join(@header, " ") | daily_lines], "\n")
@@ -84,15 +100,20 @@ defmodule Voria2.Measurements.DailyLog do
     |> Enum.uniq()
   end
 
-  defp minute_rows(context, measurements, has_rain_sensor?, wind_in_kmh?) do
+  defp minute_rows(
+         context,
+         measurements,
+         has_rain_sensor?,
+         wind_in_kmh?,
+         month_rain_before,
+         year_rain_before
+       ) do
     temp_by_minute = map_by_minute(measurements.temperature)
     hum_by_minute = map_by_minute(measurements.humidity)
     pres_by_minute = map_by_minute(measurements.pressure)
     wind_by_minute = map_by_minute(measurements.wind)
 
     rain_day_by_minute = map_by_minute(measurements.day_rain)
-    rain_month_by_minute = map_by_minute(measurements.month_rain)
-    rain_year_by_minute = map_by_minute(measurements.year_rain)
 
     minute_keys =
       [
@@ -106,21 +127,16 @@ defmodule Voria2.Measurements.DailyLog do
       |> Enum.uniq()
       |> Enum.sort(&(DateTime.compare(&1, &2) != :gt))
 
-    month_rain_before_day = rain_total_before(measurements.month_rain, context.day_from_utc)
-    year_rain_before_day = rain_total_before(measurements.year_rain, context.day_from_utc)
-
-    {_day_total, _month_total, _year_total, rows} =
+    {_day_total, rows} =
       Enum.reduce(
         minute_keys,
-        {0.0, month_rain_before_day, year_rain_before_day, []},
-        fn minute_dt, {running_day_rain, running_month_rain, running_year_rain, rows} ->
+        {0.0, []},
+        fn minute_dt, {running_day_rain, rows} ->
           temp = value_of(Map.get(temp_by_minute, minute_dt))
           humidity = value_of(Map.get(hum_by_minute, minute_dt))
           pressure = value_of(Map.get(pres_by_minute, minute_dt))
           wind = Map.get(wind_by_minute, minute_dt)
           day_rain = Map.get(rain_day_by_minute, minute_dt)
-          month_rain = Map.get(rain_month_by_minute, minute_dt)
-          year_rain = Map.get(rain_year_by_minute, minute_dt)
 
           rain_last_min =
             cond do
@@ -130,12 +146,6 @@ defmodule Voria2.Measurements.DailyLog do
             end
 
           next_running_day_rain = running_day_rain + (rain_last_min || 0.0)
-
-          next_running_month_rain =
-            running_month_rain + if(month_rain, do: month_rain.interval_mm, else: 0.0)
-
-          next_running_year_rain =
-            running_year_rain + if(year_rain, do: year_rain.interval_mm, else: 0.0)
 
           dewpoint = compute_dewpoint(temp, humidity)
           heatindex = compute_heatindex(temp, humidity)
@@ -170,12 +180,14 @@ defmodule Voria2.Measurements.DailyLog do
             direction: direction,
             rainlastmin: rain_last_min,
             dailyrain: if(has_rain_sensor?, do: next_running_day_rain, else: nil),
-            monthlyrain: if(has_rain_sensor?, do: next_running_month_rain, else: nil),
-            yearlyrain: if(has_rain_sensor?, do: next_running_year_rain, else: nil),
+            monthlyrain:
+              if(has_rain_sensor?, do: month_rain_before + next_running_day_rain, else: nil),
+            yearlyrain:
+              if(has_rain_sensor?, do: year_rain_before + next_running_day_rain, else: nil),
             heatindex: heatindex
           }
 
-          {next_running_day_rain, next_running_month_rain, next_running_year_rain, [row | rows]}
+          {next_running_day_rain, [row | rows]}
         end
       )
 
@@ -336,14 +348,16 @@ defmodule Voria2.Measurements.DailyLog do
     end)
   end
 
-  defp rain_total_before(readings, cutoff_dt) do
-    Enum.reduce(readings, 0.0, fn reading, acc ->
-      if DateTime.compare(reading.measured_at, cutoff_dt) == :lt do
-        acc + reading.interval_mm
-      else
-        acc
-      end
-    end)
+  defp rain_total_before(sensor, from, day_from) do
+    import Ecto.Query
+
+    Voria2.Repo.one(
+      from r in Voria2.Measurements.RainMeasurement,
+        where:
+          r.sensor_installation_id == ^sensor.id and
+            r.measured_at >= ^from and r.measured_at < ^day_from,
+        select: sum(r.interval_mm)
+    ) || 0.0
   end
 
   defp minute_key(datetime) do
