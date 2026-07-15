@@ -69,6 +69,8 @@ defmodule Voria2.Repo.Migrations.AddMeasurementIdempotency do
   end
 
   defp deduplicate_measurements(table) do
+    # `xmin` is an xid and cannot be ordered directly on all Postgres builds.
+    # Order by transaction age instead so we still prefer the newest duplicate.
     execute """
     WITH duplicates AS (
       SELECT ctid
@@ -77,7 +79,7 @@ defmodule Voria2.Repo.Migrations.AddMeasurementIdempotency do
           ctid,
           row_number() OVER (
             PARTITION BY sensor_installation_id, measured_at
-            ORDER BY xmin DESC, ctid DESC
+            ORDER BY age(xmin) ASC, id DESC
           ) AS row_num
         FROM #{table}
       ) ranked
