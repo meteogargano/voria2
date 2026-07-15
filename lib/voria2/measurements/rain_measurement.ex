@@ -20,6 +20,9 @@ defmodule Voria2.Measurements.RainMeasurement do
     create :record_interval do
       description "Record rain as a direct fixed-interval accumulation (mm)"
       accept [:sensor_installation_id, :measured_at, :interval_mm]
+      upsert? true
+      upsert_identity :unique_sensor_timestamp
+      upsert_fields [:interval_mm]
 
       validate compare(:interval_mm, greater_than_or_equal_to: 0.0) do
         message "rain accumulation cannot be negative"
@@ -31,6 +34,9 @@ defmodule Voria2.Measurements.RainMeasurement do
     create :record_cumulative do
       description "Record rain from a cumulative-count sensor; interval is computed automatically"
       accept [:sensor_installation_id, :measured_at]
+      upsert? true
+      upsert_identity :unique_sensor_timestamp
+      upsert_fields [:interval_mm]
 
       argument :cumulative_value, :float do
         allow_nil? false
@@ -105,5 +111,9 @@ defmodule Voria2.Measurements.RainMeasurement do
       allow_nil? false
       public? true
     end
+  end
+
+  identities do
+    identity :unique_sensor_timestamp, [:sensor_installation_id, :measured_at]
   end
 end

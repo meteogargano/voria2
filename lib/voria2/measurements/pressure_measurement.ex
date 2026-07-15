@@ -19,6 +19,9 @@ defmodule Voria2.Measurements.PressureMeasurement do
 
     create :record do
       accept [:sensor_installation_id, :measured_at, :value]
+      upsert? true
+      upsert_identity :unique_sensor_timestamp
+      upsert_fields [:value]
 
       validate compare(:value, greater_than: 0.0) do
         message "pressure must be positive"
@@ -90,5 +93,9 @@ defmodule Voria2.Measurements.PressureMeasurement do
       allow_nil? false
       public? true
     end
+  end
+
+  identities do
+    identity :unique_sensor_timestamp, [:sensor_installation_id, :measured_at]
   end
 end

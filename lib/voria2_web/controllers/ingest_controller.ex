@@ -43,5 +43,18 @@ defmodule Voria2Web.IngestController do
 
   defp format_error({:unknown_sensor, slug}), do: "unknown sensor slug: #{slug}"
   defp format_error({:invalid_field, field, msg}), do: "#{field}: #{msg}"
+  defp format_error(%Ash.Error.Invalid{} = error), do: format_ash_invalid(error)
+  defp format_error(error) when is_binary(error), do: error
   defp format_error(other), do: inspect(other)
+
+  defp format_ash_invalid(error) do
+    error
+    |> Exception.message()
+    |> String.replace("\r\n", "\n")
+    |> String.split("\n")
+    |> Enum.reject(&(&1 in ["", "Invalid Error"]))
+    |> Enum.map(&String.trim/1)
+    |> Enum.map(&String.trim_leading(&1, "* "))
+    |> Enum.join("; ")
+  end
 end

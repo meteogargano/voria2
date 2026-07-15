@@ -597,9 +597,12 @@ defmodule Voria2Web.IngestControllerTest do
       create_sensor_installation(station, mt_temp)
       mt_wind = create_measurement_type(slug: "wind-bulk", storage_type: :wind)
       create_sensor_installation(station, mt_wind)
+      mt_humidity = create_measurement_type(slug: "humidity", storage_type: :scalar)
+      create_sensor_installation(station, mt_humidity)
 
       Voria2.Cache.invalidate_sensor(station.id, "temp-bulk")
       Voria2.Cache.invalidate_sensor(station.id, "wind-bulk")
+      Voria2.Cache.invalidate_sensor(station.id, "humidity")
       :ok
     end
 
@@ -662,6 +665,24 @@ defmodule Voria2Web.IngestControllerTest do
       items = [invalid | valid]
       conn = auth(conn, key) |> raw_post("/api/v1/ingest/bulk", Jason.encode!(items))
       assert json_response(conn, 200)["count"] == 9
+    end
+
+    test "resource validation failure stays isolated in bulk", %{conn: conn, api_key: key} do
+      items = [
+        %{sensor: "temp-bulk", timestamp: "2026-03-18T10:00:00Z", value: 20.0},
+        %{sensor: "humidity", timestamp: "2026-03-18T10:01:00Z", value: 255.0},
+        %{sensor: "temp-bulk", timestamp: "2026-03-18T10:02:00Z", value: 21.0}
+      ]
+
+      conn = auth(conn, key) |> raw_post("/api/v1/ingest/bulk", Jason.encode!(items))
+      resp = json_response(conn, 200)
+
+      assert resp["ok"] == true
+      assert resp["count"] == 2
+      assert Enum.at(resp["results"], 0)["ok"] == true
+      assert Enum.at(resp["results"], 1)["ok"] == false
+      assert Enum.at(resp["results"], 1)["error"] =~ "humidity cannot exceed 100%"
+      assert Enum.at(resp["results"], 2)["ok"] == true
     end
   end
 

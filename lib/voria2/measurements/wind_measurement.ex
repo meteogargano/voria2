@@ -19,6 +19,9 @@ defmodule Voria2.Measurements.WindMeasurement do
 
     create :record do
       accept [:sensor_installation_id, :measured_at, :u, :v, :gust]
+      upsert? true
+      upsert_identity :unique_sensor_timestamp
+      upsert_fields [:u, :v, :gust]
 
       change Voria2.Measurements.Changes.RoundFloatPrecisionWind
     end
@@ -111,5 +114,9 @@ defmodule Voria2.Measurements.WindMeasurement do
                   v
                 )
               )
+  end
+
+  identities do
+    identity :unique_sensor_timestamp, [:sensor_installation_id, :measured_at]
   end
 end

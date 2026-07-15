@@ -451,5 +451,53 @@ defmodule Voria2.Measurements.RainMeasurementTest do
 
       assert r.interval_mm == 3.46
     end
+
+    test "duplicate cumulative replay reuses stored interval without mutating state", %{
+      cum_sensor: sensor
+    } do
+      now = DateTime.utc_now() |> DateTime.truncate(:microsecond)
+      sid = sensor.id
+
+      Measurements.record_rain_cumulative!(
+        %{
+          sensor_installation_id: sid,
+          measured_at: DateTime.add(now, -2, :second),
+          cumulative_value: 10.0
+        },
+        authorize?: false
+      )
+
+      first =
+        Measurements.record_rain_cumulative!(
+          %{
+            sensor_installation_id: sid,
+            measured_at: now,
+            cumulative_value: 13.5
+          },
+          authorize?: false
+        )
+
+      assert first.interval_mm == 3.5
+
+      {:ok, before_state} = Measurements.get_rain_cumulative_state(sid, authorize?: false)
+      before_updated_at = before_state.last_updated_at
+
+      replay =
+        Measurements.record_rain_cumulative!(
+          %{
+            sensor_installation_id: sid,
+            measured_at: now,
+            cumulative_value: 13.5
+          },
+          authorize?: false
+        )
+
+      assert replay.id == first.id
+      assert replay.interval_mm == 3.5
+
+      {:ok, after_state} = Measurements.get_rain_cumulative_state(sid, authorize?: false)
+      assert after_state.last_cumulative_value == 13.5
+      assert after_state.last_updated_at == before_updated_at
+    end
   end
 end

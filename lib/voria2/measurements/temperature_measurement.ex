@@ -19,6 +19,9 @@ defmodule Voria2.Measurements.TemperatureMeasurement do
 
     create :record do
       accept [:sensor_installation_id, :measured_at, :value]
+      upsert? true
+      upsert_identity :unique_sensor_timestamp
+      upsert_fields [:value]
 
       change Voria2.Measurements.Changes.RoundFloatPrecision
     end
@@ -82,5 +85,9 @@ defmodule Voria2.Measurements.TemperatureMeasurement do
       allow_nil? false
       public? true
     end
+  end
+
+  identities do
+    identity :unique_sensor_timestamp, [:sensor_installation_id, :measured_at]
   end
 end

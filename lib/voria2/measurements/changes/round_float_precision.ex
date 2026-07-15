@@ -12,7 +12,7 @@ defmodule Voria2.Measurements.Changes.RoundFloatPrecision do
     Ash.Changeset.before_action(changeset, fn changeset ->
       case Ash.Changeset.fetch_change(changeset, :value) do
         {:ok, value} when is_number(value) ->
-          Ash.Changeset.change_attribute(changeset, :value, Float.round(value, 2))
+          Ash.Changeset.force_change_attribute(changeset, :value, Float.round(value, 2))
 
         _ ->
           changeset
@@ -36,9 +36,9 @@ defmodule Voria2.Measurements.Changes.RoundFloatPrecisionWind do
       attrs = [:u, :v, :gust]
 
       Enum.reduce(attrs, changeset, fn attribute, acc ->
-        case Ash.Changeset.fetch_change(changeset, attribute) do
+        case Ash.Changeset.fetch_change(acc, attribute) do
           {:ok, value} when is_number(value) ->
-            Ash.Changeset.change_attribute(acc, attribute, Float.round(value, 2))
+            Ash.Changeset.force_change_attribute(acc, attribute, Float.round(value, 2))
 
           _ ->
             acc
@@ -62,7 +62,7 @@ defmodule Voria2.Measurements.Changes.RoundFloatPrecisionRain do
     Ash.Changeset.before_action(changeset, fn changeset ->
       case Ash.Changeset.fetch_change(changeset, :interval_mm) do
         {:ok, value} when is_number(value) ->
-          Ash.Changeset.change_attribute(changeset, :interval_mm, Float.round(value, 2))
+          Ash.Changeset.force_change_attribute(changeset, :interval_mm, Float.round(value, 2))
 
         _ ->
           changeset

@@ -7,7 +7,11 @@ defmodule Voria2.Ingest do
     with :ok <- validate_required(params, @required),
          {:ok, timestamp} <- parse_timestamp(params["timestamp"]),
          {:ok, sensor} <- find_sensor(station.id, params["sensor"]) do
-      do_dispatch(sensor, params, timestamp)
+      try do
+        do_dispatch(sensor, params, timestamp)
+      rescue
+        error in Ash.Error.Invalid -> {:error, error}
+      end
     end
   end
 
@@ -45,29 +49,27 @@ defmodule Voria2.Ingest do
           %{sensor_installation_id: sensor.id, measured_at: ts, value: v},
           [authorize?: false]
         ])
-
-        :ok
+        |> persist_result()
 
       _ ->
         {:error, {:invalid_field, "value", "must be a number"}}
     end
   end
 
-  defp scalar_record_fn("humidity"), do: :record_humidity!
-  defp scalar_record_fn("pressure"), do: :record_pressure!
-  defp scalar_record_fn(_), do: :record_temperature!
+  defp scalar_record_fn("humidity"), do: :record_humidity
+  defp scalar_record_fn("pressure"), do: :record_pressure
+  defp scalar_record_fn(_), do: :record_temperature
 
   defp dispatch_wind(sensor, params, ts) do
     with {:ok, u} <- require_number(params, "u"),
          {:ok, v} <- require_number(params, "v") do
       gust = if is_number(params["gust"]), do: params["gust"], else: nil
 
-      Measurements.record_wind!(
+      Measurements.record_wind(
         %{sensor_installation_id: sensor.id, measured_at: ts, u: u, v: v, gust: gust},
         authorize?: false
       )
-
-      :ok
+      |> persist_result()
     end
   end
 
@@ -75,7 +77,7 @@ defmodule Voria2.Ingest do
     case sensor.rain_mode do
       :cumulative ->
         if is_number(params["cumulative_mm"]) do
-          Measurements.record_rain_cumulative!(
+          Measurements.record_rain_cumulative(
             %{
               sensor_installation_id: sensor.id,
               measured_at: ts,
@@ -83,28 +85,22 @@ defmodule Voria2.Ingest do
             },
             authorize?: false
           )
-
-          :ok
+          |> persist_result()
         else
           {:error, {:invalid_field, "cumulative_mm", "must be a number"}}
         end
 
       :interval ->
         if is_number(params["interval_mm"]) do
-          try do
-            Measurements.record_rain_interval!(
-              %{
-                sensor_installation_id: sensor.id,
-                measured_at: ts,
-                interval_mm: params["interval_mm"]
-              },
-              authorize?: false
-            )
-
-            :ok
-          rescue
-            Ash.Error.Invalid -> {:error, {:invalid_field, "interval_mm", "must be non-negative"}}
-          end
+          Measurements.record_rain_interval(
+            %{
+              sensor_installation_id: sensor.id,
+              measured_at: ts,
+              interval_mm: params["interval_mm"]
+            },
+            authorize?: false
+          )
+          |> persist_result()
         else
           {:error, {:invalid_field, "interval_mm", "must be a number"}}
         end
@@ -113,24 +109,18 @@ defmodule Voria2.Ingest do
         # rain_mode not set — fall back to field detection
         cond do
           is_number(params["interval_mm"]) ->
-            try do
-              Measurements.record_rain_interval!(
-                %{
-                  sensor_installation_id: sensor.id,
-                  measured_at: ts,
-                  interval_mm: params["interval_mm"]
-                },
-                authorize?: false
-              )
-
-              :ok
-            rescue
-              Ash.Error.Invalid ->
-                {:error, {:invalid_field, "interval_mm", "must be non-negative"}}
-            end
+            Measurements.record_rain_interval(
+              %{
+                sensor_installation_id: sensor.id,
+                measured_at: ts,
+                interval_mm: params["interval_mm"]
+              },
+              authorize?: false
+            )
+            |> persist_result()
 
           is_number(params["cumulative_mm"]) ->
-            Measurements.record_rain_cumulative!(
+            Measurements.record_rain_cumulative(
               %{
                 sensor_installation_id: sensor.id,
                 measured_at: ts,
@@ -138,8 +128,7 @@ defmodule Voria2.Ingest do
               },
               authorize?: false
             )
-
-            :ok
+            |> persist_result()
 
           true ->
             {:error,
@@ -149,7 +138,7 @@ defmodule Voria2.Ingest do
   end
 
   defp dispatch_custom(sensor, params, ts) do
-    Measurements.record_custom_measurement!(
+    Measurements.record_custom_measurement(
       %{
         sensor_installation_id: sensor.id,
         measurement_type_id: sensor.measurement_type_id,
@@ -159,8 +148,7 @@ defmodule Voria2.Ingest do
       },
       authorize?: false
     )
-
-    :ok
+    |> persist_result()
   end
 
   defp parse_timestamp(nil), do: {:error, {:invalid_field, "timestamp", "missing"}}
@@ -186,4 +174,7 @@ defmodule Voria2.Ingest do
       _ -> {:error, {:invalid_field, key, "must be a number"}}
     end
   end
+
+  defp persist_result({:ok, _record}), do: :ok
+  defp persist_result({:error, reason}), do: {:error, reason}
 end

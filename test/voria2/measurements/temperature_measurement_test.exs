@@ -114,4 +114,32 @@ defmodule Voria2.Measurements.TemperatureMeasurementTest do
     assert {:ok, []} =
              Measurements.temperature_for_sensor(other_sensor.id, from, now, actor: user)
   end
+
+  test "record is idempotent for sensor_installation_id + measured_at", %{sensor: sensor} do
+    at = DateTime.utc_now() |> DateTime.truncate(:microsecond)
+
+    assert {:ok, first} =
+             Measurements.record_temperature(
+               %{sensor_installation_id: sensor.id, measured_at: at, value: 22.5},
+               authorize?: false
+             )
+
+    assert {:ok, second} =
+             Measurements.record_temperature(
+               %{sensor_installation_id: sensor.id, measured_at: at, value: 23.75},
+               authorize?: false
+             )
+
+    assert first.id == second.id
+
+    assert {:ok, [reading]} =
+             Measurements.temperature_for_sensor(
+               sensor.id,
+               DateTime.add(at, -1, :second),
+               DateTime.add(at, 1, :second),
+               authorize?: false
+             )
+
+    assert reading.value == 23.75
+  end
 end
