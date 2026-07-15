@@ -7,13 +7,22 @@ defmodule Voria2.Repo.Migrations.AddMeasurementIdempotency do
 
   use Ecto.Migration
 
+  @measurement_tables [
+    "wind_measurements",
+    "temperature_measurements",
+    "rain_measurements",
+    "pressure_measurements",
+    "humidity_measurements",
+    "custom_measurements"
+  ]
+
+  @compression_settings "timescaledb.compress, timescaledb.compress_segmentby = 'sensor_installation_id', timescaledb.compress_orderby = 'measured_at DESC'"
+
   def up do
-    deduplicate_measurements("wind_measurements")
-    deduplicate_measurements("temperature_measurements")
-    deduplicate_measurements("rain_measurements")
-    deduplicate_measurements("pressure_measurements")
-    deduplicate_measurements("humidity_measurements")
-    deduplicate_measurements("custom_measurements")
+    Enum.each(@measurement_tables, fn table ->
+      prepare_hypertable_for_unique_index(table)
+      deduplicate_measurements(table)
+    end)
 
     create unique_index(:wind_measurements, [:sensor_installation_id, :measured_at],
              name: "wind_measurements_unique_sensor_timestamp_index"
@@ -38,6 +47,8 @@ defmodule Voria2.Repo.Migrations.AddMeasurementIdempotency do
     create unique_index(:custom_measurements, [:sensor_installation_id, :measured_at],
              name: "custom_measurements_unique_sensor_timestamp_index"
            )
+
+    Enum.each(@measurement_tables, &resume_hypertable_compression/1)
   end
 
   def down do
@@ -69,8 +80,8 @@ defmodule Voria2.Repo.Migrations.AddMeasurementIdempotency do
   end
 
   defp deduplicate_measurements(table) do
-    # `xmin` is an xid and cannot be ordered directly on all Postgres builds.
-    # Order by transaction age instead so we still prefer the newest duplicate.
+    # After decompressing chunks, we can safely use system columns to keep the
+    # newest surviving row when duplicate timestamps already exist.
     execute """
     WITH duplicates AS (
       SELECT ctid
@@ -88,5 +99,57 @@ defmodule Voria2.Repo.Migrations.AddMeasurementIdempotency do
     DELETE FROM #{table}
     WHERE ctid IN (SELECT ctid FROM duplicates)
     """
+  end
+
+  defp prepare_hypertable_for_unique_index(table) do
+    # Timescale docs require removing or stopping compression work, then
+    # decompressing chunks before disabling compression or creating unique
+    # constraints on hypertables that may already have compressed chunks.
+    execute("""
+    DO $$
+    DECLARE
+      compression_job_id integer;
+    BEGIN
+      SELECT job_id
+      INTO compression_job_id
+      FROM timescaledb_information.jobs
+      WHERE proc_name = 'policy_compression'
+        AND hypertable_name = '#{table}'
+      LIMIT 1;
+
+      IF compression_job_id IS NOT NULL THEN
+        PERFORM alter_job(compression_job_id, scheduled => false);
+      END IF;
+    END
+    $$;
+    """)
+
+    execute("SELECT decompress_chunk(c, true) FROM show_chunks('#{table}') c")
+    execute("ALTER TABLE #{table} SET (timescaledb.compress = false)")
+  end
+
+  defp resume_hypertable_compression(table) do
+    execute("ALTER TABLE #{table} SET (#{@compression_settings})")
+
+    execute("""
+    DO $$
+    DECLARE
+      compression_job_id integer;
+    BEGIN
+      SELECT job_id
+      INTO compression_job_id
+      FROM timescaledb_information.jobs
+      WHERE proc_name = 'policy_compression'
+        AND hypertable_name = '#{table}'
+      LIMIT 1;
+
+      IF compression_job_id IS NOT NULL THEN
+        PERFORM alter_job(compression_job_id, scheduled => true);
+      ELSE
+        PERFORM add_compression_policy('#{table}', INTERVAL '30 days', if_not_exists => TRUE);
+      END IF;
+    END
+    $$;
+    """)
   end
 end
