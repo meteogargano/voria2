@@ -108,6 +108,16 @@ go build -o voria2ingest ./cmd
 
 `ffmpeg` must be available at runtime for the `imou` webcam method.
 
+## Weather station methods
+
+| Method | Source format |
+| --- | --- |
+| `anemos` | Anemos pipe-delimited text |
+| `clientraw` | WeatherDisplay `clientraw.txt` (space-delimited) |
+| `meteobridge` | Meteobridge `MBrealtime.txt` (space-delimited) |
+| `weatherlinklive` | Davis WeatherLink v2 JSON API |
+| `wlrealtime` | Davis WeatherLink `realtime.txt` (pipe-delimited; F/C temp + km/hr or m/s wind, converted as needed) |
+
 ## Adding New Methods
 
 1. Create a new file in `poller/methods/` (e.g., `weather/vendor_c.go`)

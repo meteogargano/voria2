@@ -15,6 +15,7 @@ var methodRegistry = map[string]MethodFactory{
 	"imou":            func() Poller { return &webcam.ImouWebcam{} },
 	"meteobridge":     func() Poller { return &weather.MeteobridgeWeather{} },
 	"weatherlinklive": func() Poller { return &weather.Weatherlinklive{} },
+	"wlrealtime":      func() Poller { return &weather.WLRealtimeWeather{} },
 	"simple-http":     func() Poller { return &webcam.SimpleHTTPWebcam{} },
 }
 

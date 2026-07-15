@@ -19,6 +19,8 @@ func ValidateMethodSettings(method string, settings map[string]interface{}) erro
 		return validateClientrawSettings(settings)
 	case "meteobridge":
 		return validateMeteobridgeSettings(settings)
+	case "wlrealtime":
+		return validateWLRealtimeSettings(settings)
 	case "weatherlinklive":
 		return validateWeatherlinkliveSettings(settings)
 	case "imou":
@@ -122,6 +124,13 @@ func validateImouSettings(settings map[string]interface{}) error {
 		return fmt.Errorf("capture.crop_bottom must be greater than or equal to 0")
 	}
 
+	return nil
+}
+
+func validateWLRealtimeSettings(settings map[string]interface{}) error {
+	if _, ok := settings["url"]; !ok {
+		return fmt.Errorf("url is required")
+	}
 	return nil
 }
 
