@@ -24,7 +24,7 @@ import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import {hooks as colocatedHooks} from "phoenix-colocated/voria2"
 import topbar from "../vendor/topbar"
-import LeafletMap from "./hooks/leaflet_map"
+import MaplibreMap from "./hooks/maplibre_map"
 import {LineChart, WindChart, RainChart, MultiLineChart} from "./hooks/d3_charts"
 import InputBlur from "./hooks/input_blur"
 import FlatpickrInput from "./hooks/flatpickr_input"
@@ -55,7 +55,7 @@ const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute
 const liveSocket = new LiveSocket("/live", Socket, {
   longPollFallbackMs: 2500,
   params: {_csrf_token: csrfToken},
-  hooks: {...colocatedHooks, LeafletMap, LineChart, WindChart, RainChart, MultiLineChart, LocalTime, InputBlur, FlatpickrInput, HugeRteInput},
+  hooks: {...colocatedHooks, MaplibreMap, LineChart, WindChart, RainChart, MultiLineChart, LocalTime, InputBlur, FlatpickrInput, HugeRteInput},
 })
 
 // Show progress bar on live navigation and form submits

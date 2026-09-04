@@ -12,6 +12,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
+    <% carto_key = Application.get_env(:voria2, :carto_basemaps_api_key) %>
+    <meta :if={carto_key} name="carto-basemaps-api-key" content={carto_key} />
     <meta name="description" content={meta_description} />
     <link :if={meta_url} rel="canonical" href={meta_url} />
     <.live_title default="MeteoGargano" suffix=" - MeteoGargano">

@@ -1,8 +1,6 @@
 defmodule Voria2Web.PageController do
   use Voria2Web, :controller
 
-  require Ash.Query
-
   def home(conn, _params) do
     {:ok, latest_articles} =
       Voria2.Blog.list_published_articles(%{},

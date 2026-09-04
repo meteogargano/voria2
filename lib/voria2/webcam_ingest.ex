@@ -1,6 +1,4 @@
 defmodule Voria2.WebcamIngest do
-  require Ash.Query
-
   def process(webcam, binary) do
     hash = Base.encode16(:crypto.hash(:sha256, binary), case: :lower)
 

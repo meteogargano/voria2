@@ -58,7 +58,7 @@ defmodule Voria2Web.MapLive do
   def render(assigns) do
     ~H"""
     <section class="map-page">
-      <div id="map-root" phx-hook="LeafletMap" phx-update="ignore"></div>
+      <div id="map-root" phx-hook="MaplibreMap" phx-update="ignore"></div>
 
       <div id="map-controls">
         <div class="map-controls-header">

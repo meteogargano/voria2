@@ -23,9 +23,16 @@ end
 config :voria2, Voria2Web.Endpoint,
   http: [port: String.to_integer(System.get_env("PORT", "4000"))]
 
+# Allow pointing the Repo at another database (e.g. a local docker one)
+# without editing dev.exs.
+if db_url = System.get_env("DATABASE_URL") do
+  config :voria2, Voria2.Repo, url: db_url
+end
+
 config :voria2,
   dailylog_in_local: System.get_env("DAILYLOG_IN_LOCAL", "false") in ["true", "1"],
-  dailylog_wind_in_kmh: System.get_env("DAILYLOG_WIND_IN_KMH", "false") in ["true", "1"]
+  dailylog_wind_in_kmh: System.get_env("DAILYLOG_WIND_IN_KMH", "false") in ["true", "1"],
+  carto_basemaps_api_key: System.get_env("CARTO_BASEMAPS_API_KEY")
 
 storage_endpoint = System.get_env("STORAGE_ENDPOINT")
 

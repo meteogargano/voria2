@@ -1682,7 +1682,6 @@ defmodule Voria2Web.InstallationLive do
   defp format_rain_rate(v, u),
     do: "#{r1(Units.convert(:rain, v * 1.0, :mm, u))} #{Units.label(u)}/h"
 
-  defp format_datetime(nil), do: "—"
   defp format_datetime(dt), do: Calendar.strftime(dt, "%d %b %Y %H:%M")
 
   defp convert_temp(v, prefs),
