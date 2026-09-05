@@ -617,13 +617,40 @@ body:has(#map-root) {
     #map-controls {
         top: auto;
         right: 0.75rem;
-        bottom: 6.25rem;
+        bottom: 0.75rem;
         left: 0.75rem;
         min-width: auto;
     }
 
+    /* When the timeline is visible, stack the control box above it with the standard gap */
+    .map-page:has(#radar-timeline.radar-timeline--on) #map-controls {
+        bottom: calc(
+            0.75rem + 2 * 0.55rem + 28px + 0.5rem + 30px + 0.75rem
+        );
+    }
+
     #radar-timeline {
         bottom: 0.75rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        row-gap: 0.5rem;
+    }
+
+    .radar-tl-times {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .radar-tl-sub {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .radar-tl-track {
+        order: 10;
+        flex-basis: 100%;
+        width: 100%;
     }
 
     #radar-legend {
