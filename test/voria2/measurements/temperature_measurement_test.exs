@@ -98,7 +98,7 @@ defmodule Voria2.Measurements.TemperatureMeasurementTest do
     assert r2.value == 20.0
   end
 
-  test "policy: other user's sensor is forbidden" do
+  test "policy: measurements are readable by any signed-in user" do
     other = create_user()
     other_installation = create_installation(other)
     other_station = create_station(other_installation)
@@ -111,8 +111,10 @@ defmodule Voria2.Measurements.TemperatureMeasurementTest do
     now = DateTime.utc_now()
     from = DateTime.add(now, -3600, :second)
 
-    assert {:ok, []} =
+    assert {:ok, [measurement]} =
              Measurements.temperature_for_sensor(other_sensor.id, from, now, actor: user)
+
+    assert measurement.value == 25.0
   end
 
   test "record is idempotent for sensor_installation_id + measured_at", %{sensor: sensor} do

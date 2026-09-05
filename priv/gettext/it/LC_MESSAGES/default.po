@@ -3096,3 +3096,73 @@ msgstr "Data di pubblicazione"
 #, elixir-autogen, elixir-format
 msgid "Scheduled preview"
 msgstr "Anteprima programmata"
+
+#: lib/voria2_web/live/map_live.ex
+#, elixir-autogen, elixir-format
+msgid "Radar DPC"
+msgstr "Radar DPC"
+
+#: lib/voria2_web/live/map_live.ex
+#, elixir-autogen, elixir-format
+msgid "Product"
+msgstr "Prodotto"
+
+#: lib/voria2_web/live/map_live.ex
+#, elixir-autogen, elixir-format
+msgid "Opacity"
+msgstr "Opacità"
+
+#: lib/voria2_web/live/map_live.ex
+#, elixir-autogen, elixir-format
+msgid "Source:"
+msgstr "Fonte:"
+
+#: lib/voria2_web/live/map_live.ex
+#, elixir-autogen, elixir-format
+msgid "Radar color legend"
+msgstr "Legenda colori radar"
+
+#: lib/voria2_web/live/map_live.ex
+#, elixir-autogen, elixir-format
+msgid "VMI — Max reflectivity (dBZ)"
+msgstr "VMI — Riflettività max (dBZ)"
+
+#: lib/voria2_web/live/map_live.ex
+#, elixir-autogen, elixir-format
+msgid "SRI — Rain intensity (mm/h)"
+msgstr "SRI — Intensità pioggia (mm/h)"
+
+#: lib/voria2_web/live/map_live.ex
+#, elixir-autogen, elixir-format
+msgid "SRT1 — Rain 1h (mm)"
+msgstr "SRT1 — Cumulata 1h (mm)"
+
+#: lib/voria2_web/live/map_live.ex
+#, elixir-autogen, elixir-format
+msgid "CUM3 — Rain 3h (mm)"
+msgstr "CUM3 — Cumulata 3h (mm)"
+
+#: lib/voria2_web/live/map_live.ex
+#, elixir-autogen, elixir-format
+msgid "CUM6 — Rain 6h (mm)"
+msgstr "CUM6 — Cumulata 6h (mm)"
+
+#: lib/voria2_web/live/map_live.ex
+#, elixir-autogen, elixir-format
+msgid "CUM12 — Rain 12h (mm)"
+msgstr "CUM12 — Cumulata 12h (mm)"
+
+#: lib/voria2_web/live/map_live.ex
+#, elixir-autogen, elixir-format
+msgid "CUM24 — Rain 24h (mm)"
+msgstr "CUM24 — Cumulata 24h (mm)"
+
+#: lib/voria2_web/live/map_live.ex
+#, elixir-autogen, elixir-format
+msgid "TEMP — Temperature (°C)"
+msgstr "TEMP — Temperature (°C)"
+
+#: lib/voria2_web/live/map_live.ex
+#, elixir-autogen, elixir-format
+msgid "IR — Cloud coverage"
+msgstr "IR — Copertura nuvolosa"

@@ -1,8 +1,6 @@
 defmodule Voria2.Network.WebcamShotPurger do
   use GenServer
 
-  require Ash.Query
-
   @name __MODULE__
   @topic "webcam_shot_purger"
   @batch_size 100

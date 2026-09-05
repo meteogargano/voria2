@@ -148,7 +148,7 @@ defmodule Voria2Web.ManageLive.Sensors.Show do
         {if @measurement_type, do: @measurement_type.name, else: gettext("Sensor")}
         <:subtitle>
           {if @station, do: @station.name, else: "—"}
-          <span :if={@sensor.model}> ·           {@sensor.model}</span>
+          <span :if={@sensor.model}> ·             {@sensor.model}</span>
         </:subtitle>
         <:actions>
           <.link navigate={~p"/manage/sensors/#{@sensor.id}/edit"} class="btn btn-ghost btn-sm gap-2">

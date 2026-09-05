@@ -1,4 +1,8 @@
-import maplibregl from "maplibre-gl"
+import {addProtocol, config as maplibreConfig, Map as MapLib, Marker, NavigationControl} from "maplibre-gl"
+import {RADAR_ATTRIBUTION, onFrame, parseProtocolUrl, RADAR_PROTOCOL, rawTileUrl, tileUrl} from "../radar"
+import {colorizeBitmap} from "../radar_palettes"
+
+maplibreConfig.WORKER_URL = "/assets/js/maplibre_worker.js"
 
 const STYLES = {
   light: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
@@ -13,18 +17,54 @@ const ATTRIBUTION =
 const FIT_PADDING_RATIO = 1 / 6
 const FIT_PADDING_MIN = 40
 
-// Zoom floor: just below the zoom level that fits all markers, so the
-// whole network always stays in view when fully zoomed out.
-const MIN_ZOOM_MARGIN = 0.5
-const MIN_ZOOM_CAP = 12
-
-// Bounds tolerance below which every marker shares (almost) the same spot
-// and there is no meaningful "fit all markers" zoom.
-const DEGENERATE_EPSILON = 1e-4
+// Radar DPC overlay: tiles only exist up to z7, MapLibre upscales beyond it.
+const RADAR_SOURCE_ID = "dpc-radar"
+const RADAR_LAYER_ID = "dpc-radar-layer"
+const RADAR_MAX_ZOOM = 7
 
 function cartoKey() {
   return document.querySelector('meta[name="carto-basemaps-api-key"]')?.content || ""
 }
+
+const TILE_CACHE_MAX = 128
+const tileCache = new Map()
+const tileInFlight = new Map()
+
+function fetchColorizedTile(url) {
+  const cached = tileCache.get(url)
+  if (cached) {
+    tileCache.delete(url)
+    tileCache.set(url, cached)
+    return Promise.resolve(cached)
+  }
+  let pending = tileInFlight.get(url)
+  if (!pending) {
+    pending = (async () => {
+      const parts = parseProtocolUrl(url)
+      if (!parts) throw new Error(`invalid radar tile url: ${url}`)
+      const raw = rawTileUrl(parts.productId, parts.timeMs, parts.z, parts.x, parts.y)
+      const res = await fetch(raw)
+      if (!res.ok) throw new Error(`radar tile error ${res.status}: ${raw}`)
+      const bitmap = await createImageBitmap(await res.blob())
+      const buffer = await colorizeBitmap(parts.productId, bitmap)
+      bitmap.close()
+      if (tileCache.size >= TILE_CACHE_MAX) {
+        tileCache.delete(tileCache.keys().next().value)
+      }
+      tileCache.set(url, buffer)
+      return buffer
+    })()
+    tileInFlight.set(url, pending)
+    pending.finally(() => tileInFlight.delete(url)).catch(() => {})
+  }
+  return pending
+}
+
+// Recolors DPC radar tiles client-side before MapLibre uploads them as
+// raster textures. The color mapping reproduces the official DPC viewer
+// (https://radar.protezionecivile.it/); see the provenance notes at the
+// top of assets/js/radar_palettes.js for details and license.
+addProtocol(RADAR_PROTOCOL, async (params) => ({data: await fetchColorizedTile(params.url)}))
 
 function withKey(url) {
   const key = cartoKey()
@@ -59,16 +99,9 @@ function boundsToArray(bounds) {
   ]
 }
 
-function boundsDegenerate(bounds) {
-  return (
-    bounds.east - bounds.west < DEGENERATE_EPSILON &&
-    bounds.north - bounds.south < DEGENERATE_EPSILON
-  )
-}
-
 const MaplibreMap = {
   mounted() {
-    this.map = new maplibregl.Map({
+    this.map = new MapLib({
       container: this.el,
       style: currentStyleUrl(),
       center: [10, 48],
@@ -79,30 +112,56 @@ const MaplibreMap = {
     })
 
     // Leaflet shipped a zoom control in the top-left corner by default.
-    this.map.addControl(new maplibregl.NavigationControl({showCompass: false}), "top-left")
+    this.map.addControl(new NavigationControl({showCompass: false}), "top-left")
     // Leaflet has no bearing rotation — keep the interaction model identical.
     this.map.dragRotate.disable()
 
     this.markers = new Map()
     this._boundsSet = false
     this._markerBounds = null
-    this._minZoomKey = null
 
     this.handleEvent("update_markers", ({markers}) => {
       this.updateMarkers(markers)
     })
 
-    this._updateStyle = () => this.map.setStyle(currentStyleUrl())
+    this._radar = {enabled: false, product: null, opacity: 0.85, time: null}
+
+    this.handleEvent("radar_state", ({enabled, product, opacity}) => {
+      const prevProduct = this._radar.product
+      this._radar.enabled = !!enabled
+      if (product) this._radar.product = product
+      const parsed = parseFloat(opacity)
+      if (Number.isFinite(parsed)) this._radar.opacity = parsed
+
+      if (this._radar.enabled) {
+        if (!this.map.getLayer(RADAR_LAYER_ID)) {
+          this.addRadarLayer()
+        } else {
+          this.map.setPaintProperty(RADAR_LAYER_ID, "raster-opacity", this._radar.opacity)
+          if (prevProduct !== this._radar.product && this._radar.time != null) {
+            this.updateRadarTiles()
+          }
+        }
+      } else if (this.map.getLayer(RADAR_LAYER_ID) || this.map.getSource(RADAR_SOURCE_ID)) {
+        this.removeRadar()
+      }
+    })
+
+    this._offRadarFrame = onFrame(({time}) => this.applyRadarFrame(time))
+    window.__maplibreDebug = this
+
+    this._updateStyle = () => {
+      this.map.setStyle(currentStyleUrl())
+      this.map.once("style.load", () => this.addRadarLayer())
+    }
     this._mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
     this._onStorage = (e) => {
       if (e.key === "phx:theme") this._updateStyle()
     }
-    this._onResize = () => this.updateMinZoom()
 
     window.addEventListener("phx:set-theme", this._updateStyle)
     window.addEventListener("storage", this._onStorage)
     this._mediaQuery.addEventListener("change", this._updateStyle)
-    this.map.on("resize", this._onResize)
   },
 
   updateMarkers(markerList) {
@@ -140,7 +199,7 @@ const MaplibreMap = {
           }
         })
 
-        const marker = new maplibregl.Marker({element: el})
+        const marker = new Marker({element: el})
           .setLngLat([data.lng, data.lat])
           .addTo(this.map)
         this.markers.set(data.id, marker)
@@ -154,23 +213,15 @@ const MaplibreMap = {
     if (!this._boundsSet && this.markers.size > 0) {
       this._boundsSet = true
       this.fitToMarkers()
-    } else {
-      this.updateMinZoom()
     }
   },
 
   fitToMarkers() {
     const camera = this.cameraForMarkers()
 
-    if (!camera) {
-      this.updateMinZoom()
-      return
-    }
+    if (!camera) return
 
     this.map.easeTo(camera)
-    // Apply the zoom floor once the intro animation lands, otherwise
-    // setMinZoom would clamp the camera mid-flight.
-    this.map.once("moveend", () => this.updateMinZoom())
   },
 
   cameraForMarkers() {
@@ -188,34 +239,6 @@ const MaplibreMap = {
       FIT_PADDING_MIN,
       Math.round(Math.min(rect.width, rect.height) * FIT_PADDING_RATIO)
     )
-  },
-
-  updateMinZoom() {
-    if (!this._markerBounds || boundsDegenerate(this._markerBounds)) return
-
-    const b = this._markerBounds
-    const rect = this.map.getContainer().getBoundingClientRect()
-    const key = [
-      Math.round(rect.width),
-      Math.round(rect.height),
-      b.west.toFixed(4),
-      b.south.toFixed(4),
-      b.east.toFixed(4),
-      b.north.toFixed(4),
-    ].join("|")
-
-    if (key === this._minZoomKey) return
-    this._minZoomKey = key
-
-    const camera = this.cameraForMarkers()
-
-    if (!camera || !Number.isFinite(camera.zoom)) {
-      // Container not measurable yet — retry on the next update/resize.
-      this._minZoomKey = null
-      return
-    }
-
-    this.map.setMinZoom(Math.max(0, Math.min(camera.zoom - MIN_ZOOM_MARGIN, MIN_ZOOM_CAP)))
   },
 
   buildHtml(data) {
@@ -240,11 +263,77 @@ const MaplibreMap = {
     return `<div class="map-marker">${esc(data.value)}${valueAt}${webcamIcon}${faultIcon}</div>`
   },
 
+  radarBeforeLayerId() {
+    const layers = this.map.getStyle().layers
+    for (const layer of layers) {
+      if (layer.type === "symbol") return layer.id
+    }
+    return undefined
+  },
+
+  addRadarLayer() {
+    if (!this._radar.enabled || this._radar.product == null || this._radar.time == null) return
+    if (!this.map.getSource(RADAR_SOURCE_ID)) {
+      this.map.addSource(RADAR_SOURCE_ID, {
+        type: "raster",
+        tiles: [tileUrl(this._radar.product, this._radar.time)],
+        tileSize: 256,
+        minzoom: 0,
+        maxzoom: RADAR_MAX_ZOOM,
+        attribution: RADAR_ATTRIBUTION,
+      })
+    }
+    if (!this.map.getLayer(RADAR_LAYER_ID)) {
+      this.map.addLayer(
+        {
+          id: RADAR_LAYER_ID,
+          type: "raster",
+          source: RADAR_SOURCE_ID,
+          paint: {
+            "raster-opacity": this._radar.opacity,
+            "raster-fade-duration": 0,
+            "raster-resampling": "linear",
+          },
+        },
+        this.radarBeforeLayerId()
+      )
+    }
+  },
+
+  removeRadar() {
+    if (this.map.getLayer(RADAR_LAYER_ID)) this.map.removeLayer(RADAR_LAYER_ID)
+    if (this.map.getSource(RADAR_SOURCE_ID)) this.map.removeSource(RADAR_SOURCE_ID)
+  },
+
+  updateRadarTiles() {
+    const source = this.map.getSource(RADAR_SOURCE_ID)
+    if (!source) return
+    const url = tileUrl(this._radar.product, this._radar.time)
+    if (typeof source.setTiles === "function") {
+      source.setTiles([url])
+    } else {
+      this.removeRadar()
+      this.addRadarLayer()
+    }
+  },
+
+  applyRadarFrame(time) {
+    if (time == null) return
+    this._radar.time = time
+    if (!this._radar.enabled) return
+    if (!this.map.getLayer(RADAR_LAYER_ID)) {
+      this.addRadarLayer()
+      return
+    }
+    this.updateRadarTiles()
+  },
+
   destroyed() {
     if (this.map) {
       this.map.remove()
       this.map = null
     }
+    if (this._offRadarFrame) this._offRadarFrame()
     window.removeEventListener("phx:set-theme", this._updateStyle)
     window.removeEventListener("storage", this._onStorage)
     if (this._mediaQuery) {

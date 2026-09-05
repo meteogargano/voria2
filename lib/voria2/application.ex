@@ -18,7 +18,7 @@ defmodule Voria2.Application do
       {AshAuthentication.Supervisor, [otp_app: :voria2]}
     ]
 
-    children = List.insert_at(children, 4, background_children())
+    children = List.insert_at(children, 5, background_children())
     children = List.flatten(children)
 
     # Initialize ETS table

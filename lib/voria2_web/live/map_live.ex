@@ -7,6 +7,11 @@ defmodule Voria2Web.MapLive do
 
   @fault_refresh_ms 2 * 60 * 1000
 
+  @radar_product_ids ~w(VMI SRI SRT1 CUM3 CUM6 CUM12 CUM24 TEMP IR_108)
+  @radar_default_opacity 0.85
+  @radar_min_opacity 0.4
+  @radar_max_opacity 1.0
+
   @cardinals [
     "N",
     "NNE",
@@ -42,12 +47,25 @@ defmodule Voria2Web.MapLive do
       |> assign(:markers, markers)
       |> assign(:rx_led, false)
       |> assign(:last_update_at, nil)
+      |> assign(:radar_enabled, false)
+      |> assign(:radar_product, "VMI")
+      |> assign(:radar_opacity, @radar_default_opacity)
+      |> assign(:radar_products, radar_product_options())
+      |> assign(:radar_time, nil)
+      |> assign(:radar_live, true)
 
     socket =
       if connected?(socket) do
         Phoenix.PubSub.subscribe(Voria2.PubSub, "measurements")
         Process.send_after(self(), :refresh_faults, @fault_refresh_ms)
         push_event(socket, "update_markers", %{markers: markers})
+      else
+        socket
+      end
+
+    socket =
+      if connected?(socket) do
+        push_radar_state(socket)
       else
         socket
       end
@@ -81,19 +99,58 @@ defmodule Voria2Web.MapLive do
           </select>
         </form>
 
-        <div class="map-links">
-          <a href={~p"/preferences"} id="map-prefs-link">
-            <.icon name="hero-cog-6-tooth" class="size-[11px]" />
-            {gettext("Preferences")}
-          </a>
-          <a href={~p"/compare"} id="map-compare-link">
-            <.icon name="hero-chart-bar" class="size-[11px]" />
-            {gettext("Compare")}
-          </a>
-          <a href={~p"/webcams"} id="map-webcams-link">
-            <.icon name="hero-video-camera" class="size-[11px]" />
-            {gettext("All Webcams")}
-          </a>
+        <div id="map-radar">
+          <form id="radar-form" phx-change="radar_update">
+            <div class="radar-enable-row">
+              <input
+                id="radar-enable"
+                type="checkbox"
+                name="radar_enabled"
+                checked={@radar_enabled}
+              />
+              <label for="radar-enable" style="margin-bottom: 0px !important;">
+                {gettext("Radar DPC")}
+              </label>
+            </div>
+
+            <select id="radar-product" name="product" disabled={!@radar_enabled}>
+              <option
+                :for={opt <- @radar_products}
+                value={opt.id}
+                selected={opt.id == @radar_product}
+              >
+                {opt.label}
+              </option>
+            </select>
+
+            <div class="flex flex-row gap-2">
+              <label for="radar-opacity" style="margin-top:3px">{gettext("Opacity")}</label>
+              <input
+                id="radar-opacity"
+                name="opacity"
+                type="range"
+                class="mb-0"
+                min="40"
+                max="100"
+                step="5"
+                value={round(@radar_opacity * 100)}
+                disabled={!@radar_enabled}
+                phx-debounce="150"
+              />
+            </div>
+
+            <p class="radar-credit !mt-0">
+              {gettext("Source:")}
+              <a
+                href="https://radar.protezionecivile.it/"
+                target="_blank"
+                rel="noopener"
+              >
+                Radar-DPC
+              </a>
+              · CC-BY-SA
+            </p>
+          </form>
         </div>
 
         <div id="map-last-update">
@@ -109,6 +166,19 @@ defmodule Voria2Web.MapLive do
           </span>
           <span :if={is_nil(@last_update_at)}>{gettext("Waiting…")}</span>
         </div>
+      </div>
+
+      <div
+        id="radar-timeline"
+        phx-hook="RadarTimeline"
+        phx-update="ignore"
+        data-time={@radar_time}
+        data-live={to_string(@radar_live)}
+      >
+      </div>
+
+      <div id="radar-legend" phx-update="ignore">
+        <img id="radar-legend-img" alt={gettext("Radar color legend")} />
       </div>
     </section>
     """
@@ -130,6 +200,41 @@ defmodule Voria2Web.MapLive do
      |> assign(:selected_field, field)
      |> assign(:markers, markers)
      |> push_event("update_markers", %{markers: markers})}
+  end
+
+  def handle_event("radar_update", params, socket) do
+    enabled = params["radar_enabled"] not in [nil, "false"]
+
+    product =
+      if params["product"] in @radar_product_ids,
+        do: params["product"],
+        else: socket.assigns.radar_product
+
+    opacity = parse_opacity(params["opacity"], socket.assigns.radar_opacity)
+
+    {:noreply,
+     socket
+     |> assign(:radar_enabled, enabled)
+     |> assign(:radar_product, product)
+     |> assign(:radar_opacity, opacity)
+     |> push_radar_state()}
+  end
+
+  def handle_event("radar_time_changed", %{"time" => time, "live" => live}, socket)
+      when is_integer(time) do
+    {:noreply,
+     socket
+     |> assign(:radar_time, time)
+     |> assign(:radar_live, live == true)}
+  end
+
+  def handle_event("radar_time_changed", _params, socket), do: {:noreply, socket}
+
+  def handle_event("radar_go_live", _params, socket) do
+    {:noreply,
+     socket
+     |> assign(:radar_time, nil)
+     |> assign(:radar_live, true)}
   end
 
   def handle_info({:new_measurement, %{station_id: _sid, summary_type: st}}, socket)
@@ -168,6 +273,42 @@ defmodule Voria2Web.MapLive do
   end
 
   # -- Private helpers -------------------------------------------------------
+
+  defp radar_product_options do
+    [
+      %{id: "VMI", label: gettext("VMI — Max reflectivity (dBZ)")},
+      %{id: "SRI", label: gettext("SRI — Rain intensity (mm/h)")},
+      %{id: "SRT1", label: gettext("SRT1 — Rain 1h (mm)")},
+      %{id: "CUM3", label: gettext("CUM3 — Rain 3h (mm)")},
+      %{id: "CUM6", label: gettext("CUM6 — Rain 6h (mm)")},
+      %{id: "CUM12", label: gettext("CUM12 — Rain 12h (mm)")},
+      %{id: "CUM24", label: gettext("CUM24 — Rain 24h (mm)")},
+      %{id: "TEMP", label: gettext("TEMP — Temperature (°C)")},
+      %{id: "IR_108", label: gettext("IR — Cloud coverage")}
+    ]
+  end
+
+  defp parse_opacity(nil, default), do: default
+
+  defp parse_opacity(value, default) when is_binary(value) do
+    case Integer.parse(value) do
+      {n, ""} ->
+        (n / 100) |> max(@radar_min_opacity) |> min(@radar_max_opacity)
+
+      _ ->
+        default
+    end
+  end
+
+  defp parse_opacity(_, default), do: default
+
+  defp push_radar_state(socket) do
+    push_event(socket, "radar_state", %{
+      enabled: socket.assigns.radar_enabled,
+      product: socket.assigns.radar_product,
+      opacity: socket.assigns.radar_opacity
+    })
+  end
 
   defp build_markers(map_data, selected_field, prefs) do
     Enum.map(map_data, fn entry ->

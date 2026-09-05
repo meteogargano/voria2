@@ -461,13 +461,13 @@ defmodule Voria2Web.ManageLive.BlogContent.Index do
   end
 
   defp file_label(file) do
-    content_type(file) || MIME.from_path(file.key) || gettext("Unknown")
+    content_type(file) || MIME.from_path(file.key)
   end
 
   defp content_type(file), do: file[:content_type]
 
   defp preview_kind(file) do
-    type = content_type(file) || MIME.from_path(file.key) || ""
+    type = content_type(file) || MIME.from_path(file.key)
 
     cond do
       String.starts_with?(type, "image/") -> :image

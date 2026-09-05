@@ -107,12 +107,16 @@ defmodule Voria2Web.Layouts do
       assign(assigns,
         home_active?: nav_active?(assigns.current_path, :home),
         map_active?: nav_active?(assigns.current_path, :map),
+        map_page_active?: nav_active?(assigns.current_path, :map_page),
+        compare_active?: nav_active?(assigns.current_path, :compare),
+        webcams_active?: nav_active?(assigns.current_path, :webcams),
+        preferences_active?: nav_active?(assigns.current_path, :preferences),
         blog_active?: nav_active?(assigns.current_path, :blog),
         associazione_active?: nav_active?(assigns.current_path, :associazione)
       )
 
     ~H"""
-    <header class="sticky top-0 z-50 border-b border-base-300 bg-base-100/95 backdrop-blur">
+    <header class="sticky top-0 z-[1100] border-b border-base-300 bg-base-100/95 backdrop-blur">
       <div class="mx-auto flex min-h-[3.75rem] max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
         <.link href={~p"/"} class="flex items-center gap-3">
           <.brand_block
@@ -137,7 +141,33 @@ defmodule Voria2Web.Layouts do
             active={@associazione_active?}
           />
           <.public_nav_link href={~p"/blog"} label={gettext("Blog")} active={@blog_active?} />
-          <.public_nav_link href={~p"/map"} label={gettext("Rete Meteo")} active={@map_active?} />
+          <.public_nav_dropdown label={gettext("Rete Meteo")} active={@map_active?}>
+            <:item
+              href={~p"/map"}
+              label={gettext("Rete Meteo")}
+              icon="hero-map"
+              active={@map_page_active?}
+            />
+            <:item
+              href={~p"/compare"}
+              label={gettext("Compare")}
+              icon="hero-chart-bar"
+              active={@compare_active?}
+            />
+            <:item
+              href={~p"/webcams"}
+              label={gettext("All Webcams")}
+              icon="hero-video-camera"
+              active={@webcams_active?}
+            />
+          </.public_nav_dropdown>
+          <.public_nav_icon_link
+            href={~p"/preferences"}
+            label={gettext("Preferences")}
+            icon="hero-cog-6-tooth"
+            active={@preferences_active?}
+            class="-ml-2 sm:-ml-3"
+          />
         </nav>
       </div>
     </header>
@@ -165,6 +195,98 @@ defmodule Voria2Web.Layouts do
 
       <span class={[
         "absolute inset-x-0 -bottom-px h-0.5 transition",
+        @active && "bg-primary",
+        !@active && "bg-transparent"
+      ]}>
+      </span>
+    </.link>
+    """
+  end
+
+  attr :label, :string, required: true
+  attr :active, :boolean, default: false
+
+  slot :item, required: true do
+    attr :href, :string, required: true
+    attr :label, :string, required: true
+    attr :icon, :string, required: true
+    attr :active, :boolean
+  end
+
+  defp public_nav_dropdown(assigns) do
+    ~H"""
+    <div class="dropdown dropdown-end" id="nav-rete-meteo-dropdown">
+      <div
+        tabindex="0"
+        role="button"
+        aria-haspopup="menu"
+        aria-label={@label}
+        class={[
+          "relative flex cursor-pointer select-none items-center gap-1.5 py-2 text-sm font-medium transition",
+          @active && "text-base-content",
+          !@active && "text-base-content/65 hover:text-base-content"
+        ]}
+      >
+        {@label}
+        <.icon name="hero-chevron-down" class="nav-dropdown-chevron size-3.5 opacity-60" />
+
+        <span class={[
+          "absolute inset-x-0 -bottom-px h-0.5 transition",
+          @active && "bg-primary",
+          !@active && "bg-transparent"
+        ]}>
+        </span>
+      </div>
+
+      <ul
+        tabindex="0"
+        role="menu"
+        class="dropdown-content menu menu-sm z-50 mt-2 min-w-[11rem] gap-0.5 border border-base-300 bg-base-100 p-1.5 shadow-[0_18px_40px_rgba(15,23,42,0.18)]"
+      >
+        <li :for={item <- @item} role="none">
+          <.link
+            href={item.href}
+            role="menuitem"
+            class={[
+              "gap-2.5",
+              item[:active] && "menu-active font-semibold",
+              !item[:active] && "text-base-content/70"
+            ]}
+            aria-current={if item[:active], do: "page", else: nil}
+          >
+            <.icon name={item.icon} class="size-4 shrink-0" />
+            {item.label}
+          </.link>
+        </li>
+      </ul>
+    </div>
+    """
+  end
+
+  attr :href, :string, required: true
+  attr :label, :string, required: true
+  attr :icon, :string, required: true
+  attr :active, :boolean, default: false
+  attr :class, :string, default: nil
+
+  defp public_nav_icon_link(assigns) do
+    ~H"""
+    <.link
+      href={@href}
+      aria-label={@label}
+      title={@label}
+      aria-current={if @active, do: "page", else: nil}
+      class={[
+        @class,
+        "relative flex size-9 items-center justify-center transition",
+        @active && "text-base-content",
+        !@active && "text-base-content/65 hover:bg-base-200 hover:text-base-content"
+      ]}
+    >
+      <.icon name={@icon} class="size-4.5" />
+
+      <span class={[
+        "absolute inset-x-1.5 -bottom-px h-0.5 transition",
         @active && "bg-primary",
         !@active && "bg-transparent"
       ]}>
@@ -235,10 +357,15 @@ defmodule Voria2Web.Layouts do
   defp nav_active?(path, :map) do
     path == "/map" or
       path == "/compare" or
-      path == "/preferences" or
       String.starts_with?(path, "/installations/") or
       String.starts_with?(path, "/webcams")
   end
+
+  defp nav_active?(path, :map_page), do: path == "/map"
+  defp nav_active?(path, :compare), do: path == "/compare"
+
+  defp nav_active?(path, :webcams), do: String.starts_with?(path, "/webcams")
+  defp nav_active?(path, :preferences), do: path == "/preferences"
 
   defp nav_active?(path, :blog) do
     path == "/blog" or String.starts_with?(path, "/blog/")

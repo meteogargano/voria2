@@ -525,7 +525,6 @@ defmodule Voria2Web.WebcamsLive do
 
   defp maybe_apply_jump_query(socket, _webcam_id, _params), do: socket
 
-  defp format_bytes(nil), do: "—"
   defp format_bytes(bytes) when bytes < 1024, do: "#{bytes} B"
   defp format_bytes(bytes) when bytes < 1_048_576, do: "#{Float.round(bytes / 1024, 1)} KB"
   defp format_bytes(bytes), do: "#{Float.round(bytes / 1_048_576, 1)} MB"

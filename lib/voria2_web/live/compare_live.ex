@@ -4,7 +4,6 @@ defmodule Voria2Web.CompareLive do
   import Voria2Web.FlatpickrInputComponent
 
   require Ash.Query
-  require Logger
   alias Voria2.Measurements.Units
 
   on_mount {Voria2Web.LiveUserAuth, :live_user_optional}

@@ -11,9 +11,7 @@ defmodule Voria2Web.BlogContentController do
         disposition = content_disposition(params)
 
         conn
-        |> put_resp_content_type(
-          file.content_type || MIME.from_path(filename) || "application/octet-stream"
-        )
+        |> put_resp_content_type(file.content_type || MIME.from_path(filename))
         |> put_resp_header("content-disposition", disposition)
         |> send_resp(200, file.body)
       else

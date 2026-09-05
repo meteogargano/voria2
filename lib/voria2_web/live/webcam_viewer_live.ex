@@ -290,7 +290,6 @@ defmodule Voria2Web.WebcamViewerLive do
   defp shot_url(nil), do: nil
   defp shot_url(shot), do: Voria2.Storage.public_url(shot.s3_key)
 
-  defp format_bytes(nil), do: "—"
   defp format_bytes(bytes) when bytes < 1024, do: "#{bytes} B"
   defp format_bytes(bytes) when bytes < 1_048_576, do: "#{Float.round(bytes / 1024, 1)} KB"
   defp format_bytes(bytes), do: "#{Float.round(bytes / 1_048_576, 1)} MB"
